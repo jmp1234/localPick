@@ -9,7 +9,17 @@ const TabStack = createBottomTabNavigator(
   {
     Search: { screen: Search},
     Upload: { screen: Upload},
-    Profile: { screen: Profile}
+    Profile: { screen: Profile},
+  },
+  {
+    tabBarOptions: {
+      inactiveTintColor: 'white',
+      activeTintColor: 'skyblue',
+      style: {
+        backgroundColor: 'rgb(64,64,64)',
+        color: 'white'
+      }
+    }
   }
 )
 
