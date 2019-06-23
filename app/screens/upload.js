@@ -12,7 +12,7 @@ class Upload extends Component {
 
 
   componentDidMount() {
-    // this.logUserIn();
+    this.logUserIn();
   }
 
   logUserIn() {
@@ -24,9 +24,15 @@ class Upload extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
+        {this.state.loggedIn ? (
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Text>Upload</Text>
           </View>
+        ) : (
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text>Log In to add a new local pick</Text>
+          </View>
+        )}
       </View>
     )
   }
