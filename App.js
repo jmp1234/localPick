@@ -4,6 +4,8 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer } fr
 import Profile from './app/screens/profile';
 import Search from './app/screens/search';
 import Upload from './app/screens/upload';
+import LocalPicks from './app/screens/localPicks';
+import UserAuth from './app/components/auth';
 
 const TabStack = createBottomTabNavigator(
   {
@@ -26,6 +28,8 @@ const TabStack = createBottomTabNavigator(
 const MainStack = createStackNavigator(
   {
     Home: { screen: TabStack },
+    LocalPicks: {screen: LocalPicks},
+    UserAuth: {screen: UserAuth},
     // User: { screen: UserProfile },
     // Comments: {screen: Comments }
   },
@@ -43,6 +47,7 @@ export default function App() {
     <AppContainer />
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
