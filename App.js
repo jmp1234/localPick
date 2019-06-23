@@ -6,6 +6,8 @@ import Search from './app/screens/search';
 import Upload from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
 import UserAuth from './app/components/auth';
+import Signup from './app/components/signup';
+import Login from './app/components/login';
 
 const TabStack = createBottomTabNavigator(
   {
@@ -30,6 +32,8 @@ const MainStack = createStackNavigator(
     Home: { screen: TabStack },
     LocalPicks: {screen: LocalPicks},
     UserAuth: {screen: UserAuth},
+    Signup: {screen: Signup},
+    Login: {screen: Login},
     // User: { screen: UserProfile },
     // Comments: {screen: Comments }
   },
