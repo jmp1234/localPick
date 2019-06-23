@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 class LocalPicks extends Component {
   constructor(props) {
@@ -13,14 +13,20 @@ class LocalPicks extends Component {
           <TouchableOpacity
             onPress={() => this.props.navigation.goBack()}
             style={{width:100}}>
-            <Text style={{fontSize:12, fontWeight: 'bold', paddingLeft: 10}}>Go Back</Text>
+            <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10}}>←</Text>
           </TouchableOpacity>
           <Text>Irvine</Text>
           <Text style={{width:100}}>Fast Casual</Text>
         </View>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Restaurant')}
+          >
+            <Image
+              source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Foie_gras_en_cocotte.jpg'}}
+              style={{resizeMode: 'cover', width: '100%', height: 240}}
+            />
+          </TouchableOpacity>
           <Text>Local Picks</Text>
-        </View>
       </View>
     )
   }

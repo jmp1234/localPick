@@ -22,6 +22,10 @@ class Profile extends Component {
     })
   }
 
+  viewNotes = () => {
+    this.props.navigation.navigate('RestaurantNotes');
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -33,7 +37,7 @@ class Profile extends Component {
             <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
               <Image source={{uri: 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png'}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}} />
               <View style={{marginRight: 10}}>
-                <Text>Lebron James</Text>
+                <Text style={{paddingBottom: 5}}>Lebron James</Text>
                 <Text>Los Angeles</Text>
               </View>
             </View>
@@ -46,11 +50,6 @@ class Profile extends Component {
                 style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}>
                 <Text style={{textAlign: 'center', color: 'grey'}}>Edit Profile</Text>
               </TouchableOpacity>
-              {/* <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Upload')}
-                style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 20, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5, backgroundColor: 'grey'}}>
-                <Text style={{textAlign: 'center', color: 'white'}}>New Recommendation +</Text>
-              </TouchableOpacity> */}
             </View>
             <View style={{backgroundColor: 'white', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 5, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
               <TouchableOpacity>
@@ -68,7 +67,9 @@ class Profile extends Component {
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
                 <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => this.viewNotes()}
+                    >
                     <Image
                       source={{uri: 'https://cdn.pixabay.com/photo/2017/10/15/11/41/sushi-2853382_960_720.jpg'}}
                       style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
