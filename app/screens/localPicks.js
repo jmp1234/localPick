@@ -3,7 +3,28 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 class LocalPicks extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+
+    this.state = {
+      city: ''
+    }
+  }
+
+  componentDidMount() {
+    this.checkParams();
+  }
+
+
+  checkParams() {
+    const params = this.props.navigation.state.params;
+
+    if(params) {
+      if(params.city) {
+        this.setState({
+          city: params.city
+        });
+      }
+    }
   }
 
   render() {
@@ -15,7 +36,7 @@ class LocalPicks extends Component {
             style={{width:100}}>
             <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10}}>←</Text>
           </TouchableOpacity>
-          <Text>Irvine</Text>
+          <Text>{this.state.city}</Text>
           <Text style={{width:100}}>Fast Casual</Text>
         </View>
           <TouchableOpacity
