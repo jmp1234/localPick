@@ -45,7 +45,7 @@ class UserAuth extends Component {
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Search')}
               style={{width:100}}>
-              <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'white'}}>✖︎</Text>
+              <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'white'}}>✗</Text>
             </TouchableOpacity>
           </View>
             <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
