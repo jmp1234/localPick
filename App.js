@@ -10,7 +10,7 @@ import RestaurantNotes from './app/screens/notes';
 import UserAuth from './app/components/auth';
 import Signup from './app/components/signup';
 import Login from './app/components/login';
-// import { f, auth, database} from './config/firebaseconfig.js';
+import { f, auth, database} from './config/firebaseconfig';
 
 
 const profile = createStackNavigator({
@@ -70,29 +70,46 @@ const MainStack = createStackNavigator(
 
 const AppContainer = createAppContainer(MainStack)
 
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props)
-//   }
-//
-//   registerUser = (email, password) => {
-//     console.log(email, password);
-//     auth.createUserWithEmailAndPassword(email, password)
-//     .then(userObj => console.log(email, password, userObj))
-//     .catch(error => console.log('error: ', error))
-//   }
-//
-//   render() {
-//     return (
-//       <AppContainer />
-//     )
-//   }
-// }
-//
-// export default App;
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default props => {
-  return (
-    <AppContainer />
-  )
+    // auth.signOut()
+    // .then(() => {
+    //   console.log('logged out...')
+    // }).catch(error => {
+    //   console.log('error: ', error)
+    // })
+
+    this.registerUser('test@test.com', 'password');
+
+    auth.onAuthStateChanged(user => {
+      if(user) {
+        console.log('logged in:', user)
+      } else {
+        console.log('logged out')
+      }
+    })
+  }
+
+  registerUser = (email, password) => {
+    console.log(email, password);
+    auth.createUserWithEmailAndPassword(email, password)
+    .then(userObj => console.log(email, password, userObj))
+    .catch(error => console.log('error: ', error))
+  }
+
+  render() {
+    return (
+      <AppContainer />
+    )
+  }
 }
+
+export default App;
+
+// export default props => {
+//   return (
+//     <AppContainer />
+//   )
+// }
