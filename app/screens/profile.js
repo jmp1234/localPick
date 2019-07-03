@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
+import {auth} from '../../config/firebaseconfig';
+import Auth from '../components/auth';
 
 class Profile extends Component {
   constructor(props) {
@@ -13,7 +15,15 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.logUserIn();
+    console.log('profile did mount')
+    // this.logUserIn();
+    if(!this.state.loggedIn) {
+      this.props.navigation.navigate('UserAuth')
+    }
+  }
+
+  componentWillUnmount() {
+    console.log('profile unmounted')
   }
 
   logUserIn() {
@@ -26,7 +36,17 @@ class Profile extends Component {
     this.props.navigation.navigate('RestaurantNotes');
   }
 
+  logout = () => {
+    auth.signOut()
+    .then(() => {
+      console.log('logging user out...')
+    }).catch(error => {
+      console.log('error: ', error)
+    })
+  }
+
   render() {
+    console.log('profile rendered')
     return (
       <View style={{flex: 1}}>
         {this.state.loggedIn ? (
@@ -43,7 +63,9 @@ class Profile extends Component {
             </View>
             <View style={{paddingBottom: 20, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
               <TouchableOpacity
-                style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}>
+                style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}
+                onPress={this.logout}
+                >
                 <Text style={{textAlign: 'center', color: 'grey'}}>Logout</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -81,7 +103,8 @@ class Profile extends Component {
             />
           </View>
         ) : (
-          <Text>Log In to View Your Profile</Text>
+          // <Text>Log In to View Your Profile</Text>
+          <Auth />
         )}
       </View>
     )

@@ -4,6 +4,7 @@ import UserAuth from '../components/auth';
 import GooglePlaceInput from '../components/googlePlacesInput';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
+import Auth from '../components/auth';
 
 class Upload extends Component {
   constructor(props) {
@@ -16,7 +17,12 @@ class Upload extends Component {
 
 
   componentDidMount() {
-    this.logUserIn();
+    console.log('upload mounted')
+    // this.logUserIn();
+  }
+
+  componentWillUnmount() {
+    console.log('upload unmounted')
   }
 
   logUserIn() {
@@ -26,6 +32,7 @@ class Upload extends Component {
   }
 
   render() {
+    console.log('upload rendered')
 
     const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
 const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
@@ -105,9 +112,10 @@ const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818
             )}
           </Fragment>
         ) : (
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Log In to add a new local pick</Text>
-          </View>
+          // <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          //   <Text>Log In to add a new local pick</Text>
+          // </View>
+          <Auth />
         )}
       </View>
     )
