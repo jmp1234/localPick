@@ -12,6 +12,7 @@ class Search extends Component {
     }
   }
 
+
   enterLocation = () => {
     //go to local picks page:
     // this.props.navigation.navigate('LocalPicks')
@@ -46,12 +47,12 @@ class Search extends Component {
           </TouchableOpacity>
         </View>
       ) : (
-        <View style={{ backgroundColor: 'darkgrey', paddingTop: 20, flex: 1 }}>
+        <View style={{ backgroundColor: 'darkgrey',flex: 1 }}>
           <View style={{flexDirection: 'row',paddingTop: 30, alignItems: 'center', justifyContent: 'space-between'}}>
             <TouchableOpacity
               onPress={() => this.setState({page: 0})}
               style={{width:100}}>
-              <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'white'}}>✖︎</Text>
+              <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'white'}}>✗</Text>
             </TouchableOpacity>
           </View>
           <GooglePlaceInput />

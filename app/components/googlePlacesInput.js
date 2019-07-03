@@ -18,10 +18,6 @@ export default withNavigation((props) => {
       fetchDetails={true}
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-        // console.log(data, details);
-        console.log('data: ', data)
-        console.log('details: ', details)
-        console.log('city: ', details.address_components[0].long_name)
         props.navigation.navigate('LocalPicks', {city: details.address_components[0].long_name})
       }}
 
