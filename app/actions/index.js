@@ -1,3 +1,5 @@
-import {types} from './types';
+import types from './types';
 
-export const userLogin = text => ({ type: types.LOG_IN, email});
+export const userLogin = () => ({ type: types.LOG_IN});
+
+export const userLogout = () => ({type: types.LOG_OUT})

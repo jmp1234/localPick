@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import {auth} from '../../config/firebaseconfig';
 import Auth from '../components/auth';
+import {connect} from 'react-redux';
+import {userLogout} from '../actions';
 
 class Profile extends Component {
   constructor(props) {
@@ -17,9 +19,9 @@ class Profile extends Component {
   componentDidMount() {
     console.log('profile did mount')
     // this.logUserIn();
-    if(!this.state.loggedIn) {
-      this.props.navigation.navigate('UserAuth')
-    }
+    // if(!this.state.loggedIn) {
+    //   this.props.navigation.navigate('UserAuth')
+    // }
   }
 
   componentWillUnmount() {
@@ -37,6 +39,7 @@ class Profile extends Component {
   }
 
   logout = () => {
+    this.props.userLogout();
     auth.signOut()
     .then(() => {
       console.log('logging user out...')
@@ -47,9 +50,11 @@ class Profile extends Component {
 
   render() {
     console.log('profile rendered')
+    console.log('is user logged in?',this.props)
     return (
       <View style={{flex: 1}}>
-        {this.state.loggedIn ? (
+        {/* {this.state.loggedIn ? ( */}
+        {this.props.auth ? (
           <View style={{flex:1}}>
             <View style={{height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
               <Text style={{fontWeight: 'bold'}}>@Username</Text>
@@ -111,4 +116,16 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+const mapDispatchToProps = dispatch => {
+  return {
+  userLogout: () => dispatch(userLogout()),
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    auth: state.user.auth
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

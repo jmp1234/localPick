@@ -83,7 +83,7 @@ class App extends React.Component {
     // })
 
     // this.registerUser('test@test.com', 'password');
-    this.login()
+    // this.login()
     auth.onAuthStateChanged(user => {
       if(user) {
         console.log('logged in:', user)
@@ -91,6 +91,7 @@ class App extends React.Component {
         console.log('user is logged out')
       }
     })
+    console.log('store: ', store.getState())
   }
 
   login = async() => {

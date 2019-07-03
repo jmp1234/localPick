@@ -5,6 +5,7 @@ import GooglePlaceInput from '../components/googlePlacesInput';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
 import Auth from '../components/auth';
+import {connect} from 'react-redux';
 
 class Upload extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class Upload extends Component {
 const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
     return (
       <View style={{flex: 1}}>
-        {this.state.loggedIn ? (
+        {this.props.auth ? (
           <Fragment>
             {this.state.page === 0 ? (
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -122,4 +123,10 @@ const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818
   }
 }
 
-export default Upload;
+const mapStateToProps = state => {
+  return {
+    auth: state.user.auth
+  }
+}
+
+export default connect(mapStateToProps)(Upload)
