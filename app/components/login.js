@@ -18,8 +18,6 @@ class Login extends Component {
   login = async() => {
     try {
       let user = await auth.signInWithEmailAndPassword('test@test.com', 'password');
-      console.log('user logged in')
-      console.log('props:',this.props)
       this.props.navigation.goBack()
     } catch(error) {
       console.log(error)

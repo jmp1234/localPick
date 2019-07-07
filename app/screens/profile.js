@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
-import {auth} from '../../config/firebaseconfig';
+import {auth, database} from '../../config/firebaseconfig';
 import Auth from '../components/auth';
 import {connect} from 'react-redux';
+import { NavigationEvents } from 'react-navigation';
 
 class Profile extends Component {
   constructor(props) {
@@ -29,19 +30,44 @@ class Profile extends Component {
     })
   }
 
+  fetchUserInfo = userId => {
+    var that = this;
+    database.ref('users').child(userId).once('value').then(function(snapshot) {
+      const exists = (snapshot.val() !== null);
+      if(exists) {
+        const data = snapshot.val()
+        const {userName, city, firstName, lastName, avatar} = data;
+        that.setState({
+          userName, city, firstName, lastName, avatar
+        })
+      }
+    })
+  }
+
+  checkUserAuth = () => {
+    var that = this;
+    auth.onAuthStateChanged(user => {
+      if(user) {
+        that.fetchUserInfo(user.uid)
+      }
+    })
+  }
+
 
   render() {
+    const {userName, city, firstName, lastName, avatar} = this.state
     return (
       <View style={{flex: 1}}>
+        <NavigationEvents onWillFocus={this.checkUserAuth}/>
           <View style={{flex:1}}>
             <View style={{height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{fontWeight: 'bold'}}>@Username</Text>
+              <Text style={{fontWeight: 'bold'}}>{userName}</Text>
             </View>
             <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
-              <Image source={{uri: 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png'}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}} />
+              <Image source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}} />
               <View style={{marginRight: 10}}>
-                <Text style={{paddingBottom: 5}}>Lebron James</Text>
-                <Text>Los Angeles</Text>
+                <Text style={{paddingBottom: 5}}>{firstName} {lastName}</Text>
+                <Text>{city}</Text>
               </View>
             </View>
             <View style={{paddingBottom: 20, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
