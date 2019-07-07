@@ -11,7 +11,8 @@ import UserAuth from './app/components/auth';
 import Signup from './app/components/signup';
 import Login from './app/components/login';
 import { f, auth, database} from './config/firebaseconfig';
-
+import { Provider } from 'react-redux';
+import store from './app/store';
 
 const profile = createStackNavigator({
   Profile: {screen: Profile,
@@ -81,15 +82,24 @@ class App extends React.Component {
     //   console.log('error: ', error)
     // })
 
-    this.registerUser('test@test.com', 'password');
-
+    // this.registerUser('test@test.com', 'password');
+    // this.login()
     auth.onAuthStateChanged(user => {
       if(user) {
-        console.log('logged in:', user)
+        console.log('App: logged in:', user)
       } else {
-        console.log('logged out')
+        console.log('App: user is logged out!!!')
       }
     })
+    console.log('store: ', store.getState())
+  }
+
+  login = async() => {
+    try {
+      let user = await auth.signInWithEmailAndPassword('test@test.com', 'password');
+    } catch(error) {
+      console.log(error)
+    }
   }
 
   registerUser = (email, password) => {
@@ -101,15 +111,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <AppContainer />
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
     )
   }
 }
 
 export default App;
-
-// export default props => {
-//   return (
-//     <AppContainer />
-//   )
-// }
