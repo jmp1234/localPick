@@ -5,7 +5,7 @@ import GooglePlaceInput from '../components/googlePlacesInput';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
 import Auth from '../components/auth';
-import {connect} from 'react-redux';
+import {auth} from '../../config/firebaseconfig';
 
 class Upload extends Component {
   constructor(props) {
@@ -17,29 +17,12 @@ class Upload extends Component {
   }
 
 
-  componentDidMount() {
-    console.log('upload mounted')
-    // this.logUserIn();
-  }
-
-  componentWillUnmount() {
-    console.log('upload unmounted')
-  }
-
-  logUserIn() {
-    this.setState({
-      loggedIn: true
-    })
-  }
-
   render() {
-    console.log('upload rendered')
 
     const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
-const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
+    const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
     return (
       <View style={{flex: 1}}>
-        {this.props.auth ? (
           <Fragment>
             {this.state.page === 0 ? (
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -112,21 +95,10 @@ const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818
               </View>
             )}
           </Fragment>
-        ) : (
-          // <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          //   <Text>Log In to add a new local pick</Text>
-          // </View>
-          <Auth />
-        )}
       </View>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.user.auth
-  }
-}
 
-export default connect(mapStateToProps)(Upload)
+export default Upload

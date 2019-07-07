@@ -3,58 +3,36 @@ import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import {auth} from '../../config/firebaseconfig';
 import Auth from '../components/auth';
 import {connect} from 'react-redux';
-import {userLogout} from '../actions';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       restaurants: [
         'McDonalds', 'Burger King', 'Taco Bell'
       ]
     }
   }
 
-  componentDidMount() {
-    console.log('profile did mount')
-    // this.logUserIn();
-    // if(!this.state.loggedIn) {
-    //   this.props.navigation.navigate('UserAuth')
-    // }
-  }
-
-  componentWillUnmount() {
-    console.log('profile unmounted')
-  }
-
-  logUserIn() {
-    this.setState({
-      loggedIn: true
-    })
-  }
 
   viewNotes = () => {
     this.props.navigation.navigate('RestaurantNotes');
   }
 
   logout = () => {
-    this.props.userLogout();
     auth.signOut()
     .then(() => {
       console.log('logging user out...')
+      this.props.navigation.navigate('UserAuth')
     }).catch(error => {
       console.log('error: ', error)
     })
   }
 
+
   render() {
-    console.log('profile rendered')
-    console.log('is user logged in?',this.props)
     return (
       <View style={{flex: 1}}>
-        {/* {this.state.loggedIn ? ( */}
-        {this.props.auth ? (
           <View style={{flex:1}}>
             <View style={{height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
               <Text style={{fontWeight: 'bold'}}>@Username</Text>
@@ -107,25 +85,9 @@ class Profile extends Component {
               )}
             />
           </View>
-        ) : (
-          // <Text>Log In to View Your Profile</Text>
-          <Auth />
-        )}
       </View>
     )
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-  userLogout: () => dispatch(userLogout()),
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    auth: state.user.auth
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default Profile

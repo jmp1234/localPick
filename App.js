@@ -86,9 +86,9 @@ class App extends React.Component {
     // this.login()
     auth.onAuthStateChanged(user => {
       if(user) {
-        console.log('logged in:', user)
+        console.log('App: logged in:', user)
       } else {
-        console.log('user is logged out')
+        console.log('App: user is logged out!!!')
       }
     })
     console.log('store: ', store.getState())
