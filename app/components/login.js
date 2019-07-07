@@ -1,5 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
+import {userLogin} from '../actions';
+import {connect} from 'react-redux';
+import {auth} from '../../config/firebaseconfig';
+import { withNavigation } from 'react-navigation';
 
 class Login extends Component {
   constructor(props) {
@@ -7,11 +11,23 @@ class Login extends Component {
 
     this.state = {
       emailText: '',
-      passwordText: ''
+      passwordText: '',
+    }
+  }
+
+  login = async() => {
+    try {
+      let user = await auth.signInWithEmailAndPassword('test@test.com', 'password');
+      console.log('user logged in')
+      console.log('props:',this.props)
+      this.props.navigation.goBack()
+    } catch(error) {
+      console.log(error)
     }
   }
 
   render() {
+
     return (
       <Fragment>
         <View style={{paddingTop: 70, flexDirection: 'column', alignItems: 'center', flex: 1, paddingHorizontal: 15}}>
@@ -37,6 +53,7 @@ class Login extends Component {
         <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
               <TouchableOpacity
                 style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
+                onPress={this.login}
               >
                 <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Log In</Text>
               </TouchableOpacity>
@@ -46,4 +63,16 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+  // dispatching plain actions
+  userLogin: () => dispatch(userLogin()),
+
+  }
+}
+
+// export default connect(
+//   null,
+//   mapDispatchToProps
+// )(Login)
+export default withNavigation(Login);
