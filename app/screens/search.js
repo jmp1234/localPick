@@ -17,7 +17,6 @@ class Search extends Component {
 
   enterLocation = () => {
     //go to local picks page:
-    // this.props.navigation.navigate('LocalPicks')
 
     //go to the google places input field:
     this.setState({
@@ -26,14 +25,13 @@ class Search extends Component {
   }
 
   navigateToLogin = () => {
-    console.log('search blurred')
+    console.log('parent: ',this.props.navigation.dangerouslyGetParent())
     if(!this.state.loggedIn) {
       this.props.navigation.navigate('UserAuth')
     }
   }
 
   checkUserAuth = async () => {
-    console.log('search focused')
     await auth.onAuthStateChanged(user => {
       if(user) {
         this.setState({
@@ -65,11 +63,6 @@ class Search extends Component {
               style={{width: 250, marginVertical: 10, padding: 5, borderWidth: 1, borderColor: 'grey', borderRadius: 3}}
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity
-            style={{paddingVertical: 10, paddingHorizontal: 20, backgroundColor: 'blue', borderRadius: 5}}
-            onPress={() => this.props.navigation.navigate('UserAuth')}>
-            <Text style={{color: 'white'}}>Log In</Text>
-          </TouchableOpacity> */}
         </View>
       ) : (
         <View style={{ backgroundColor: 'darkgrey',flex: 1 }}>
