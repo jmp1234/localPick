@@ -45,10 +45,13 @@ class Signup extends Component {
   }
 
   moveToLocationCheck = () => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const {firstName, lastName, username, email, password, confirmPassword} = this.state;
     if(password !== confirmPassword) {
       Alert.alert('Unable to sign up', 'Your entered passwords do not match!')
-    } else if(firstName && lastName && username && email && password && confirmPassword) {
+    } else if(!re.test(email)){
+      Alert.alert('Unable to sign up', 'Please enter a valid email')
+    }else if(firstName && lastName && username && email && password && confirmPassword) {
       this.setState({moveToLocation: true})
     } else {
       Alert.alert('Unable to sign up', 'Please fill out all input forms to register!')
