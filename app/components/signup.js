@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
+import { View, Alert, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
 import {auth} from '../../config/firebaseconfig';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
@@ -42,8 +42,19 @@ class Signup extends Component {
     }
   }
 
+  moveToLocationCheck = () => {
+    const {firstName, lastName, username, email, password, confirmPassword} = this.state;
+    if(password !== confirmPassword) {
+      Alert.alert('Unable to sign up', 'Your entered passwords do not match!')
+    } else if(firstName && lastName && username && email && password && confirmPassword) {
+      this.setState({moveToLocation: true})
+    } else {
+      Alert.alert('Unable to sign up', 'Please fill out all input forms to register!')
+    }
+  }
+
   render() {
-    console.log('state: email: ', this.state.email)
+    console.log('state: email: ', this.state)
     const focus = !this.state.inputFocus ? 'none' : 'block';
     return (
       <Fragment>
@@ -111,7 +122,7 @@ class Signup extends Component {
             <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
                   <TouchableOpacity
                     style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-                    onPress={() => this.setState({moveToLocation: true})}
+                    onPress={this.moveToLocationCheck}
                   >
                     <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Continue</Text>
                   </TouchableOpacity>
@@ -132,22 +143,6 @@ class Signup extends Component {
             ) : (
               <Fragment></Fragment>
             )}
-            {/* <View style={{backgroundColor: 'rgba(0,0,0,0.45)',paddingTop: 40,flexDirection: 'column', alignItems: 'center', flex: 1, paddingHorizontal: 15}}>
-              <Text style={{textAlign: 'center', color: 'white',fontSize: 30, textShadowColor: 'black',
-               textShadowOffset: {width: -1, height: 1},
-               textShadowRadius: 10}}>Where are your favorite local restaurants?</Text>
-               <Text style={{marginTop: 8, textAlign: 'center', color: 'silver',fontSize: 18, textShadowColor: 'black',
-                textShadowOffset: {width: -1, height: 1},
-                textShadowRadius: 10}}>You have the opportunity to recommend your favorite places from your location of choice!</Text>
-            </View> */}
-            {/* <TextInput
-              placeholderTextColor='rgba(0, 0, 0, 0.6)'
-              editable={true}
-              placeholder={'Enter Location'}
-              onChangeText={(text) => this.setState({confirmPassword: text})}
-              value={this.state.confirmPassword}
-              style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
-            /> */}
             <GooglePlacesAutocomplete
               textInputProps={{
                 onFocus: () => this.setState({inputFocus: true}),
