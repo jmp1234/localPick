@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 class LocalPicks extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class LocalPicks extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
+        <NavigationEvents onWillFocus={() => this.props.navigation.dismiss()}/>
         <View style={{flexDirection: 'row', height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center', justifyContent: 'space-between'}}>
           <TouchableOpacity
             onPress={() => this.props.navigation.goBack()}
