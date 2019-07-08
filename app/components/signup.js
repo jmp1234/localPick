@@ -15,6 +15,8 @@ class Signup extends Component {
       email: '',
       password: '',
       confirmPassword: '',
+      city: '',
+      coords: '',
       moveToLocation: false,
       inputFocus: false
     }
@@ -189,20 +191,24 @@ class Signup extends Component {
                 types: 'food'
               }}
               onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                console.log('city: ', details.address_components[0].long_name)
+                // console.log('city: ', details.address_components[0].long_name)
+                const {lat, lng} = details.geometry.location
+                // console.log('coords: ', `${lat}, ${lng}`)
+                this.setState({
+                  city: details.address_components[0].long_name,
+                  coords: `${lat}, ${lng}`
+                })
               }}
               filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
               debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
             />
-            {/* <KeyboardAvoidingView behavior="position" enabled style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}> */}
-              <View style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
-                  <TouchableOpacity
-                    style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-                  >
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Submit Location</Text>
-                  </TouchableOpacity>
-                </View>
-            {/* </KeyboardAvoidingView> */}
+            <View style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
+              <TouchableOpacity
+                style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
+              >
+                <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Submit Location</Text>
+              </TouchableOpacity>
+            </View>
           </Fragment>
         )}
       </Fragment>
