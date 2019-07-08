@@ -8,6 +8,7 @@ class Signup extends Component {
     this.state = {
       firstName: '',
       lastName: '',
+      username: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -21,20 +22,34 @@ class Signup extends Component {
         {!this.state.moveToLocation ? (
           <Fragment>
             <View style={{paddingTop: 40, flexDirection: 'column', alignItems: 'center', flex: 1, paddingHorizontal: 15}}>
+              <View style={{flexDirection: 'row'}}>
+                <View style={{flex:1}}>
+                  <TextInput
+                    placeholderTextColor='rgba(0, 0, 0, 0.6)'
+                    editable={true}
+                    placeholder={'First Name'}
+                    onChangeText={(text) => this.setState({firstName: text})}
+                    value={this.state.firstName}
+                    style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
+                  />
+                </View>
+                <View style={{flex:1}}>
+                  <TextInput
+                    placeholderTextColor='rgba(0, 0, 0, 0.6)'
+                    editable={true}
+                    placeholder={'Last Name'}
+                    onChangeText={(text) => this.setState({lastName: text})}
+                    value={this.state.lastName}
+                    style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
+                  />
+                </View>
+              </View>
               <TextInput
                 placeholderTextColor='rgba(0, 0, 0, 0.6)'
                 editable={true}
-                placeholder={'First Name'}
-                onChangeText={(text) => this.setState({firstName: text})}
-                value={this.state.firstName}
-                style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
-              />
-              <TextInput
-                placeholderTextColor='rgba(0, 0, 0, 0.6)'
-                editable={true}
-                placeholder={'Last Name'}
-                onChangeText={(text) => this.setState({lastName: text})}
-                value={this.state.lastName}
+                placeholder={'Username'}
+                onChangeText={(text) => this.setState({username: text})}
+                value={this.state.username}
                 style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
               />
               <TextInput

@@ -17,7 +17,6 @@ class Search extends Component {
 
   enterLocation = () => {
     //go to local picks page:
-    // this.props.navigation.navigate('LocalPicks')
 
     //go to the google places input field:
     this.setState({
@@ -26,14 +25,13 @@ class Search extends Component {
   }
 
   navigateToLogin = () => {
-    console.log('search blurred')
+    console.log('parent: ',this.props.navigation.dangerouslyGetParent())
     if(!this.state.loggedIn) {
       this.props.navigation.navigate('UserAuth')
     }
   }
 
   checkUserAuth = async () => {
-    console.log('search focused')
     await auth.onAuthStateChanged(user => {
       if(user) {
         this.setState({
