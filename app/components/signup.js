@@ -1,8 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import { View, Alert, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
-import {auth} from '../../config/firebaseconfig';
+import {auth, database} from '../../config/firebaseconfig';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
+import { withNavigation } from 'react-navigation';
 
 class Signup extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Signup extends Component {
     this.state = {
       firstName: '',
       lastName: '',
-      username: '',
+      userName: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -22,36 +23,41 @@ class Signup extends Component {
     }
   }
 
-  createUserObj(user, email) {
-    console.log('user: ', user)
-    console.log('email: ', email)
+  createUserObj(userObj, email) {
+    console.log('props: ', this.props)
+    const {firstName, lastName, userName, coords, city} = this.state
+    const uObj = {
+      firstName, lastName, userName, email, coords, city,
+      avatar: 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png'
+    }
+    database.ref('users').child(userObj.uid).set(uObj).then(() => {
+      this.props.navigation.goBack()
+    });
   }
 
-  signup = async() => {
-    const {firstName, lastName, username, email, password} = this.state;
-    if(firstName && lastName && username && email && password) {
-      try {
-        let user = await auth.signInWithEmailAndPassword(email, password); //test@test.com password
-        if(user) {
-          auth.createUserWithEmailAndPassword(email, password)
+  signup = () => {
+    const {firstName, lastName, userName, email, password, city, coords} = this.state;
+    if(firstName && lastName && userName && email && password && city && coords) {
+      // try {
+        let user = auth.createUserWithEmailAndPassword(email, password)
           .then(userObj => this.createUserObj(userObj.user, email))
-          .catch(error => console.log('error: ', error))
-        }
-      } catch(error) {
-        console.log(error)
-        alert(error)
-      }
+          .catch(error => Alert.alert('error: ', error))
+      // } catch(error) {
+      //   alert(error)
+      // }
     }
   }
 
   moveToLocationCheck = () => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const {firstName, lastName, username, email, password, confirmPassword} = this.state;
+    const {firstName, lastName, userName, email, password, confirmPassword} = this.state;
     if(password !== confirmPassword) {
       Alert.alert('Unable to sign up', 'Your entered passwords do not match!')
+    } else if(password.length < 6){
+      Alert.alert('Unable to sign up', 'Password should be at least 6 characters')
     } else if(!re.test(email)){
       Alert.alert('Unable to sign up', 'Please enter a valid email')
-    }else if(firstName && lastName && username && email && password && confirmPassword) {
+    }else if(firstName && lastName && userName && email && password && confirmPassword) {
       this.setState({moveToLocation: true})
     } else {
       Alert.alert('Unable to sign up', 'Please fill out all input forms to register!')
@@ -92,8 +98,8 @@ class Signup extends Component {
                 placeholderTextColor='rgba(0, 0, 0, 0.6)'
                 editable={true}
                 placeholder={'Username'}
-                onChangeText={(text) => this.setState({username: text})}
-                value={this.state.username}
+                onChangeText={(text) => this.setState({userName: text})}
+                value={this.state.userName}
                 style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
               />
               <TextInput
@@ -208,6 +214,7 @@ class Signup extends Component {
             <View style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
               <TouchableOpacity
                 style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
+                onPress={this.signup}
               >
                 <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Submit Location</Text>
               </TouchableOpacity>
@@ -220,4 +227,4 @@ class Signup extends Component {
 }
 
 
-export default Signup;
+export default withNavigation(Signup);
