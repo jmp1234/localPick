@@ -1,8 +1,9 @@
 import React, {Component, Fragment} from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
-import {auth} from '../../config/firebaseconfig';
+import { View, Alert, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
+import {auth, database} from '../../config/firebaseconfig';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
+import { withNavigation } from 'react-navigation';
 
 class Signup extends Component {
   constructor(props) {
@@ -11,39 +12,60 @@ class Signup extends Component {
     this.state = {
       firstName: '',
       lastName: '',
-      username: '',
+      userName: '',
       email: '',
       password: '',
       confirmPassword: '',
+      city: '',
+      coords: '',
       moveToLocation: false,
       inputFocus: false
     }
   }
 
-  createUserObj(user, email) {
-    console.log('user: ', user)
-    console.log('email: ', email)
+  createUserObj(userObj, email) {
+    console.log('props: ', this.props)
+    const {firstName, lastName, userName, coords, city} = this.state
+    const uObj = {
+      firstName, lastName, userName, email, coords, city,
+      avatar: 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png'
+    }
+    database.ref('users').child(userObj.uid).set(uObj).then(() => {
+      this.props.navigation.goBack()
+    });
   }
 
-  signup = async() => {
-    const {firstName, lastName, username, email, password} = this.state;
-    if(firstName && lastName && username && email && password) {
-      try {
-        let user = await auth.signInWithEmailAndPassword(email, password); //test@test.com password
-        if(user) {
-          auth.createUserWithEmailAndPassword(email, password)
+  signup = () => {
+    const {firstName, lastName, userName, email, password, city, coords} = this.state;
+    if(firstName && lastName && userName && email && password && city && coords) {
+      // try {
+        let user = auth.createUserWithEmailAndPassword(email, password)
           .then(userObj => this.createUserObj(userObj.user, email))
-          .catch(error => console.log('error: ', error))
-        }
-      } catch(error) {
-        console.log(error)
-        alert(error)
-      }
+          .catch(error => Alert.alert('error: ', error))
+      // } catch(error) {
+      //   alert(error)
+      // }
+    }
+  }
+
+  moveToLocationCheck = () => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const {firstName, lastName, userName, email, password, confirmPassword} = this.state;
+    if(password !== confirmPassword) {
+      Alert.alert('Unable to sign up', 'Your entered passwords do not match!')
+    } else if(password.length < 6){
+      Alert.alert('Unable to sign up', 'Password should be at least 6 characters')
+    } else if(!re.test(email)){
+      Alert.alert('Unable to sign up', 'Please enter a valid email')
+    }else if(firstName && lastName && userName && email && password && confirmPassword) {
+      this.setState({moveToLocation: true})
+    } else {
+      Alert.alert('Unable to sign up', 'Please fill out all input forms to register!')
     }
   }
 
   render() {
-    console.log('state: email: ', this.state.email)
+    console.log('state: email: ', this.state)
     const focus = !this.state.inputFocus ? 'none' : 'block';
     return (
       <Fragment>
@@ -76,8 +98,8 @@ class Signup extends Component {
                 placeholderTextColor='rgba(0, 0, 0, 0.6)'
                 editable={true}
                 placeholder={'Username'}
-                onChangeText={(text) => this.setState({username: text})}
-                value={this.state.username}
+                onChangeText={(text) => this.setState({userName: text})}
+                value={this.state.userName}
                 style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
               />
               <TextInput
@@ -111,7 +133,7 @@ class Signup extends Component {
             <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
                   <TouchableOpacity
                     style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-                    onPress={() => this.setState({moveToLocation: true})}
+                    onPress={this.moveToLocationCheck}
                   >
                     <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Continue</Text>
                   </TouchableOpacity>
@@ -132,22 +154,6 @@ class Signup extends Component {
             ) : (
               <Fragment></Fragment>
             )}
-            {/* <View style={{backgroundColor: 'rgba(0,0,0,0.45)',paddingTop: 40,flexDirection: 'column', alignItems: 'center', flex: 1, paddingHorizontal: 15}}>
-              <Text style={{textAlign: 'center', color: 'white',fontSize: 30, textShadowColor: 'black',
-               textShadowOffset: {width: -1, height: 1},
-               textShadowRadius: 10}}>Where are your favorite local restaurants?</Text>
-               <Text style={{marginTop: 8, textAlign: 'center', color: 'silver',fontSize: 18, textShadowColor: 'black',
-                textShadowOffset: {width: -1, height: 1},
-                textShadowRadius: 10}}>You have the opportunity to recommend your favorite places from your location of choice!</Text>
-            </View> */}
-            {/* <TextInput
-              placeholderTextColor='rgba(0, 0, 0, 0.6)'
-              editable={true}
-              placeholder={'Enter Location'}
-              onChangeText={(text) => this.setState({confirmPassword: text})}
-              value={this.state.confirmPassword}
-              style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
-            /> */}
             <GooglePlacesAutocomplete
               textInputProps={{
                 onFocus: () => this.setState({inputFocus: true}),
@@ -194,20 +200,25 @@ class Signup extends Component {
                 types: 'food'
               }}
               onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                console.log('city: ', details.address_components[0].long_name)
+                // console.log('city: ', details.address_components[0].long_name)
+                const {lat, lng} = details.geometry.location
+                // console.log('coords: ', `${lat}, ${lng}`)
+                this.setState({
+                  city: details.address_components[0].long_name,
+                  coords: `${lat}, ${lng}`
+                })
               }}
               filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
               debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
             />
-            {/* <KeyboardAvoidingView behavior="position" enabled style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}> */}
-              <View style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
-                  <TouchableOpacity
-                    style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-                  >
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Submit Location</Text>
-                  </TouchableOpacity>
-                </View>
-            {/* </KeyboardAvoidingView> */}
+            <View style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
+              <TouchableOpacity
+                style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
+                onPress={this.signup}
+              >
+                <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Submit Location</Text>
+              </TouchableOpacity>
+            </View>
           </Fragment>
         )}
       </Fragment>
@@ -216,4 +227,4 @@ class Signup extends Component {
 }
 
 
-export default Signup;
+export default withNavigation(Signup);
