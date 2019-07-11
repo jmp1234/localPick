@@ -18,13 +18,12 @@ class Signup extends Component {
       confirmPassword: '',
       city: '',
       coords: '',
-      moveToLocation: false,
+      moveToSignup: false,
       inputFocus: false
     }
   }
 
   createUserObj(userObj, email) {
-    console.log('props: ', this.props)
     const {firstName, lastName, userName, coords, city} = this.state
     const uObj = {
       firstName, lastName, userName, email, coords, city,
@@ -48,20 +47,24 @@ class Signup extends Component {
     }
   }
 
-  moveToLocationCheck = () => {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const {firstName, lastName, userName, email, password, confirmPassword} = this.state;
-    if(password !== confirmPassword) {
-      Alert.alert('Unable to sign up', 'Your entered passwords do not match!')
-    } else if(password.length < 6){
-      Alert.alert('Unable to sign up', 'Password should be at least 6 characters')
-    } else if(!re.test(email)){
-      Alert.alert('Unable to sign up', 'Please enter a valid email')
-    }else if(firstName && lastName && userName && email && password && confirmPassword) {
-      this.setState({moveToLocation: true})
-    } else {
-      Alert.alert('Unable to sign up', 'Please fill out all input forms to register!')
-    }
+  // moveToSignupCheck = () => {
+  //   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   const {firstName, lastName, userName, email, password, confirmPassword} = this.state;
+  //   if(password !== confirmPassword) {
+  //     Alert.alert('Unable to sign up', 'Your entered passwords do not match!')
+  //   } else if(password.length < 6){
+  //     Alert.alert('Unable to sign up', 'Password should be at least 6 characters')
+  //   } else if(!re.test(email)){
+  //     Alert.alert('Unable to sign up', 'Please enter a valid email')
+  //   }else if(firstName && lastName && userName && email && password && confirmPassword) {
+  //     this.setState({moveToSignup: true})
+  //   } else {
+  //     Alert.alert('Unable to sign up', 'Please fill out all input forms to register!')
+  //   }
+  // }
+
+  moveToSignupCheck = () => {
+      this.setState({moveToSignup: true})
   }
 
   render() {
@@ -69,7 +72,7 @@ class Signup extends Component {
     const focus = !this.state.inputFocus ? 'none' : 'block';
     return (
       <Fragment>
-        {!this.state.moveToLocation ? (
+        {this.state.moveToSignup ? (
           <Fragment>
             <View style={{paddingTop: 40, flexDirection: 'column', alignItems: 'center', flex: 1, paddingHorizontal: 15}}>
               <View style={{flexDirection: 'row'}}>
@@ -133,9 +136,9 @@ class Signup extends Component {
             <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
                   <TouchableOpacity
                     style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-                    onPress={this.moveToLocationCheck}
+                    onPress={this.signup}
                   >
-                    <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Continue</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Sign Up</Text>
                   </TouchableOpacity>
             </KeyboardAvoidingView>
           </Fragment>
@@ -214,9 +217,9 @@ class Signup extends Component {
             <View style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
               <TouchableOpacity
                 style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-                onPress={this.signup}
+                onPress={this.moveToSignupCheck}
               >
-                <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Submit Location</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Continue</Text>
               </TouchableOpacity>
             </View>
           </Fragment>
