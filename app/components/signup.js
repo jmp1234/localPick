@@ -35,33 +35,21 @@ class Signup extends Component {
   }
 
   signup = () => {
-    const {firstName, lastName, userName, email, password, city, coords} = this.state;
-    if(firstName && lastName && userName && email && password && city && coords) {
-      // try {
+    const {firstName, lastName, userName, email, password, city, coords, confirmPassword} = this.state;
+    if(firstName && lastName && userName && email && password && confirmPassword && city && coords) {
+      if(password !== confirmPassword) {
+        Alert.alert('Signup error: ', 'Passwords do not match')
+      } else {
         let user = auth.createUserWithEmailAndPassword(email, password)
           .then(userObj => this.createUserObj(userObj.user, email))
-          .catch(error => Alert.alert('error: ', error))
-      // } catch(error) {
-      //   alert(error)
-      // }
+          .catch(error => Alert.alert('Signup error: ', error.message))
+      }
+
+    } else {
+      Alert.alert('Signup error: ', 'Please conplete all fields')
     }
   }
 
-  // moveToSignupCheck = () => {
-  //   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //   const {firstName, lastName, userName, email, password, confirmPassword} = this.state;
-  //   if(password !== confirmPassword) {
-  //     Alert.alert('Unable to sign up', 'Your entered passwords do not match!')
-  //   } else if(password.length < 6){
-  //     Alert.alert('Unable to sign up', 'Password should be at least 6 characters')
-  //   } else if(!re.test(email)){
-  //     Alert.alert('Unable to sign up', 'Please enter a valid email')
-  //   }else if(firstName && lastName && userName && email && password && confirmPassword) {
-  //     this.setState({moveToSignup: true})
-  //   } else {
-  //     Alert.alert('Unable to sign up', 'Please fill out all input forms to register!')
-  //   }
-  // }
 
   moveToSignupCheck = () => {
       this.setState({moveToSignup: true})
