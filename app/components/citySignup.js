@@ -2,11 +2,11 @@ import React, {Fragment} from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { View, Text, TouchableOpacity, TextInput} from 'react-native';
 
-export default props => {
+export default ({inputFocus, handlePress, removeDescription, addDescription, setLocation}) => {
 
   return(
     <Fragment>
-      {!props.inputFocus && (
+      {!inputFocus && (
         <View style={{backgroundColor: 'rgba(0,0,0,0.45)',paddingTop: 40,flexDirection: 'column', alignItems: 'center', flex: 1, paddingHorizontal: 15}}>
           <Text style={{textAlign: 'center', color: 'white',fontSize: 30, textShadowColor: 'black',
            textShadowOffset: {width: -1, height: 1},
@@ -18,8 +18,8 @@ export default props => {
       )}
       <GooglePlacesAutocomplete
         textInputProps={{
-          onFocus: props.removeDescription,
-          onBlur: props.addDescription
+          onFocus: removeDescription,
+          onBlur: addDescription
         }}
         placeholder='Enter city'
         minLength={2}
@@ -49,7 +49,7 @@ export default props => {
             color: '#1faadb'
           },
           listView: {
-            display: `${!props.inputFocus ? 'none' : 'block'}`
+            display: `${!inputFocus ? 'none' : 'block'}`
           }
         }}
         currentLocation={true}
@@ -62,7 +62,7 @@ export default props => {
           types: 'food'
         }}
         onPress={(data, details = null) => {
-          props.setLocation(data, details)
+          setLocation(data, details)
         }}
         filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']}
         debounce={200}
@@ -70,7 +70,7 @@ export default props => {
       <View style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
         <TouchableOpacity
           style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-          onPress={props.handlePress}
+          onPress={handlePress}
         >
           <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Continue</Text>
         </TouchableOpacity>

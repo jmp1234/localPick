@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import {auth, database} from '../../config/firebaseconfig';
-import Auth from '../components/auth';
+import Auth from './auth';
 import {connect} from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
 

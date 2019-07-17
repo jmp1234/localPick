@@ -7,9 +7,9 @@ import Upload from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
 import Restaurant from './app/screens/restaurantDescription';
 import RestaurantNotes from './app/screens/notes';
-import UserAuth from './app/components/auth';
-import Signup from './app/components/signup';
-import Login from './app/components/login';
+import UserAuth from './app/screens/auth';
+import Signup from './app/screens/signup';
+import Login from './app/screens/login';
 import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
 import store from './app/store';
@@ -75,15 +75,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    // auth.signOut()
-    // .then(() => {
-    //   console.log('logged out...')
-    // }).catch(error => {
-    //   console.log('error: ', error)
-    // })
-
-    // this.registerUser('test@test.com', 'password');
-    // this.login()
     auth.onAuthStateChanged(user => {
       if(user) {
         console.log('App: logged in:', user)
@@ -103,7 +94,6 @@ class App extends React.Component {
   }
 
   registerUser = (email, password) => {
-    console.log(email, password);
     auth.createUserWithEmailAndPassword(email, password)
     .then(userObj => console.log(email, password, userObj))
     .catch(error => console.log('error: ', error))

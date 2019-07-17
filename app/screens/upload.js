@@ -1,10 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import UserAuth from '../components/auth';
 import GooglePlaceInput from '../components/googlePlacesInput';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
-import Auth from '../components/auth';
+import Auth from './auth';
 import {auth} from '../../config/firebaseconfig';
 
 class Upload extends Component {

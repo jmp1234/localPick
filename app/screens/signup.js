@@ -4,7 +4,7 @@ import {auth, database} from '../../config/firebaseconfig';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
 import { withNavigation } from 'react-navigation';
-import CitySignup from './citySignup';
+import CitySignup from '../components/citySignup';
 
 class Signup extends Component {
   constructor(props) {
@@ -160,7 +160,6 @@ class Signup extends Component {
             addDescription = {this.addDescription}
             setLocation={(data, details) => this.setLocation(data, details)}
           />
-
         )}
       </Fragment>
     )
