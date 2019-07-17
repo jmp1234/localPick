@@ -4,6 +4,7 @@ import {auth, database} from '../../config/firebaseconfig';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
 import { withNavigation } from 'react-navigation';
+import CitySignup from './citySignup';
 
 class Signup extends Component {
   constructor(props) {
@@ -52,11 +53,31 @@ class Signup extends Component {
 
 
   moveToSignupCheck = () => {
+    if(this.state.city) {
       this.setState({moveToSignup: true})
+    } else {
+      Alert.alert('Signup error: ', 'Please enter a city')
+    }
+  }
+
+  removeDescription = () => {
+    this.setState({inputFocus: true})
+  }
+
+  addDescription = () => {
+    this.setState({inputFocus: false})
+  }
+
+  setLocation = (data, details) => {
+    const {lat, lng} = details.geometry.location
+    this.setState({
+      city: details.address_components[0].long_name,
+      coords: `${lat}, ${lng}`
+    })
   }
 
   render() {
-    console.log('state: email: ', this.state)
+
     const focus = !this.state.inputFocus ? 'none' : 'block';
     return (
       <Fragment>
@@ -132,85 +153,14 @@ class Signup extends Component {
           </Fragment>
 
         ) : (
-          <Fragment>
-            {!this.state.inputFocus ? (
-              <View style={{backgroundColor: 'rgba(0,0,0,0.45)',paddingTop: 40,flexDirection: 'column', alignItems: 'center', flex: 1, paddingHorizontal: 15}}>
-                <Text style={{textAlign: 'center', color: 'white',fontSize: 30, textShadowColor: 'black',
-                 textShadowOffset: {width: -1, height: 1},
-                 textShadowRadius: 10}}>Where are your favorite local restaurants?</Text>
-                 <Text style={{marginTop: 8, textAlign: 'center', color: 'silver',fontSize: 18, textShadowColor: 'black',
-                  textShadowOffset: {width: -1, height: 1},
-                  textShadowRadius: 10}}>You have the opportunity to recommend your favorite places from your location of choice!</Text>
-              </View>
-            ) : (
-              <Fragment></Fragment>
-            )}
-            <GooglePlacesAutocomplete
-              textInputProps={{
-                onFocus: () => this.setState({inputFocus: true}),
-                onBlur: () => this.setState({inputFocus: false})
-              }}
-              placeholder='Enter city'
-              minLength={2} // minimum length of text to search
-              autoFocus={false}
-              returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-              listViewDisplayed='auto'    // true/false/undefined
-              fetchDetails={true}
-              renderDescription={row => row.description} // custom description render
-              getDefaultValue={() => ''}
-              query={{
-                key: config.GOOGLE_PLACES_KEY,
-                language: 'en', // language of the results
-                types: '(cities)' // default: 'geocode'
-              }}
-              styles={{
-                container: {
-                  backgroundColor: 'rgba(0,0,0,0.45)',
-                },
-                textInputContainer: {
-                  width: '100%'
-                },
-                description: {
-                  fontWeight: 'bold',
-                  color: 'white'
-                },
-                predefinedPlacesDescription: {
-                  color: '#1faadb'
-                },
-                listView: {
-                  display: `${!this.state.inputFocus ? 'none' : 'block'}`
-                }
-              }}
-              currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-              currentLocationLabel="Current location"
-              nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-              GoogleReverseGeocodingQuery={{
-              }}
-              GooglePlacesSearchQuery={{
-                rankby: 'distance',
-                types: 'food'
-              }}
-              onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                // console.log('city: ', details.address_components[0].long_name)
-                const {lat, lng} = details.geometry.location
-                // console.log('coords: ', `${lat}, ${lng}`)
-                this.setState({
-                  city: details.address_components[0].long_name,
-                  coords: `${lat}, ${lng}`
-                })
-              }}
-              filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-              debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-            />
-            <View style={{backgroundColor: 'rgba(0,0,0,0.45)', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
-              <TouchableOpacity
-                style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-                onPress={this.moveToSignupCheck}
-              >
-                <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Continue</Text>
-              </TouchableOpacity>
-            </View>
-          </Fragment>
+          <CitySignup
+            inputFocus={this.state.inputFocus}
+            handlePress={this.moveToSignupCheck}
+            removeDescription = {this.removeDescription}
+            addDescription = {this.addDescription}
+            setLocation={(data, details) => this.setLocation(data, details)}
+          />
+
         )}
       </Fragment>
     )

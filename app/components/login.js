@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
+import { Alert, View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
 import {userLogin} from '../actions';
 import {connect} from 'react-redux';
 import {auth} from '../../config/firebaseconfig';
@@ -22,8 +22,7 @@ class Login extends Component {
         this.props.navigation.goBack()
       }
     } catch(error) {
-      console.log(error)
-      alert(error)
+      Alert.alert('Login Error: ', error.message)
     }
   }
 
@@ -66,9 +65,7 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-  // dispatching plain actions
   userLogin: () => dispatch(userLogin()),
-
   }
 }
 
