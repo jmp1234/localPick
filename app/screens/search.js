@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import GooglePlaceInput from '../components/googlePlacesInput';
-import { NavigationEvents } from 'react-navigation';
 import {auth} from '../../config/firebaseconfig';
 import {loginSuccess} from '../actions';
 import {connect} from 'react-redux';
@@ -26,18 +25,10 @@ class Search extends Component {
     })
   }
 
-  checkUserAuth = async () => {
-    await auth.onAuthStateChanged(user => {
-      if(user) {
-        this.props.loginSuccess(user)
-      }
-    })
-  }
 
   render() {
     return (
       <Fragment>
-      <NavigationEvents onWillFocus={this.checkUserAuth}/>
       {this.state.page === 0 ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{fontSize: 30, marginBottom: 30}}>Find your local pick</Text>

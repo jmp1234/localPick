@@ -56,7 +56,7 @@ class Signup extends Component {
     if(this.state.city) {
       this.setState({moveToSignup: true})
     } else {
-      Alert.alert('Signup error: ', 'Please enter a city')
+      Alert.alert('Signup error: ', 'Please enter a valid city')
     }
   }
 

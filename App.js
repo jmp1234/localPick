@@ -14,6 +14,7 @@ import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import * as NavigationService from './app/services/navigation/navigationService';
+import {loginSuccess} from './app/actions';
 
 const profile = createStackNavigator({
   Profile: {screen: Profile,
@@ -79,29 +80,15 @@ class App extends React.Component {
     auth.onAuthStateChanged(user => {
       if(user) {
         console.log('App: logged in:')
+        store.dispatch(loginSuccess());
       } else {
         console.log('App: user is logged out!!!')
       }
     })
-    console.log('store: ', store.getState())
   }
 
   componentDidMount() {
     NavigationService.setNavigator(this.navigator);
-  }
-
-  login = async() => {
-    try {
-      let user = await auth.signInWithEmailAndPassword('test@test.com', 'password');
-    } catch(error) {
-      console.log(error)
-    }
-  }
-
-  registerUser = (email, password) => {
-    auth.createUserWithEmailAndPassword(email, password)
-    .then(userObj => console.log(email, password, userObj))
-    .catch(error => console.log('error: ', error))
   }
 
   render() {

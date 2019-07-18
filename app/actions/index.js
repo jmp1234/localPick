@@ -1,6 +1,6 @@
 import types from './types';
 
-
+//Login Functions
 export const userLogin = (email, password) => ({
   type: types.LOG_IN,
   payload: { email, password },
@@ -16,6 +16,7 @@ export const loginFailure = errorMessage => ({
   payload: errorMessage
 });
 
+//Logout Functions
 export const userLogout = () => ({type: types.LOG_OUT})
 
 export const logoutSuccess = () => ({
