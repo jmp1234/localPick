@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoid
 import { withNavigation } from 'react-navigation';
 import Login from './login';
 import Signup from './signup';
-import AuthNavBar from './authNavBar';
+import AuthNavBar from '../components/authNavBar';
 
 
 class UserAuth extends Component {

@@ -1,8 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import GooglePlaceInput from '../components/googlePlacesInput';
-import { NavigationEvents } from 'react-navigation';
 import {auth} from '../../config/firebaseconfig';
+import {loginSuccess} from '../actions';
+import {connect} from 'react-redux';
 
 class Search extends Component {
   constructor(props) {
@@ -24,31 +25,10 @@ class Search extends Component {
     })
   }
 
-  navigateToLogin = () => {
-    console.log('parent: ',this.props.navigation.dangerouslyGetParent())
-    if(!this.state.loggedIn) {
-      this.props.navigation.navigate('UserAuth')
-    }
-  }
-
-  checkUserAuth = async () => {
-    await auth.onAuthStateChanged(user => {
-      if(user) {
-        this.setState({
-          loggedIn: true
-        })
-      } else {
-        this.setState({
-          loggedIn: false
-        })
-      }
-    })
-  }
 
   render() {
     return (
       <Fragment>
-      <NavigationEvents onWillFocus={this.checkUserAuth} onWillBlur={this.navigateToLogin}/>
       {this.state.page === 0 ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{fontSize: 30, marginBottom: 30}}>Find your local pick</Text>
@@ -81,5 +61,9 @@ class Search extends Component {
   }
 }
 
+const mapDispatchToProps = {loginSuccess}
 
-export default Search;
+export default connect(
+  null,
+  mapDispatchToProps
+)(Search);

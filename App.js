@@ -7,12 +7,14 @@ import Upload from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
 import Restaurant from './app/screens/restaurantDescription';
 import RestaurantNotes from './app/screens/notes';
-import UserAuth from './app/components/auth';
-import Signup from './app/components/signup';
-import Login from './app/components/login';
+import UserAuth from './app/screens/auth';
+import Signup from './app/screens/signup';
+import Login from './app/screens/login';
 import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
 import store from './app/store';
+import * as NavigationService from './app/services/navigation/navigationService';
+import {loginSuccess} from './app/actions';
 
 const profile = createStackNavigator({
   Profile: {screen: Profile,
@@ -75,44 +77,24 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    // auth.signOut()
-    // .then(() => {
-    //   console.log('logged out...')
-    // }).catch(error => {
-    //   console.log('error: ', error)
-    // })
-
-    // this.registerUser('test@test.com', 'password');
-    // this.login()
     auth.onAuthStateChanged(user => {
       if(user) {
-        console.log('App: logged in:', user)
+        console.log('App: logged in:')
+        store.dispatch(loginSuccess());
       } else {
         console.log('App: user is logged out!!!')
       }
     })
-    console.log('store: ', store.getState())
   }
 
-  login = async() => {
-    try {
-      let user = await auth.signInWithEmailAndPassword('test@test.com', 'password');
-    } catch(error) {
-      console.log(error)
-    }
-  }
-
-  registerUser = (email, password) => {
-    console.log(email, password);
-    auth.createUserWithEmailAndPassword(email, password)
-    .then(userObj => console.log(email, password, userObj))
-    .catch(error => console.log('error: ', error))
+  componentDidMount() {
+    NavigationService.setNavigator(this.navigator);
   }
 
   render() {
     return (
       <Provider store={store}>
-        <AppContainer />
+        <AppContainer ref={nav => this.navigator = nav}/>
       </Provider>
     )
   }
