@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import {auth, database} from '../../config/firebaseconfig';
-import Auth from '../components/auth';
 import {connect} from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
+import {userLogout} from '../actions';
 
 class Profile extends Component {
   constructor(props) {
@@ -20,15 +20,6 @@ class Profile extends Component {
     this.props.navigation.navigate('RestaurantNotes');
   }
 
-  logout = () => {
-    auth.signOut()
-    .then(() => {
-      console.log('logging user out...')
-      this.props.navigation.navigate('UserAuth')
-    }).catch(error => {
-      console.log('error: ', error)
-    })
-  }
 
   fetchUserInfo = userId => {
     var that = this;
@@ -45,12 +36,16 @@ class Profile extends Component {
   }
 
   checkUserAuth = () => {
-    var that = this;
-    auth.onAuthStateChanged(user => {
-      if(user) {
-        that.fetchUserInfo(user.uid)
-      }
-    })
+    if(!this.props.user) {
+      this.props.navigation.navigate('UserAuth')
+    } else {
+      var that = this;
+      auth.onAuthStateChanged(user => {
+        if(user) {
+          that.fetchUserInfo(user.uid)
+        }
+      })
+    }
   }
 
 
@@ -73,7 +68,7 @@ class Profile extends Component {
             <View style={{paddingBottom: 20, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
               <TouchableOpacity
                 style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}
-                onPress={this.logout}
+                onPress={this.props.userLogout}
                 >
                 <Text style={{textAlign: 'center', color: 'grey'}}>Logout</Text>
               </TouchableOpacity>
@@ -116,4 +111,15 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+const mapDispatchToProps = {userLogout}
+
+const mapStateToProps = state => {
+  return {
+    user: state.currentUser.user
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile)
