@@ -3,8 +3,9 @@ import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import GooglePlaceInput from '../components/googlePlacesInput';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
-import Auth from './auth';
 import {auth} from '../../config/firebaseconfig';
+import { NavigationEvents } from 'react-navigation';
+import {connect} from 'react-redux';
 
 class Upload extends Component {
   constructor(props) {
@@ -15,6 +16,12 @@ class Upload extends Component {
     }
   }
 
+  checkUserAuth = () => {
+    if(!this.props.user) {
+      this.props.navigation.navigate('UserAuth')
+    }
+  }
+
 
   render() {
 
@@ -22,6 +29,7 @@ class Upload extends Component {
     const workPlace = { description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
     return (
       <View style={{flex: 1}}>
+          <NavigationEvents onWillFocus={this.checkUserAuth}/>
           <Fragment>
             {this.state.page === 0 ? (
               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -99,5 +107,11 @@ class Upload extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    user: state.currentUser.user
+  }
+}
 
-export default Upload
+
+export default connect(mapStateToProps)(Upload)

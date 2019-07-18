@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import {auth, database} from '../../config/firebaseconfig';
-import Auth from './auth';
 import {connect} from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
 import {userLogout} from '../actions';
@@ -37,12 +36,16 @@ class Profile extends Component {
   }
 
   checkUserAuth = () => {
-    var that = this;
-    auth.onAuthStateChanged(user => {
-      if(user) {
-        that.fetchUserInfo(user.uid)
-      }
-    })
+    if(!this.props.user) {
+      this.props.navigation.navigate('UserAuth')
+    } else {
+      var that = this;
+      auth.onAuthStateChanged(user => {
+        if(user) {
+          that.fetchUserInfo(user.uid)
+        }
+      })
+    }
   }
 
 
@@ -110,7 +113,13 @@ class Profile extends Component {
 
 const mapDispatchToProps = {userLogout}
 
+const mapStateToProps = state => {
+  return {
+    user: state.currentUser.user
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Profile)
