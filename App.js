@@ -13,6 +13,7 @@ import Login from './app/screens/login';
 import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
 import store from './app/store';
+import * as NavigationService from './app/services/navigation/navigationService';
 
 const profile = createStackNavigator({
   Profile: {screen: Profile,
@@ -77,12 +78,16 @@ class App extends React.Component {
 
     auth.onAuthStateChanged(user => {
       if(user) {
-        console.log('App: logged in:', user)
+        console.log('App: logged in:')
       } else {
         console.log('App: user is logged out!!!')
       }
     })
     console.log('store: ', store.getState())
+  }
+
+  componentDidMount() {
+    NavigationService.setNavigator(this.navigator);
   }
 
   login = async() => {
@@ -102,7 +107,7 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppContainer />
+        <AppContainer ref={nav => this.navigator = nav}/>
       </Provider>
     )
   }
