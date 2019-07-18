@@ -1,8 +1,9 @@
 import { put, fork, all } from "redux-saga/effects";
-import {watchLogin} from './watchers'
+import {watchLogin, watchLogout} from './watchers'
 
 export function* stateSagas() {
   yield all([
-    fork(watchLogin)
+    fork(watchLogin),
+    fork(watchLogout)
   ]);
 }

@@ -4,6 +4,7 @@ import {auth, database} from '../../config/firebaseconfig';
 import Auth from './auth';
 import {connect} from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
+import {userLogout} from '../actions';
 
 class Profile extends Component {
   constructor(props) {
@@ -20,15 +21,6 @@ class Profile extends Component {
     this.props.navigation.navigate('RestaurantNotes');
   }
 
-  logout = () => {
-    auth.signOut()
-    .then(() => {
-      console.log('logging user out...')
-      this.props.navigation.navigate('UserAuth')
-    }).catch(error => {
-      console.log('error: ', error)
-    })
-  }
 
   fetchUserInfo = userId => {
     var that = this;
@@ -73,7 +65,7 @@ class Profile extends Component {
             <View style={{paddingBottom: 20, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
               <TouchableOpacity
                 style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}
-                onPress={this.logout}
+                onPress={this.props.userLogout}
                 >
                 <Text style={{textAlign: 'center', color: 'grey'}}>Logout</Text>
               </TouchableOpacity>
@@ -116,4 +108,9 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+const mapDispatchToProps = {userLogout}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Profile)

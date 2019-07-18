@@ -19,12 +19,33 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         pendingLogin: false,
+        userError: null,
         user: {
           userId: action.payload
         }
       };
+    case types.LOG_IN_ERROR:
+      return {
+        ...state,
+        pendingLogin: false,
+        userError: action.payload
+      };
     case types.LOG_OUT:
-      return { ...state, auth: false};
+      return {
+        ...state,
+        pendingLogout: true,
+      };
+    case types.LOG_OUT_SUCCESS:
+      return {
+        ...state,
+        user: null,
+        pendingLogout: false,
+      };
+    case types.LOG_OUT_ERROR:
+      return {
+        ...state,
+        pendingLogout: false,
+      };
   default:
     return state;
   }
