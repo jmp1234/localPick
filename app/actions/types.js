@@ -5,6 +5,8 @@ export default  {
   LOG_OUT: 'log_out',
   LOG_OUT_SUCCESS: 'logout_success',
   LOG_OUT_ERROR: 'logout_error',
+  FETCH_USER_PROFILE: 'fetch_user_profile',
+  FETCH_USER_SUCCESS: 'fetch_user_success',
   SIGN_UP: 'sign_up'
 
 }

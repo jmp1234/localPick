@@ -6,6 +6,13 @@ const DEFAULT_STATE = {
   pendingLogin: false,
   pendingLogout: false,
   userError: null,
+  profile: {
+    userName: null,
+    city: null,
+    firstName: null,
+    lastName: null,
+    avatar: null,
+  }
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -20,15 +27,18 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         pendingLogin: false,
         userError: null,
-        user: {
-          userId: action.payload
-        }
+        user: action.payload
       };
     case types.LOG_IN_ERROR:
       return {
         ...state,
         pendingLogin: false,
         userError: action.payload
+      };
+    case types.FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        profile: action.payload
       };
     case types.LOG_OUT:
       return {

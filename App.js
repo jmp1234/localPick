@@ -79,8 +79,8 @@ class App extends React.Component {
 
     auth.onAuthStateChanged(user => {
       if(user) {
-        console.log('App: logged in:')
-        store.dispatch(loginSuccess());
+        console.log('App: logged in:', user.uid)
+        store.dispatch(loginSuccess(user.uid));
       } else {
         console.log('App: user is logged out!!!')
       }

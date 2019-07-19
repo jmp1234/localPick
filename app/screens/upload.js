@@ -11,7 +11,6 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       page: 0
     }
   }

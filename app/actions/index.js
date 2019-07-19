@@ -27,3 +27,15 @@ export const logoutFailure = errorMessage => ({
   type: types.LOG_OUT_ERROR,
   payload: errorMessage
 });
+
+//Fetch Profile inputFocus
+
+export const fetchUserInfo = userId => ({
+  type: types.FETCH_USER_PROFILE,
+  payload: userId
+});
+
+export const fetchUserSuccess = userObj => ({
+  type: types.FETCH_USER_SUCCESS,
+  payload: userObj
+})

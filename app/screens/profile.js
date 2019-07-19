@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import {auth, database} from '../../config/firebaseconfig';
 import {connect} from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
-import {userLogout} from '../actions';
+import {userLogout, fetchUserInfo} from '../actions';
 
 class Profile extends Component {
   constructor(props) {
@@ -21,36 +21,31 @@ class Profile extends Component {
   }
 
 
-  fetchUserInfo = userId => {
-    var that = this;
-    database.ref('users').child(userId).once('value').then(function(snapshot) {
-      const exists = (snapshot.val() !== null);
-      if(exists) {
-        const data = snapshot.val()
-        const {userName, city, firstName, lastName, avatar} = data;
-        that.setState({
-          userName, city, firstName, lastName, avatar
-        })
-      }
-    })
-  }
+  // fetchUserInfo = userId => {
+  //   var that = this;
+  //   database.ref('users').child(userId).once('value').then(function(snapshot) {
+  //     const exists = (snapshot.val() !== null);
+  //     if(exists) {
+  //       const data = snapshot.val()
+  //       const {userName, city, firstName, lastName, avatar} = data;
+  //       that.setState({
+  //         userName, city, firstName, lastName, avatar
+  //       })
+  //     }
+  //   })
+  // }
 
   checkUserAuth = () => {
     if(!this.props.user) {
       this.props.navigation.navigate('UserAuth')
     } else {
-      var that = this;
-      auth.onAuthStateChanged(user => {
-        if(user) {
-          that.fetchUserInfo(user.uid)
-        }
-      })
+      this.props.fetchUserInfo(this.props.user)
     }
   }
 
 
   render() {
-    const {userName, city, firstName, lastName, avatar} = this.state
+    const {userName, city, firstName, lastName, avatar} = this.props
     return (
       <View style={{flex: 1}}>
         <NavigationEvents onWillFocus={this.checkUserAuth}/>
@@ -111,11 +106,16 @@ class Profile extends Component {
   }
 }
 
-const mapDispatchToProps = {userLogout}
+const mapDispatchToProps = {userLogout, fetchUserInfo}
 
 const mapStateToProps = state => {
   return {
-    user: state.currentUser.user
+    user: state.currentUser.user,
+    userName: state.currentUser.profile.userName,
+    city: state.currentUser.profile.city,
+    firstName: state.currentUser.profile.firstName,
+    lastName: state.currentUser.profile.lastName,
+    avatar: state.currentUser.profile.avatar
   }
 }
 
