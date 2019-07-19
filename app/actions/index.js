@@ -1,5 +1,6 @@
 import types from './types';
 
+
 //Login Functions
 export const userLogin = (email, password) => ({
   type: types.LOG_IN,
@@ -28,7 +29,24 @@ export const logoutFailure = errorMessage => ({
   payload: errorMessage
 });
 
-//Fetch Profile inputFocus
+//Sign Up
+export const userSignup = (email, password) => ({
+  type: types.SIGN_UP,
+  payload: { email, password },
+});
+
+export const signupSuccess = user => ({
+  type: types.SIGN_UP_SUCCESS,
+  payload: user
+});
+
+export const signupFailure = errorMessage => ({
+  type: types.SIGN_UP_ERROR,
+  payload: errorMessage
+});
+
+
+//Fetch Profile
 
 export const fetchUserInfo = userId => ({
   type: types.FETCH_USER_PROFILE,

@@ -12,6 +12,7 @@ const DEFAULT_STATE = {
     firstName: null,
     lastName: null,
     avatar: null,
+    coords: null,
   }
 }
 
@@ -30,6 +31,24 @@ export default (state = DEFAULT_STATE, action) => {
         user: action.payload
       };
     case types.LOG_IN_ERROR:
+      return {
+        ...state,
+        pendingLogin: false,
+        userError: action.payload
+      };
+    case types.SIGN_UP:
+      return {
+        ...state,
+        pendingLogin: true
+      };
+    case types.SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        pendingLogin: false,
+        userError: null,
+        user: action.payload
+      };
+    case types.SIGN_UP_ERROR:
       return {
         ...state,
         pendingLogin: false,

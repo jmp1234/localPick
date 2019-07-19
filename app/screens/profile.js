@@ -38,9 +38,7 @@ class Profile extends Component {
   checkUserAuth = () => {
     if(!this.props.user) {
       this.props.navigation.navigate('UserAuth')
-    } else {
-      this.props.fetchUserInfo(this.props.user)
-    }
+    } 
   }
 
 
