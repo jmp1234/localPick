@@ -30,19 +30,24 @@ export const logoutFailure = errorMessage => ({
 });
 
 //Sign Up
-export const userSignup = (email, password) => ({
+export const userSignup = (email, password, firstName, lastName, userName, coords, city) => ({
   type: types.SIGN_UP,
-  payload: { email, password },
+  payload: { email, password, firstName, lastName, userName, coords, city },
 });
 
-export const signupSuccess = user => ({
+export const signupSuccess = (user, firstName, lastName, userName, coords, city, email) => ({
   type: types.SIGN_UP_SUCCESS,
-  payload: user
+  payload: {user, firstName, lastName, userName, coords, city, email}
 });
 
 export const signupFailure = errorMessage => ({
   type: types.SIGN_UP_ERROR,
   payload: errorMessage
+});
+
+export const setNewUser = (email, password) => ({
+  type: types.SET_NEW_USER,
+  payload: { email, password },
 });
 
 

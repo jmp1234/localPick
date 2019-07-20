@@ -5,6 +5,8 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import config from '../../config/config';
 import { withNavigation } from 'react-navigation';
 import CitySignup from '../components/citySignup';
+import {connect} from 'react-redux';
+import {userSignup} from '../actions';
 
 class Signup extends Component {
   constructor(props) {
@@ -41,9 +43,10 @@ class Signup extends Component {
       if(password !== confirmPassword) {
         Alert.alert('Signup error: ', 'Passwords do not match')
       } else {
-        let user = auth.createUserWithEmailAndPassword(email, password)
-          .then(userObj => this.createUserObj(userObj.user, email))
-          .catch(error => Alert.alert('Signup error: ', error.message))
+        // let user = auth.createUserWithEmailAndPassword(email, password)
+        //   .then(userObj => this.createUserObj(userObj.user, email))
+        //   .catch(error => Alert.alert('Signup error: ', error.message))
+        this.props.userSignup(email, password, firstName, lastName, userName, coords, city)
       }
 
     } else {
@@ -166,5 +169,9 @@ class Signup extends Component {
   }
 }
 
+const mapDispatchToProps = {userSignup}
 
-export default withNavigation(Signup);
+export default withNavigation(connect(
+  null,
+  mapDispatchToProps
+)(Signup));

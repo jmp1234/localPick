@@ -46,7 +46,7 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         pendingLogin: false,
         userError: null,
-        user: action.payload
+        user: action.payload.user
       };
     case types.SIGN_UP_ERROR:
       return {
@@ -69,6 +69,14 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         user: null,
         pendingLogout: false,
+        profile: {
+          userName: null,
+          city: null,
+          firstName: null,
+          lastName: null,
+          avatar: null,
+          coords: null,
+        }
       };
     case types.LOG_OUT_ERROR:
       return {

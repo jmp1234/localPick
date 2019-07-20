@@ -1,11 +1,13 @@
 import { put, fork, all } from "redux-saga/effects";
-import {watchLogin, watchLogout, watchFetchUser, watchForFirebaseAuth} from './watchers';
+import {watchLogin, watchLogout, watchFetchUser, watchForFirebaseAuth, watchSignup, watchSignupSuccess} from './watchers';
 
 export function* stateSagas() {
   yield all([
     fork(watchLogin),
     fork(watchLogout),
+    fork(watchSignup),
     fork(watchFetchUser),
-    fork(watchForFirebaseAuth)
+    fork(watchForFirebaseAuth),
+    fork(watchSignupSuccess)
   ]);
 }

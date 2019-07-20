@@ -9,6 +9,6 @@ export default  {
   FETCH_USER_SUCCESS: 'fetch_user_success',
   SIGN_UP: 'sign_up',
   SIGN_UP_SUCCESS: 'sign_up_success',
-  SIGN_UP_ERROR: 'sign_up_error'
-
+  SIGN_UP_ERROR: 'sign_up_error',
+  SET_NEW_USER: 'set_new_user'
 }
