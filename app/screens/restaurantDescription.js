@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-export default props => {
+const Restaurant =  props => {
+
+  const {address, name, website} = props.navigation.state.params
 
   return(
     <View style={{flex: 1}}>
@@ -11,8 +14,15 @@ export default props => {
           style={{width: 100, left: 0, top: 35, justifyContent: 'center', position: 'absolute'}}>
           <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'black'}}>✖︎</Text>
         </TouchableOpacity>
-        <Text style={{fontWeight: 'bold'}}>Burger King Description</Text>
+        <Text style={{fontWeight: 'bold'}}>{name}</Text>
+      </View>
+      <View>
+        <Text>{address}</Text>
+        <Text>{website}</Text>
       </View>
     </View>
   )
 }
+
+
+export default withNavigation(Restaurant)

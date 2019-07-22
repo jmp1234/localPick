@@ -6,6 +6,14 @@ const DEFAULT_STATE = {
   pendingLogin: false,
   pendingLogout: false,
   userError: null,
+  profile: {
+    userName: null,
+    city: null,
+    firstName: null,
+    lastName: null,
+    avatar: null,
+    coords: null,
+  }
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -20,15 +28,36 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         pendingLogin: false,
         userError: null,
-        user: {
-          userId: action.payload
-        }
+        user: action.payload
       };
     case types.LOG_IN_ERROR:
       return {
         ...state,
         pendingLogin: false,
         userError: action.payload
+      };
+    case types.SIGN_UP:
+      return {
+        ...state,
+        pendingLogin: true
+      };
+    case types.SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        pendingLogin: false,
+        userError: null,
+        user: action.payload.user
+      };
+    case types.SIGN_UP_ERROR:
+      return {
+        ...state,
+        pendingLogin: false,
+        userError: action.payload
+      };
+    case types.FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        profile: action.payload
       };
     case types.LOG_OUT:
       return {
@@ -40,6 +69,14 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         user: null,
         pendingLogout: false,
+        profile: {
+          userName: null,
+          city: null,
+          firstName: null,
+          lastName: null,
+          avatar: null,
+          coords: null,
+        }
       };
     case types.LOG_OUT_ERROR:
       return {

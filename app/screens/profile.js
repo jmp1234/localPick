@@ -3,7 +3,8 @@ import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import {auth, database} from '../../config/firebaseconfig';
 import {connect} from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
-import {userLogout} from '../actions';
+import {userLogout, fetchUserInfo} from '../actions';
+import {selectRestaurantNames, selectUserRestaurants, selectCurrentUser} from '../selectors/profileSelectors';
 
 class Profile extends Component {
   constructor(props) {
@@ -16,41 +17,35 @@ class Profile extends Component {
   }
 
 
-  viewNotes = () => {
-    this.props.navigation.navigate('RestaurantNotes');
+  viewNotes = (restaurantObj) => {
+    this.props.navigation.navigate('RestaurantNotes', restaurantObj);
   }
 
 
-  fetchUserInfo = userId => {
-    var that = this;
-    database.ref('users').child(userId).once('value').then(function(snapshot) {
-      const exists = (snapshot.val() !== null);
-      if(exists) {
-        const data = snapshot.val()
-        const {userName, city, firstName, lastName, avatar} = data;
-        that.setState({
-          userName, city, firstName, lastName, avatar
-        })
-      }
-    })
-  }
+  // fetchUserInfo = userId => {
+  //   var that = this;
+  //   database.ref('users').child(userId).once('value').then(function(snapshot) {
+  //     const exists = (snapshot.val() !== null);
+  //     if(exists) {
+  //       const data = snapshot.val()
+  //       const {userName, city, firstName, lastName, avatar} = data;
+  //       that.setState({
+  //         userName, city, firstName, lastName, avatar
+  //       })
+  //     }
+  //   })
+  // }
 
   checkUserAuth = () => {
     if(!this.props.user) {
       this.props.navigation.navigate('UserAuth')
-    } else {
-      var that = this;
-      auth.onAuthStateChanged(user => {
-        if(user) {
-          that.fetchUserInfo(user.uid)
-        }
-      })
     }
   }
 
 
   render() {
-    const {userName, city, firstName, lastName, avatar} = this.state
+    const {userName, city, firstName, lastName, avatar} = this.props
+    console.log('restaurant nams: ', this.props.restaurantNames)
     return (
       <View style={{flex: 1}}>
         <NavigationEvents onWillFocus={this.checkUserAuth}/>
@@ -89,18 +84,19 @@ class Profile extends Component {
               </TouchableOpacity>
             </View>
             <FlatList
-              data={this.state.restaurants}
+              data={this.props.restaurantNames}
+              // data={this.state.restaurants}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
                 <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
                   <TouchableOpacity
-                    onPress={() => this.viewNotes()}
+                    onPress={(restaurantObj) => this.viewNotes(this.props.restaurantNames[index])}
                     >
                     <Image
                       source={{uri: 'https://cdn.pixabay.com/photo/2017/10/15/11/41/sushi-2853382_960_720.jpg'}}
                       style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
                     />
-                    <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item}</Text>
+                    <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text>
                   </TouchableOpacity>
                 </View>
               )}
@@ -111,11 +107,18 @@ class Profile extends Component {
   }
 }
 
-const mapDispatchToProps = {userLogout}
+const mapDispatchToProps = {userLogout, fetchUserInfo}
 
 const mapStateToProps = state => {
   return {
-    user: state.currentUser.user
+    user: state.currentUser.user,
+    userName: state.currentUser.profile.userName,
+    city: state.currentUser.profile.city,
+    firstName: state.currentUser.profile.firstName,
+    lastName: state.currentUser.profile.lastName,
+    avatar: state.currentUser.profile.avatar,
+    currentUser: state.currentUser,
+    restaurantNames: selectRestaurantNames(state)
   }
 }
 
