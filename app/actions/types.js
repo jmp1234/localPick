@@ -19,4 +19,8 @@ export default  {
   SIGN_UP_ERROR: 'sign_up_error',
   SET_NEW_USER: 'set_new_user',
 
+  RESTAURANT_UPLOAD: 'restaurant_upload',
+  RESTAURANT_UPLOAD_SUCCESS: 'restaurant_upload_success',
+  RESTAURANT_UPLOAD_ERROR: 'restaurant_upload_error',
+
 }

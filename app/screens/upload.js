@@ -21,16 +21,16 @@ class Upload extends Component {
     }
   }
 
-  s4 = () => {
-  return Math.floor((1 + Math.random()) * 0x10000)
-  .toString(16)
-  .substring(1);
-  } 
-
-  uniqueId = () => {
-    return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
-    this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4();
-  }
+  // s4 = () => {
+  // return Math.floor((1 + Math.random()) * 0x10000)
+  // .toString(16)
+  // .substring(1);
+  // }
+  //
+  // uniqueId = () => {
+  //   return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+  //   this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4();
+  // }
 
 
   render() {
@@ -73,7 +73,13 @@ class Upload extends Component {
                     console.log('name: ', details.name)
                     console.log('type: ', details.types)
                     console.log('website: ', details.website)
-                    console.log('address: ', details.address_components.map(address => address.long_name))
+                    console.log('formatted address: ', details.formatted_address)
+                    const {name, website, formatted_address} = details
+                    if(details.name) {
+                      this.props.navigation.navigate('CreateNotes', {
+                        name, website, address: formatted_address
+                      })
+                    }
                   }}
                   query={{
                     // available options: https://developers.google.com/places/web-service/autocomplete
@@ -119,7 +125,7 @@ class Upload extends Component {
 const mapStateToProps = state => {
   return {
     user: state.currentUser.user,
-    coords: state.currentUser.profile.coords
+    coords: state.profileReducer.coords
   }
 }
 

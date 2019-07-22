@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import  _ from 'lodash';
 
-export const selectCurrentUser = state => state.currentUser.profile
+export const selectCurrentUser = state => state.profileReducer
 
 export const selectUserRestaurants = (state) => {
   const user = selectCurrentUser(state);

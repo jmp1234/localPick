@@ -44,7 +44,7 @@ class Profile extends Component {
 
 
   render() {
-    const {userName, city, firstName, lastName, avatar} = this.props
+    const {userName, city, firstName, lastName, avatar} = this.props.currentUser
     console.log('restaurant nams: ', this.props.restaurantNames)
     return (
       <View style={{flex: 1}}>
@@ -112,12 +112,12 @@ const mapDispatchToProps = {userLogout, fetchUserInfo}
 const mapStateToProps = state => {
   return {
     user: state.currentUser.user,
-    userName: state.currentUser.profile.userName,
-    city: state.currentUser.profile.city,
-    firstName: state.currentUser.profile.firstName,
-    lastName: state.currentUser.profile.lastName,
-    avatar: state.currentUser.profile.avatar,
-    currentUser: state.currentUser,
+    // userName: state.profile.userName,
+    // city: state.profile.city,
+    // firstName: state.profile.firstName,
+    // lastName: state.profile.lastName,
+    // avatar: state.profile.avatar,
+    currentUser: selectCurrentUser(state),
     restaurantNames: selectRestaurantNames(state)
   }
 }
