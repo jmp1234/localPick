@@ -1,5 +1,6 @@
 import types from './types';
 
+
 //Login Functions
 export const userLogin = (email, password) => ({
   type: types.LOG_IN,
@@ -25,5 +26,55 @@ export const logoutSuccess = () => ({
 
 export const logoutFailure = errorMessage => ({
   type: types.LOG_OUT_ERROR,
+  payload: errorMessage
+});
+
+//Sign Up
+export const userSignup = (email, password, firstName, lastName, userName, coords, city) => ({
+  type: types.SIGN_UP,
+  payload: { email, password, firstName, lastName, userName, coords, city },
+});
+
+export const signupSuccess = (user, firstName, lastName, userName, coords, city, email) => ({
+  type: types.SIGN_UP_SUCCESS,
+  payload: {user, firstName, lastName, userName, coords, city, email}
+});
+
+export const signupFailure = errorMessage => ({
+  type: types.SIGN_UP_ERROR,
+  payload: errorMessage
+});
+
+export const setNewUser = (email, password) => ({
+  type: types.SET_NEW_USER,
+  payload: { email, password },
+});
+
+
+//Fetch Profile
+
+export const fetchUserInfo = userId => ({
+  type: types.FETCH_USER_PROFILE,
+  payload: userId
+});
+
+export const fetchUserSuccess = userObj => ({
+  type: types.FETCH_USER_SUCCESS,
+  payload: userObj
+})
+
+//FETCH USER PICKS
+export const fetchUserPicks = restaurants => ({
+  type: types.FETCH_USER_PICKS,
+  payload: restaurants,
+});
+
+export const fetchUserPicksSuccess = restaurants => ({
+  type: types.FETCH_USER_PICKS_SUCCESS,
+  payload: restaurants
+});
+
+export const fetchUserPicksFailure = errorMessage => ({
+  type: types.FETCH_USER_PICKS_ERROR,
   payload: errorMessage
 });

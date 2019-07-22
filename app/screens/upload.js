@@ -11,7 +11,6 @@ class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       page: 0
     }
   }
@@ -20,6 +19,17 @@ class Upload extends Component {
     if(!this.props.user) {
       this.props.navigation.navigate('UserAuth')
     }
+  }
+
+  s4 = () => {
+  return Math.floor((1 + Math.random()) * 0x10000)
+  .toString(16)
+  .substring(1);
+  } 
+
+  uniqueId = () => {
+    return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+    this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4();
   }
 
 
@@ -60,8 +70,6 @@ class Upload extends Component {
                   renderDescription={row => row.description} // custom description render
                   getDefaultValue={() => ''}
                   onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                    // console.log('data: ', data)
-                    // console.log('details: ', details)
                     console.log('name: ', details.name)
                     console.log('type: ', details.types)
                     console.log('website: ', details.website)
@@ -73,7 +81,8 @@ class Upload extends Component {
                     language: 'en', // language of the results
                     types: 'establishment', // default: 'geocode'
                     strictbounds: true,
-                    location: '34.4208, -119.6982',
+                    // location: '34.4208, -119.6982',
+                    location: this.props.coords,
                     radius: 25000,
                   }}
                   styles={{
@@ -109,7 +118,8 @@ class Upload extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.currentUser.user
+    user: state.currentUser.user,
+    coords: state.currentUser.profile.coords
   }
 }
 

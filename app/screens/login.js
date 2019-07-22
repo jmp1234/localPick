@@ -15,28 +15,6 @@ class Login extends Component {
     }
   }
 
-  navigateBack = () => {
-    this.props.navigation.goBack();
-  }
-
-  // login = async(email, password) => {
-  //   const user = this.props.userLogin(email, password)
-  //   if(user) {
-  //     this.props.navigation.goBack()
-  //   }
-  //   // try {
-  //   //   let user = await auth.signInWithEmailAndPassword(email, password); //test@test.com password
-  //   //   if(user) {
-  //   //     this.props.navigation.goBack()
-  //   //   }
-  //   // } catch(error) {
-  //   //   Alert.alert('Login Error: ', error.message)
-  //   // }
-  // }
-
-  login = (email, password) => {
-    this.props.userLogin(email, password)
-  }
 
   render() {
     return (
@@ -65,7 +43,7 @@ class Login extends Component {
           <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
                 <TouchableOpacity
                   style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-                  onPress={() => this.login(this.state.emailText, this.state.passwordText)}
+                  onPress={() => this.props.userLogin(this.state.emailText, this.state.passwordText)}
                 >
                   <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Log In</Text>
                 </TouchableOpacity>

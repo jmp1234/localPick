@@ -14,7 +14,6 @@ import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import * as NavigationService from './app/services/navigation/navigationService';
-import {loginSuccess} from './app/actions';
 
 const profile = createStackNavigator({
   Profile: {screen: Profile,
@@ -76,15 +75,6 @@ const AppContainer = createAppContainer(MainStack)
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    auth.onAuthStateChanged(user => {
-      if(user) {
-        console.log('App: logged in:')
-        store.dispatch(loginSuccess());
-      } else {
-        console.log('App: user is logged out!!!')
-      }
-    })
   }
 
   componentDidMount() {
@@ -100,4 +90,5 @@ class App extends React.Component {
   }
 }
 
-export default App;
+
+export default App
