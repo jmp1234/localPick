@@ -62,3 +62,19 @@ export const fetchUserSuccess = userObj => ({
   type: types.FETCH_USER_SUCCESS,
   payload: userObj
 })
+
+//FETCH USER PICKS
+export const fetchUserPicks = restaurants => ({
+  type: types.FETCH_USER_PICKS,
+  payload: restaurants,
+});
+
+export const fetchUserPicksSuccess = restaurants => ({
+  type: types.FETCH_USER_PICKS_SUCCESS,
+  payload: restaurants
+});
+
+export const fetchUserPicksFailure = errorMessage => ({
+  type: types.FETCH_USER_PICKS_ERROR,
+  payload: errorMessage
+});

@@ -4,6 +4,7 @@ import {auth, database} from '../../config/firebaseconfig';
 import {connect} from 'react-redux';
 import { NavigationEvents } from 'react-navigation';
 import {userLogout, fetchUserInfo} from '../actions';
+import {selectRestaurantNames, selectUserRestaurants, selectCurrentUser} from '../selectors/profileSelectors';
 
 class Profile extends Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class Profile extends Component {
   }
 
 
-  viewNotes = () => {
-    this.props.navigation.navigate('RestaurantNotes');
+  viewNotes = (restaurantObj) => {
+    this.props.navigation.navigate('RestaurantNotes', restaurantObj);
   }
 
 
@@ -38,12 +39,13 @@ class Profile extends Component {
   checkUserAuth = () => {
     if(!this.props.user) {
       this.props.navigation.navigate('UserAuth')
-    } 
+    }
   }
 
 
   render() {
     const {userName, city, firstName, lastName, avatar} = this.props
+    console.log('restaurant nams: ', this.props.restaurantNames)
     return (
       <View style={{flex: 1}}>
         <NavigationEvents onWillFocus={this.checkUserAuth}/>
@@ -82,18 +84,19 @@ class Profile extends Component {
               </TouchableOpacity>
             </View>
             <FlatList
-              data={this.state.restaurants}
+              data={this.props.restaurantNames}
+              // data={this.state.restaurants}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
                 <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
                   <TouchableOpacity
-                    onPress={() => this.viewNotes()}
+                    onPress={(restaurantObj) => this.viewNotes(this.props.restaurantNames[index])}
                     >
                     <Image
                       source={{uri: 'https://cdn.pixabay.com/photo/2017/10/15/11/41/sushi-2853382_960_720.jpg'}}
                       style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
                     />
-                    <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item}</Text>
+                    <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text>
                   </TouchableOpacity>
                 </View>
               )}
@@ -113,7 +116,9 @@ const mapStateToProps = state => {
     city: state.currentUser.profile.city,
     firstName: state.currentUser.profile.firstName,
     lastName: state.currentUser.profile.lastName,
-    avatar: state.currentUser.profile.avatar
+    avatar: state.currentUser.profile.avatar,
+    currentUser: state.currentUser,
+    restaurantNames: selectRestaurantNames(state)
   }
 }
 
