@@ -70,10 +70,6 @@ class Upload extends Component {
                   renderDescription={row => row.description} // custom description render
                   getDefaultValue={() => ''}
                   onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                    console.log('name: ', details.name)
-                    console.log('type: ', details.types)
-                    console.log('website: ', details.website)
-                    console.log('formatted address: ', details.formatted_address)
                     const {name, website, formatted_address} = details
                     if(details.name) {
                       this.props.navigation.navigate('CreateNotes', {

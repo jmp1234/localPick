@@ -112,11 +112,6 @@ const mapDispatchToProps = {userLogout, fetchUserInfo}
 const mapStateToProps = state => {
   return {
     user: state.currentUser.user,
-    // userName: state.profile.userName,
-    // city: state.profile.city,
-    // firstName: state.profile.firstName,
-    // lastName: state.profile.lastName,
-    // avatar: state.profile.avatar,
     currentUser: selectCurrentUser(state),
     restaurantNames: selectRestaurantNames(state)
   }

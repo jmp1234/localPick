@@ -1,6 +1,6 @@
 import { all, call, fork, put, takeEvery, take } from "redux-saga/effects";
 import types from '../actions/types';
-import {onLogin, onLogout, onSignup, onSignupSuccess, onFetchUser} from './workers';
+import {onLogin, onLogout, onSignup, onSignupSuccess, onFetchUser, onRestaurantUpload} from './workers';
 import {getAuthChannel} from './eventChannelSaga';
 
 export function* watchLogin() {
@@ -30,4 +30,8 @@ export function* watchForFirebaseAuth() {
   const channel = yield call(getAuthChannel);
   const result = yield take(channel);
   // result is what you pass to the emit function.
+}
+
+export function* watchRestaurantUpload() {
+  yield takeEvery(types.RESTAURANT_UPLOAD, onRestaurantUpload)
 }

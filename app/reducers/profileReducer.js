@@ -7,15 +7,11 @@ const DEFAULT_STATE = {
   lastName: null,
   avatar: null,
   coords: null,
+  restaurants: {},
 }
 
 export default (state = DEFAULT_STATE, action) => {
   switch(action.type) {
-    case types.LOG_IN:
-      return {
-        ...state,
-        pendingLogin: true
-      };
     case types.FETCH_USER_SUCCESS:
       return {
         ...state,
@@ -30,7 +26,30 @@ export default (state = DEFAULT_STATE, action) => {
           lastName: null,
           avatar: null,
           coords: null,
+          restaurants: {}
       };
+    case types.RESTAURANT_UPLOAD:
+      return {
+        ...state
+      }
+    case types.RESTAURANT_UPLOAD_SUCCESS:
+      return {
+        ...state,
+        restaurants: {
+          ...state.restaurants,
+          [action.payload.restaurantId]: {
+            address: action.payload.address,
+            name: action.payload.name,
+            website: action.payload.website,
+            user: action.payload.user,
+            notes: action.payload.notes
+          }
+        }
+      }
+    case types.RESTAURANT_UPLOAD_ERROR:
+      return {
+        ...state
+      }
 
   default:
     return state;

@@ -14,6 +14,6 @@ export function addToMainFeed(restaurantId, restaurantObj) {
   database.ref('/restaurants/' + restaurantId).set(restaurantObj);
 }
 
-export function setUserRestaurantObj(restaurantId, restaurantObj) {
+export function setUserRestaurantObj(restaurantId, restaurantObj, userId) {
   database.ref('/users/' + userId + '/restaurants/' + restaurantId).set(restaurantObj);
 }
