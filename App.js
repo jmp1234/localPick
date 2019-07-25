@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import Profile from './app/screens/profile';
+import {ProfileContainer} from './app/screens/profile';
 import Search from './app/screens/search';
 import Upload from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
@@ -15,9 +15,10 @@ import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
 import store from './app/store';
 import * as NavigationService from './app/services/navigation/navigationService';
+import axios from 'axios';
 
 const profile = createStackNavigator({
-  Profile: {screen: Profile,
+  Profile: {screen: ProfileContainer,
     navigationOptions: {
      header: null,
   }},

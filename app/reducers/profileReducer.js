@@ -42,7 +42,8 @@ export default (state = DEFAULT_STATE, action) => {
             name: action.payload.name,
             website: action.payload.website,
             user: action.payload.user,
-            notes: action.payload.notes
+            notes: action.payload.notes,
+            photoReference: action.payload.photoReference
           }
         }
       }

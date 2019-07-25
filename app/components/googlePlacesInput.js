@@ -49,7 +49,7 @@ export default withNavigation((props) => {
         // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
       }}
       GooglePlacesSearchQuery={{
-        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+        // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/searc
         rankby: 'distance',
         types: 'food'
       }}

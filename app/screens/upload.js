@@ -21,18 +21,6 @@ class Upload extends Component {
     }
   }
 
-  // s4 = () => {
-  // return Math.floor((1 + Math.random()) * 0x10000)
-  // .toString(16)
-  // .substring(1);
-  // }
-  //
-  // uniqueId = () => {
-  //   return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
-  //   this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4();
-  // }
-
-
   render() {
 
     const homePlace = { description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
@@ -71,19 +59,18 @@ class Upload extends Component {
                   getDefaultValue={() => ''}
                   onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                     const {name, website, formatted_address} = details
+                    const photoReference = details.photos[0].photo_reference;
                     if(details.name) {
                       this.props.navigation.navigate('CreateNotes', {
-                        name, website, address: formatted_address
+                        name, website, address: formatted_address, photoReference
                       })
                     }
                   }}
                   query={{
-                    // available options: https://developers.google.com/places/web-service/autocomplete
                     key: config.GOOGLE_PLACES_KEY,
                     language: 'en', // language of the results
                     types: 'establishment', // default: 'geocode'
                     strictbounds: true,
-                    // location: '34.4208, -119.6982',
                     location: this.props.coords,
                     radius: 25000,
                   }}
@@ -98,16 +85,6 @@ class Upload extends Component {
                       color: '#1faadb'
                     }
                   }}
-                  // nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-                  // GooglePlacesSearchQuery={{
-                  //   // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-                  //   // rankby: 'distance',
-                  //   type: 'food',
-                  //   types: 'food',
-                  //   key: config.GOOGLE_PLACES_KEY,
-                  //   location: '48.8566, 2.3522',
-                  //   radius: 3000,
-                  // }}
                   debounce={200}
                 />
               </View>

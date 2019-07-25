@@ -49,6 +49,23 @@ class LocalPicks extends Component {
               style={{resizeMode: 'cover', width: '100%', height: 240}}
             />
           </TouchableOpacity>
+          {/* <FlatList
+            data={this.props.restaurantNames}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item, index}) => (
+              <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
+                <TouchableOpacity
+                  onPress={(restaurantObj) => this.viewNotes(this.props.restaurantNames[index])}
+                  >
+                  <Image
+                    source={{uri: 'https://cdn.pixabay.com/photo/2017/10/15/11/41/sushi-2853382_960_720.jpg'}}
+                    style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
+                  />
+                  <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          /> */}
           <Text>Local Picks</Text>
       </View>
     )

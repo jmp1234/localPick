@@ -22,14 +22,12 @@ class UserAuth extends Component {
   }
 
   showLogin = () => {
-    console.log('show login')
     this.setState({
       authPage: 2
     })
   }
 
   goBack = () => {
-    console.log('you went back')
     this.setState({
       authPage: 0
     })

@@ -25,7 +25,7 @@ class CreateNotes extends Component {
   }
 
   submitNewLocalPick = () => {
-    const {address, name, website} = this.props.navigation.state.params
+    const {address, name, website, photoReference} = this.props.navigation.state.params
     const restaurantId = this.uniqueId();
     // const {userId} = this.props
     const{notes} = this.state
@@ -36,7 +36,7 @@ class CreateNotes extends Component {
     //   notes: this.state.notes
     // }
 
-    this.props.restaurantUpload(restaurantId, address, name, website, this.props.userId, notes)
+    this.props.restaurantUpload(restaurantId, address, name, website, this.props.userId, notes, photoReference)
 
     //add to main Feed
     // database.ref('/restaurants/' + restaurantId).set(restaurantObj);
