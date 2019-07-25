@@ -7,6 +7,7 @@ import Upload from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
 import Restaurant from './app/screens/restaurantDescription';
 import RestaurantNotes from './app/screens/notes';
+import CreateNotes from './app/screens/createNotes'
 import UserAuth from './app/screens/auth';
 import Signup from './app/screens/signup';
 import Login from './app/screens/login';
@@ -26,6 +27,17 @@ const profile = createStackNavigator({
   }},
 })
 
+const upload= createStackNavigator({
+  Upload: {screen: Upload,
+    navigationOptions: {
+     header: null,
+  }},
+  CreateNotes: { screen: CreateNotes,
+    navigationOptions: {
+     header: null,
+  }},
+})
+
 const search = createStackNavigator({
   Search: {screen: Search,
     navigationOptions: {
@@ -40,7 +52,7 @@ const search = createStackNavigator({
 const TabStack = createBottomTabNavigator(
   {
     Search: { screen: search},
-    Upload: { screen: Upload},
+    Upload: { screen: upload},
     Profile: { screen: profile},
   },
   {

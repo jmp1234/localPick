@@ -78,3 +78,20 @@ export const fetchUserPicksFailure = errorMessage => ({
   type: types.FETCH_USER_PICKS_ERROR,
   payload: errorMessage
 });
+
+// RESTAURANT Upload
+export const restaurantUpload =  (restaurantId, address, name, website, user, notes) => ({
+  type: types.RESTAURANT_UPLOAD,
+  payload: {restaurantId, address, name, website, user, notes}
+});
+
+
+export const restaurantUploadSuccess = (address, name, website, user, notes, restaurantId) => ({
+  type: types.RESTAURANT_UPLOAD_SUCCESS,
+  payload: {address, name, website, user, notes, restaurantId}
+});
+
+export const restaurantUploadFailure = restaurants => ({
+  type: types.RESTAURANT_UPLOAD_ERROR,
+  payload: restaurants,
+});
