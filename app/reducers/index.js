@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import currentUser from './userReducer';
-import userLocalPicks from './profileReducer';
+import profileReducer from './profileReducer';
 
 export default combineReducers({
   currentUser,
-  userLocalPicks
+  profileReducer
 })

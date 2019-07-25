@@ -1,9 +1,9 @@
 import { all, call, fork, put, takeEvery, eventChannel } from "redux-saga/effects";
 import {auth, database} from '../../config/firebaseconfig';
-import {loginSuccess, loginFailure, logoutSuccess, logoutFailure, signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess} from '../actions';
+import {loginSuccess, loginFailure, logoutSuccess, logoutFailure, signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess, restaurantUploadSuccess} from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
-import {setUser, getUser} from '../services/user';
+import {setUser, getUser, addToMainFeed, setUserRestaurantObj} from '../services/user';
 
 export function* onLogin(action) {
   const {email, password} = action.payload
@@ -68,5 +68,18 @@ export function* onSignupSuccess(action) {
 
   } catch(err) {
     Alert.alert('error')
+  }
+}
+export function* onRestaurantUpload(action) {
+  const {restaurantId, address, name, website, user, notes} = action.payload
+  const restaurantObj = {address, name, website, user, notes}
+
+  try{
+    yield call(addToMainFeed, restaurantId, restaurantObj);
+    yield call(setUserRestaurantObj, restaurantId, restaurantObj, user);
+    yield put(restaurantUploadSuccess(address, name, website, user, notes, restaurantId))
+    NavigationService.navigate('Profile');
+  } catch(err){
+    Alert.alert('Error uploading restaurant: ', err.message)
   }
 }
