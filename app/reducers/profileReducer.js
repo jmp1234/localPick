@@ -15,6 +15,9 @@ export default (state = DEFAULT_STATE, action) => {
     case types.FETCH_USER_SUCCESS:
       return {
         ...state,
+        restaurants: {
+          ...state.restaurants,
+        },
         ...action.payload
       };
     case types.LOG_OUT_SUCCESS:

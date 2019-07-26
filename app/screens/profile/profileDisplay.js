@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
-export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, userLogout}) => {
+export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, userLogout, userRestaurantsInfo}) => {
 
   const {userName, city, firstName, lastName, avatar} = currentUser
 
@@ -13,7 +13,7 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
   }
 
   viewNotes = (restaurantObj) => {
-    navigation.navigate('RestaurantNotes', restaurantObj);
+    navigation.navigate('RestaurantDisplay', restaurantObj);
   }
 
   return (
@@ -74,20 +74,3 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
     </View>
   )
 }
-
-
-
-
-  // fetchUserInfo = userId => {
-  //   var that = this;
-  //   database.ref('users').child(userId).once('value').then(function(snapshot) {
-  //     const exists = (snapshot.val() !== null);
-  //     if(exists) {
-  //       const data = snapshot.val()
-  //       const {userName, city, firstName, lastName, avatar} = data;
-  //       that.setState({
-  //         userName, city, firstName, lastName, avatar
-  //       })
-  //     }
-  //   })
-  // }

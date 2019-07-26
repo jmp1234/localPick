@@ -58,17 +58,17 @@ class Upload extends Component {
                   renderDescription={row => row.description} // custom description render
                   getDefaultValue={() => ''}
                   onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-                    const {name, website, formatted_address} = details
+                    const {name, website, formatted_address, id} = details
                     const photoReference = details.photos[0].photo_reference;
                     if(details.name) {
                       this.props.navigation.navigate('CreateNotes', {
-                        name, website, address: formatted_address, photoReference
+                        name, website, address: formatted_address, photoReference, restaurantId: id
                       })
                     }
                   }}
                   query={{
                     key: config.GOOGLE_PLACES_KEY,
-                    language: 'en', // language of the results
+                    language: 'en', 
                     types: 'establishment', // default: 'geocode'
                     strictbounds: true,
                     location: this.props.coords,

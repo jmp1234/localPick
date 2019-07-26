@@ -84,7 +84,6 @@ export function* onRestaurantUpload(action) {
     yield put(restaurantUploadSuccess(address, name, website, user, notes, restaurantId, photoReference))
     NavigationService.navigate('Profile');
   } catch(err){
-    // Alert.alert('Error uploading restaurant: ', err.message)
-    console.log(err)
+    Alert.alert('Error uploading restaurant: ', err.message)
   }
 }

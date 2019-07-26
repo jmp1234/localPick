@@ -26,26 +26,12 @@ class Signup extends Component {
     }
   }
 
-  // createUserObj(userObj, email) {
-  //   const {firstName, lastName, userName, coords, city} = this.state
-  //   const uObj = {
-  //     firstName, lastName, userName, email, coords, city,
-  //     avatar: 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png'
-  //   }
-  //   database.ref('users').child(userObj.uid).set(uObj).then(() => {
-  //     this.props.navigation.goBack()
-  //   });
-  // }
-
   signup = () => {
     const {firstName, lastName, userName, email, password, city, coords, confirmPassword} = this.state;
     if(firstName && lastName && userName && email && password && confirmPassword && city && coords) {
       if(password !== confirmPassword) {
         Alert.alert('Signup error: ', 'Passwords do not match')
       } else {
-        // let user = auth.createUserWithEmailAndPassword(email, password)
-        //   .then(userObj => this.createUserObj(userObj.user, email))
-        //   .catch(error => Alert.alert('Signup error: ', error.message))
         this.props.userSignup(email, password, firstName, lastName, userName, coords, city)
       }
 

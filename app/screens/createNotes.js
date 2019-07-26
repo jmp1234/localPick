@@ -25,8 +25,8 @@ class CreateNotes extends Component {
   }
 
   submitNewLocalPick = () => {
-    const {address, name, website, photoReference} = this.props.navigation.state.params
-    const restaurantId = this.uniqueId();
+    const {address, name, website, photoReference, restaurantId} = this.props.navigation.state.params
+    // const restaurantId = this.uniqueId();
     // const {userId} = this.props
     const{notes} = this.state
 

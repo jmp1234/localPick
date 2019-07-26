@@ -5,8 +5,7 @@ import {ProfileContainer} from './app/screens/profile';
 import Search from './app/screens/search';
 import Upload from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
-import Restaurant from './app/screens/restaurantDescription';
-import RestaurantNotes from './app/screens/notes';
+import RestaurantDisplay from './app/screens/restaurantDisplay';
 import CreateNotes from './app/screens/createNotes'
 import UserAuth from './app/screens/auth';
 import Signup from './app/screens/signup';
@@ -22,7 +21,7 @@ const profile = createStackNavigator({
     navigationOptions: {
      header: null,
   }},
-  RestaurantNotes: { screen: RestaurantNotes,
+  RestaurantDisplay: { screen: RestaurantDisplay,
     navigationOptions: {
      header: null,
   }},
@@ -50,6 +49,7 @@ const search = createStackNavigator({
   }},
 })
 
+
 const TabStack = createBottomTabNavigator(
   {
     Search: { screen: search},
@@ -74,7 +74,6 @@ const MainStack = createStackNavigator(
     UserAuth: {screen: UserAuth},
     Signup: {screen: Signup},
     Login: {screen: Login},
-    Restaurant: {screen: Restaurant},
   },
   {
     initialRouteName: 'Home',
