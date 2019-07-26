@@ -95,3 +95,18 @@ export const restaurantUploadFailure = restaurants => ({
   type: types.RESTAURANT_UPLOAD_ERROR,
   payload: restaurants,
 });
+
+//upload page
+// export const moveToNextUploadPage = () => ({
+//   type: types.UPLOAD_NEXT_PAGE
+// })
+export const moveToNextUploadPage = () => {
+  return {
+    type: types.UPLOAD_NEXT_PAGE
+  }
+}
+
+
+export const moveBackUploadPage = () => ({
+  type: types.UPLOAD_MOVE_BACK
+})

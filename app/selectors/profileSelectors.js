@@ -4,6 +4,11 @@ import config from '../../config/config';
 
 export const selectCurrentUser = state => state.profileReducer
 
+export const selectCoords = state => {
+  const user = selectCurrentUser(state);
+  return user.coords
+}
+
 export const selectUserRestaurants = (state) => {
   const user = selectCurrentUser(state);
   return user.restaurants

@@ -3,6 +3,7 @@ import {View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'rea
 import {auth, database} from '../../config/firebaseconfig';
 import {connect} from 'react-redux';
 import {restaurantUpload} from '../actions';
+import { NavigationEvents, StackActions, NavigationActions } from 'react-navigation';
 
 class CreateNotes extends Component {
   constructor(props) {
@@ -26,31 +27,10 @@ class CreateNotes extends Component {
 
   submitNewLocalPick = () => {
     const {address, name, website, photoReference, restaurantId} = this.props.navigation.state.params
-    // const restaurantId = this.uniqueId();
-    // const {userId} = this.props
     const{notes} = this.state
-
-    // const restaurantObj = {
-    //   address, name, website,
-    //   user: userId,
-    //   notes: this.state.notes
-    // }
-
     this.props.restaurantUpload(restaurantId, address, name, website, this.props.userId, notes, photoReference)
-
-    //add to main Feed
-    // database.ref('/restaurants/' + restaurantId).set(restaurantObj);
-    //
-    // //set user photos object
-    // database.ref('/users/' + userId + '/restaurants/' + restaurantId).set(restaurantObj);
-    //
-    // alert('restarant uploaded')
-
-    // database.ref('users').child(userId).set(restaurantObj).then(() => {
-    //   // this.props.navigation.goBack()
-    //   alert('restarant uploaded')
-    // });
   }
+
 
   render() {
 
