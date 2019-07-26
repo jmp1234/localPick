@@ -8,7 +8,7 @@ import LocalPicks from './app/screens/localPicks';
 import RestaurantDisplay from './app/screens/restaurantDisplay';
 import CreateNotes from './app/screens/createNotes'
 import UserAuth from './app/screens/auth';
-import Signup from './app/screens/signup';
+import {SignupContainer} from './app/screens/signup';
 import {LoginContainer} from './app/screens/login';
 import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
@@ -72,7 +72,7 @@ const MainStack = createStackNavigator(
   {
     Home: { screen: TabStack },
     UserAuth: {screen: UserAuth},
-    Signup: {screen: Signup},
+    Signup: {screen: SignupContainer},
     Login: {screen: LoginContainer},
   },
   {

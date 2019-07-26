@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import {LoginContainer} from './login';
-import Signup from './signup';
+import {SignupContainer} from './signup';
 import AuthNavBar from '../components/authNavBar';
 
 
@@ -72,7 +72,7 @@ class UserAuth extends Component {
           {this.state.authPage === 1 ? (
             <View style={{flex: 1, justifyContent: 'space-between', flexDirection: 'column'}}>
               <AuthNavBar type='Sign Up' handlePress={this.goBack}/>
-              <Signup />
+              <SignupContainer />
             </View>
           ) : (
             <View style={{flex: 1, justifyContent: 'space-between', flexDirection: 'column'}}>

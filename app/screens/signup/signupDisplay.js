@@ -1,14 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import { View, Alert, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
-import {auth, database} from '../../config/firebaseconfig';
+import {auth, database} from '../../../config/firebaseconfig';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import config from '../../config/config';
-import { withNavigation } from 'react-navigation';
-import CitySignup from '../components/citySignup';
-import {connect} from 'react-redux';
-import {userSignup} from '../actions';
+import config from '../../../config/config';
+import CitySignup from '../../components/citySignup';
 
-class Signup extends Component {
+class SignupDisplay extends Component {
   constructor(props) {
     super(props);
 
@@ -155,9 +152,4 @@ class Signup extends Component {
   }
 }
 
-const mapDispatchToProps = {userSignup}
-
-export default withNavigation(connect(
-  null,
-  mapDispatchToProps
-)(Signup));
+export default SignupDisplay;
