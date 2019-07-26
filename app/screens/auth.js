@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
 import { withNavigation } from 'react-navigation';
-import Login from './login';
+import {LoginContainer} from './login';
 import Signup from './signup';
 import AuthNavBar from '../components/authNavBar';
 
@@ -77,7 +77,7 @@ class UserAuth extends Component {
           ) : (
             <View style={{flex: 1, justifyContent: 'space-between', flexDirection: 'column'}}>
               <AuthNavBar type='Log In' handlePress={this.goBack}/>
-              <Login />
+              <LoginContainer />
             </View>
 
           )}

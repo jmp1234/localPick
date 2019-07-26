@@ -9,7 +9,7 @@ import RestaurantDisplay from './app/screens/restaurantDisplay';
 import CreateNotes from './app/screens/createNotes'
 import UserAuth from './app/screens/auth';
 import Signup from './app/screens/signup';
-import Login from './app/screens/login';
+import {LoginContainer} from './app/screens/login';
 import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
 import store from './app/store';
@@ -73,7 +73,7 @@ const MainStack = createStackNavigator(
     Home: { screen: TabStack },
     UserAuth: {screen: UserAuth},
     Signup: {screen: Signup},
-    Login: {screen: Login},
+    Login: {screen: LoginContainer},
   },
   {
     initialRouteName: 'Home',
