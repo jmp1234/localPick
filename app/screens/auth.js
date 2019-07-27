@@ -4,6 +4,7 @@ import { withNavigation } from 'react-navigation';
 import {LoginContainer} from './login';
 import {SignupContainer} from './signup';
 import AuthNavBar from '../components/authNavBar';
+import {Header} from 'react-native-elements';
 
 
 class UserAuth extends Component {
@@ -46,6 +47,13 @@ class UserAuth extends Component {
               <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'white'}}>✗</Text>
             </TouchableOpacity>
           </View>
+           {/* <Header
+            leftComponent={{ icon: 'close', color: 'white', underlayColor: 'transparent', onPress: () => this.props.navigation.navigate('Search')}}
+            containerStyle={{
+              backgroundColor: 'transparent',
+              borderBottomColor: 'transparent'
+            }}
+          /> */}
             <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
                <Text style={{textAlign: 'center', color: 'white', fontSize: 40, textShadowColor: 'black',
                 textShadowOffset: {width: -1, height: 1},

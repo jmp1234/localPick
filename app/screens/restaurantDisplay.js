@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import {Header} from 'react-native-elements';
 
 const RestaurantDisplay = ({navigation}) => {
 
@@ -7,14 +8,21 @@ const RestaurantDisplay = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <View style={{position: 'relative', height: 70, paddingTop: 30, borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
+      <Header
+        centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
+        leftComponent={{ icon: 'arrow-back', color: 'black', onPress: () => navigation.goBack()}}
+        containerStyle={{
+          backgroundColor: 'white',
+        }}
+      />
+      {/* <View style={{position: 'relative', height: 70, paddingTop: 30, borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{width: 100, left: 0, top: 35, justifyContent: 'center', position: 'absolute'}}>
           <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'black'}}>←</Text>
         </TouchableOpacity>
         <Text style={{fontWeight: 'bold'}}>Notes</Text>
-      </View>
+      </View> */}
       <View>
         <Image
           source={{uri: link}}

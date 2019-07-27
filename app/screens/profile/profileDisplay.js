@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+import {Header} from 'react-native-elements';
 
 export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, userLogout}) => {
 
@@ -19,10 +20,17 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={checkUserAuth}/>
+      <Header
+        centerComponent={{ text: userName, style: { color: 'black', fontWeight: 'bold' } }}
+        rightComponent={{ icon: 'edit', color: 'black', onPress: () => console.log('pressed')}}
+        containerStyle={{
+          backgroundColor: 'white',
+        }}
+      />
         <View style={{flex:1}}>
-          <View style={{height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
+          {/* <View style={{height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
             <Text style={{fontWeight: 'bold'}}>{userName}</Text>
-          </View>
+          </View> */}
           <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
             <Image source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}} />
             <View style={{marginRight: 10}}>
@@ -37,10 +45,10 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
               >
               <Text style={{textAlign: 'center', color: 'grey'}}>Logout</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}>
               <Text style={{textAlign: 'center', color: 'grey'}}>Edit Profile</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={{backgroundColor: 'white', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 5, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
             <TouchableOpacity>
