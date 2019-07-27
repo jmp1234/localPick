@@ -81,7 +81,8 @@ export function* onRestaurantUpload(action) {
     yield call(addToMainFeed, restaurantId, restaurantObj);
     yield call(setUserRestaurantObj, restaurantId, restaurantObj, user);
     //update state
-    yield put(restaurantUploadSuccess(address, name, website, user, notes, restaurantId, photoReference))
+    yield put(restaurantUploadSuccess(address, name, website, user, notes, restaurantId, photoReference));
+    NavigationService.goBack();
     NavigationService.navigate('Profile');
   } catch(err){
     Alert.alert('Error uploading restaurant: ', err.message)

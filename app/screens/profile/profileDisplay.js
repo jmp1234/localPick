@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
-export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, userLogout, userRestaurantsInfo}) => {
+export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, userLogout}) => {
 
   const {userName, city, firstName, lastName, avatar} = currentUser
 

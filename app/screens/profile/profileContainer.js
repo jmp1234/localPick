@@ -1,7 +1,7 @@
 import {ProfileDisplay} from './profileDisplay';
 import {connect} from 'react-redux';
 import {userLogout, fetchUserInfo} from '../../actions';
-import {selectCurrentUser, selectUserRestaurantsArray, selectUserRestaurantsInfo} from '../../selectors/profileSelectors';
+import {selectCurrentUser, selectUserRestaurantsArray} from '../../selectors/profileSelectors';
 
 
 
@@ -12,7 +12,6 @@ const mapStateToProps = state => {
     user: state.currentUser.user,
     currentUser: selectCurrentUser(state),
     userRestaurants: selectUserRestaurantsArray(state),
-    userRestaurantsInfo: selectUserRestaurantsInfo(state)
   }
 }
 

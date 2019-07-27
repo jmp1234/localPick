@@ -22,6 +22,11 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         notes: action.payload
       };
+    case types.RESTAURANT_UPLOAD_SUCCESS:
+      return {
+        ...state,
+        ...DEFAULT_STATE
+      }
 
   default:
     return state;

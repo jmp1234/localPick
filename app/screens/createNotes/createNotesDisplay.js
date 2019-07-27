@@ -3,9 +3,16 @@ import {View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'rea
 import {auth, database} from '../../../config/firebaseconfig';
 import { NavigationEvents, StackActions, NavigationActions } from 'react-navigation';
 
+// const resetAction = StackActions.reset({
+//   index: 0,
+//   actions: [NavigationActions.navigate({ routeName: 'Upload' })],
+// });
+// this.props.navigation.dispatch(resetAction);
+
 export const CreateNotesDisplay = ({userId, notes, navigation, restaurantUpload, addNotesAtUploadPage}) => {
 
   const {address, name, website, photoReference, restaurantId} = navigation.state.params
+  // navigation.dispatch(resetAction)
 
   return(
 
