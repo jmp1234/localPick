@@ -24,6 +24,7 @@ export default  {
   RESTAURANT_UPLOAD_ERROR: 'restaurant_upload_error',
 
   UPLOAD_NEXT_PAGE: 'upload_next_page',
-  UPLOAD_MOVE_BACK: 'upload_move_back'
+  UPLOAD_MOVE_BACK: 'upload_move_back',
+  UPLOAD_ADD_NOTES: 'upload_add_notes'
 
 }

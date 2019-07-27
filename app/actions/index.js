@@ -106,7 +106,11 @@ export const moveToNextUploadPage = () => {
   }
 }
 
-
 export const moveBackUploadPage = () => ({
   type: types.UPLOAD_MOVE_BACK
+})
+
+export const addNotesAtUploadPage = text => ({
+  type: types.UPLOAD_ADD_NOTES,
+  payload: text
 })

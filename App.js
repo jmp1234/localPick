@@ -6,7 +6,7 @@ import Search from './app/screens/search';
 import {UploadContainer} from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
 import RestaurantDisplay from './app/screens/restaurantDisplay';
-import CreateNotes from './app/screens/createNotes'
+import {CreateNotesContainer} from './app/screens/createNotes'
 import UserAuth from './app/screens/auth';
 import {SignupContainer} from './app/screens/signup';
 import {LoginContainer} from './app/screens/login';
@@ -32,7 +32,7 @@ const upload= createStackNavigator({
     navigationOptions: {
      header: null,
   }},
-  CreateNotes: { screen: CreateNotes,
+  CreateNotes: { screen: CreateNotesContainer,
     navigationOptions: {
      header: null,
   }},

@@ -1,6 +1,5 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import GooglePlaceInput from '../../components/googlePlacesInput';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../../config/config';
 import {auth} from '../../../config/firebaseconfig';

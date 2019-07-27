@@ -1,7 +1,8 @@
 import types from '../actions/types';
 
 const DEFAULT_STATE = {
-  currentPage: 0
+  currentPage: 0,
+  notes: ''
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -15,6 +16,11 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         currentPage: 0
+      };
+    case types.UPLOAD_ADD_NOTES:
+      return {
+        ...state,
+        notes: action.payload
       };
 
   default:
