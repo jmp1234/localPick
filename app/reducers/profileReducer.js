@@ -46,7 +46,8 @@ export default (state = DEFAULT_STATE, action) => {
             website: action.payload.website,
             user: action.payload.user,
             notes: action.payload.notes,
-            photoReference: action.payload.photoReference
+            photoReference: action.payload.photoReference,
+            timestamp: action.payload.timestamp
           }
         }
       }

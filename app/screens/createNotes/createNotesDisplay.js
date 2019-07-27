@@ -3,16 +3,9 @@ import {View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'rea
 import {auth, database} from '../../../config/firebaseconfig';
 import { NavigationEvents, StackActions, NavigationActions } from 'react-navigation';
 
-// const resetAction = StackActions.reset({
-//   index: 0,
-//   actions: [NavigationActions.navigate({ routeName: 'Upload' })],
-// });
-// this.props.navigation.dispatch(resetAction);
-
 export const CreateNotesDisplay = ({userId, notes, navigation, restaurantUpload, addNotesAtUploadPage}) => {
 
-  const {address, name, website, photoReference, restaurantId} = navigation.state.params
-  // navigation.dispatch(resetAction)
+  const {address, name, website, photoReference, restaurantId, timestamp} = navigation.state.params
 
   return(
 
@@ -42,7 +35,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation, restaurantUpload,
       <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
         <TouchableOpacity
           style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-              onPress={() => restaurantUpload(restaurantId, address, name, website, userId, notes, photoReference)}
+              onPress={() => restaurantUpload(restaurantId, address, name, website, userId, notes, photoReference, timestamp)}
         >
           <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Add New Local Pick</Text>
         </TouchableOpacity>

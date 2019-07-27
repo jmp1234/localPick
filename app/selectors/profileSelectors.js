@@ -20,7 +20,7 @@ export const selectUserRestaurantsArray= state => {
   const arrFiltered = arr.map(restaurant => {
     restaurant.link = `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${restaurant.photoReference}&key=${config.GOOGLE_PLACES_KEY}`;
     return restaurant;
-  })
+  }).sort((first, second) => second.timestamp - first.timestamp)
   return arrFiltered
 }
 

@@ -48,9 +48,11 @@ export const UploadDisplay = ({user, coords, navigation, page, moveToNextUploadP
                 onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                   const {name, website, formatted_address, id} = details
                   const photoReference = details.photos[0].photo_reference;
+                  const dateTime = Date.now();
+                  const timestamp = Math.floor(dateTime/1000);
                   if(details.name) {
                     navigation.navigate('CreateNotes', {
-                      name, website, address: formatted_address, photoReference, restaurantId: id
+                      name, website, address: formatted_address, photoReference, restaurantId: id, timestamp
                     })
                   }
                 }}

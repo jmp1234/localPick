@@ -72,16 +72,20 @@ export function* onSignupSuccess(action) {
   }
 }
 export function* onRestaurantUpload(action) {
-  const {restaurantId, address, name, website, user, notes, photoReference} = action.payload
-  const restaurantObj = {address, name, website, user, notes, photoReference}
+  const {restaurantId, address, name, website, user, notes, photoReference, timestamp} = action.payload
+  const restaurantObj = {address, name, website, user, notes, photoReference, timestamp}
   const photosLink = `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${photoReference}&key=${config.GOOGLE_PLACES_KEY}`;
 
   try{
     //add data to firebase
     yield call(addToMainFeed, restaurantId, restaurantObj);
     yield call(setUserRestaurantObj, restaurantId, restaurantObj, user);
+
+
     //update state
-    yield put(restaurantUploadSuccess(address, name, website, user, notes, restaurantId, photoReference));
+    yield put(restaurantUploadSuccess(address, name, website, user, notes, restaurantId, photoReference, timestamp));
+
+    //navigate to profile page if successful upload
     NavigationService.goBack();
     NavigationService.navigate('Profile');
   } catch(err){
