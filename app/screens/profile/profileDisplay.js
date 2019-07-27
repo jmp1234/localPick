@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import {Header} from 'react-native-elements';
+import { Image, Avatar } from 'react-native-elements';
 
 export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, userLogout}) => {
 
@@ -22,7 +23,7 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
       <NavigationEvents onWillFocus={checkUserAuth}/>
       <Header
         centerComponent={{ text: userName, style: { color: 'black', fontWeight: 'bold' } }}
-        rightComponent={{ icon: 'edit', color: 'black', onPress: () => console.log('pressed')}}
+        rightComponent={{ icon: 'edit', color: 'black', onPress: () => navigation.navigate('EditProfile')}}
         containerStyle={{
           backgroundColor: 'white',
         }}
@@ -32,7 +33,18 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
             <Text style={{fontWeight: 'bold'}}>{userName}</Text>
           </View> */}
           <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
-            <Image source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}} />
+            <Image
+              PlaceholderContent={<ActivityIndicator />}
+              source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
+            />
+            {/* <Avatar
+              source={{uri: `${avatar}`}}
+              rounded
+              showEditButton
+              size='large'
+              avatarStyle={{height: '100%', borderRadius: 50}}
+              containerStyle={{height: 100, borderRadius: 50}}
+            /> */}
             <View style={{marginRight: 10}}>
               <Text style={{paddingBottom: 5}}>{firstName} {lastName}</Text>
               <Text>{city}</Text>
@@ -70,6 +82,7 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
                   onPress={(restaurantObj) => viewNotes(userRestaurants[index])}
                   >
                   <Image
+                    PlaceholderContent={<ActivityIndicator />}
                     source={{uri: item.link}}
                     style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
                   />

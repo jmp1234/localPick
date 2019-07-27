@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import {ProfileContainer} from './app/screens/profile';
+import {EditProfileContainer} from './app/screens/editProfile';
 import Search from './app/screens/search';
 import {UploadContainer} from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
@@ -74,6 +75,7 @@ const MainStack = createStackNavigator(
     UserAuth: {screen: UserAuth},
     Signup: {screen: SignupContainer},
     Login: {screen: LoginContainer},
+    EditProfile: {screen: EditProfileContainer}
   },
   {
     initialRouteName: 'Home',
