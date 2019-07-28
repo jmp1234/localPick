@@ -25,6 +25,9 @@ export default  {
 
   UPLOAD_NEXT_PAGE: 'upload_next_page',
   UPLOAD_MOVE_BACK: 'upload_move_back',
-  UPLOAD_ADD_NOTES: 'upload_add_notes'
+  UPLOAD_ADD_NOTES: 'upload_add_notes',
+
+  SEARCH_NEXT_PAGE: 'search_next_page',
+  SEARCH_MOVE_BACK: 'search_move_back',
 
 }

@@ -24,6 +24,7 @@ const RestaurantDisplay = ({navigation}) => {
     <View style={{flex: 1}}>
       <Header
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
+        rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: () => console.log('pressed')}}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => navigation.goBack()}}
         containerStyle={{
           backgroundColor: 'white',

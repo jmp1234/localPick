@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import {ProfileContainer} from './app/screens/profile';
 import {EditProfileContainer} from './app/screens/editProfile';
-import Search from './app/screens/search';
+import {SearchContainer} from './app/screens/search';
 import {UploadContainer} from './app/screens/upload';
 import LocalPicks from './app/screens/localPicks';
 import RestaurantDisplay from './app/screens/restaurantDisplay';
@@ -40,7 +40,7 @@ const upload= createStackNavigator({
 })
 
 const search = createStackNavigator({
-  Search: {screen: Search,
+  Search: {screen: SearchContainer,
     navigationOptions: {
      header: null,
   }},

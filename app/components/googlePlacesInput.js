@@ -19,12 +19,12 @@ export default withNavigation((props) => {
       renderDescription={row => row.description} // custom description render
       onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
         props.navigation.navigate('LocalPicks', {city: details.address_components[0].long_name})
+        console.log('city: ', details.address_components[0].long_name)
       }}
 
       getDefaultValue={() => ''}
 
       query={{
-        // available options: https://developers.google.com/places/web-service/autocomplete
         key: config.GOOGLE_PLACES_KEY,
         language: 'en', // language of the results
         types: '(cities)' // default: 'geocode'

@@ -97,9 +97,7 @@ export const restaurantUploadFailure = restaurants => ({
 });
 
 //upload page
-// export const moveToNextUploadPage = () => ({
-//   type: types.UPLOAD_NEXT_PAGE
-// })
+
 export const moveToNextUploadPage = () => {
   return {
     type: types.UPLOAD_NEXT_PAGE
@@ -113,4 +111,13 @@ export const moveBackUploadPage = () => ({
 export const addNotesAtUploadPage = text => ({
   type: types.UPLOAD_ADD_NOTES,
   payload: text
+})
+
+//search
+export const moveToNextPageSearch = () => ({
+  type: types.SEARCH_NEXT_PAGE
+})
+
+export const moveBackSearch = () => ({
+  type: types.SEARCH_MOVE_BACK
 })
