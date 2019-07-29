@@ -65,7 +65,7 @@ export function* onSignupSuccess(action) {
   const {user, firstName, lastName, userName, coords, city, email} = action.payload;
   const uObj = {
     firstName, lastName, userName, email, coords, city,
-    avatar: 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png'
+    avatar: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
   }
 
   try{

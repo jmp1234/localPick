@@ -27,6 +27,8 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         ...DEFAULT_STATE
       }
+    case types.LOG_OUT_SUCCESS:
+      return DEFAULT_STATE
 
   default:
     return state;

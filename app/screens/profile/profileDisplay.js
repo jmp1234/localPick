@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import { View, Text, TouchableOpacity, FlatList, ActivityIndicator} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import {Header} from 'react-native-elements';
-import { Image, Avatar } from 'react-native-elements';
+import { Image, Avatar, Icon } from 'react-native-elements';
 
 export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, userLogout}) => {
 
@@ -37,14 +37,6 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
               PlaceholderContent={<ActivityIndicator />}
               source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
             />
-            {/* <Avatar
-              source={{uri: `${avatar}`}}
-              rounded
-              showEditButton
-              size='large'
-              avatarStyle={{height: '100%', borderRadius: 50}}
-              containerStyle={{height: 100, borderRadius: 50}}
-            /> */}
             <View style={{marginRight: 10}}>
               <Text style={{paddingBottom: 5}}>{firstName} {lastName}</Text>
               <Text>{city}</Text>
@@ -73,24 +65,46 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
               <Text style={{fontWeight: 'bold'}}>Fine Dining</Text>
             </TouchableOpacity>
           </View>
-          <FlatList
-            data={userRestaurants}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({item, index}) => (
-              <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
-                <TouchableOpacity
-                  onPress={(restaurantObj) => viewNotes(userRestaurants[index])}
-                  >
-                  <Image
-                    PlaceholderContent={<ActivityIndicator />}
-                    source={{uri: item.link}}
-                    style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
-                  />
-                  <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text>
-                </TouchableOpacity>
+          {userRestaurants.length === 0 ? (
+            <Fragment>
+              <Icon
+                name='food'
+                type='material-community'
+                color='lightgrey'
+                size={100}
+                containerStyle={{marginTop: 43}}
+              />
+              <View style={{alignItems: 'center'}}>
+                <Text style={{color: 'grey'}}>Seems like you have no recommendations yet.</Text>
+                <Text style={{color: 'grey'}}>
+                  <Text>Click</Text>
+                  <Text
+                    onPress={() => navigation.navigate('Upload')}
+                    style={{fontWeight: 'bold', color: '#606060'}}> here</Text>
+                  <Text> to add a new local pick.</Text>
+                </Text>
               </View>
-            )}
-          />
+            </Fragment>
+          ) : (
+            <FlatList
+              data={userRestaurants}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item, index}) => (
+                <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
+                  <TouchableOpacity
+                    onPress={(restaurantObj) => viewNotes(userRestaurants[index])}
+                    >
+                    <Image
+                      PlaceholderContent={<ActivityIndicator />}
+                      source={{uri: item.link}}
+                      style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
+                    />
+                    <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            />
+          )}
         </View>
     </View>
   )

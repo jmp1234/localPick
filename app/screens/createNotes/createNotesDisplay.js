@@ -8,9 +8,16 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
 
   const {address, name, website, photoReference, restaurantId, timestamp, city} = navigation.state.params
 
+  const checkUserAuth = () => {
+    if(!userId) {
+      navigation.goBack()
+    }
+  }
+
   return(
 
     <View style={{flex: 1}}>
+      <NavigationEvents onWillFocus={checkUserAuth}/>
       <View style={{position: 'relative', height: 70, paddingTop: 30,
         borderColor: 'lightgrey', borderBottomWidth: 0.5,
         justifyContent: 'center', alignItems: 'center'}}>

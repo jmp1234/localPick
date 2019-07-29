@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
-import { Image } from 'react-native-elements';
+import { Image, Header, Icon } from 'react-native-elements';
 
 
 export const LocalPicksDisplay = ({navigation, localPicksRefresh, city, localPicks}) => {
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={() => navigation.dismiss()}/>
-      <View style={{flexDirection: 'row', height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center', justifyContent: 'space-between'}}>
+      {/* <View style={{flexDirection: 'row', height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center', justifyContent: 'space-between'}}>
         <TouchableOpacity
           onPress={() => {
             localPicksRefresh()
@@ -19,14 +19,39 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city, localPic
         </TouchableOpacity>
         <Text>{city}</Text>
         <Text style={{width:100}}>Fast Casual</Text>
-      </View>
+      </View> */}
+      <Header
+        centerComponent={{ text: city, style: { color: 'black', fontWeight: 'bold' } }}
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
+          localPicksRefresh()
+          navigation.goBack()
+        }}}
+        containerStyle={{
+          backgroundColor: 'white',
+        }}
+      />
+      {localPicks.length === 0 ? (
+        <View style={{flex: 1, justifyContent: 'center', marginBottom: 75}}>
+          <Icon
+            name='food'
+            type='material-community'
+            color='lightgrey'
+            size={100}
+            containerStyle={{marginTop: 43}}
+          />
+          <View style={{alignItems: 'center'}}>
+            <Text style={{color: 'grey'}}>There are no local picks recommended in this city yet.</Text>
+            <Text style={{color: 'grey'}}>Search for another city to find the best spots!</Text>
+          </View>
+        </View>
+      ) : (
         <FlatList
           data={localPicks}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => (
             <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
               <TouchableOpacity
-                // onPress={(restaurantObj) => viewNotes(userRestaurants[index])}
+                onPress={() => navigation.navigate('RestaurantDisplay', localPicks[index])}
                 >
                 <Image
                   PlaceholderContent={<ActivityIndicator />}
@@ -38,6 +63,7 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city, localPic
             </View>
           )}
         />
+      )}
     </View>
   )
 }

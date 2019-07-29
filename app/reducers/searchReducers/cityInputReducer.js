@@ -18,7 +18,7 @@ export default (state = DEFAULT_STATE, action) => {
         page: 0
       };
     case types.FETCH_LOCAL_PICKS:
-      return{
+      return {
         ...state,
         city: action.payload
       }

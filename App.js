@@ -48,6 +48,10 @@ const search = createStackNavigator({
     navigationOptions: {
      header: null,
   }},
+  RestaurantDisplay: { screen: RestaurantDisplay,
+    navigationOptions: {
+     header: null,
+  }},
 })
 
 
