@@ -1,11 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import { Alert, View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
-import {userLogin} from '../actions';
-import {connect} from 'react-redux';
-import {auth} from '../../config/firebaseconfig';
-import { withNavigation, NavigationEvents } from 'react-navigation';
+import {auth} from '../../../config/firebaseconfig';
+import { Input } from 'react-native-elements';
 
-class Login extends Component {
+class LoginDisplay extends Component {
   constructor(props) {
     super(props);
 
@@ -54,16 +52,4 @@ class Login extends Component {
   }
 }
 
-
-const mapDispatchToProps = {userLogin}
-
-const mapStateToProps = state => {
-  return {
-    user: state.currentUser.user
-  }
-}
-
-export default withNavigation(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login))
+export default LoginDisplay;

@@ -80,18 +80,63 @@ export const fetchUserPicksFailure = errorMessage => ({
 });
 
 // RESTAURANT Upload
-export const restaurantUpload =  (restaurantId, address, name, website, user, notes) => ({
+export const restaurantUpload =  (restaurantId, address, name, website, user, notes, photoReference, timestamp, city) => ({
   type: types.RESTAURANT_UPLOAD,
-  payload: {restaurantId, address, name, website, user, notes}
+  payload: {restaurantId, address, name, website, user, notes, photoReference, timestamp, city}
 });
 
 
-export const restaurantUploadSuccess = (address, name, website, user, notes, restaurantId) => ({
+export const restaurantUploadSuccess = (address, name, website, user, notes, restaurantId, photoReference, timestamp) => ({
   type: types.RESTAURANT_UPLOAD_SUCCESS,
-  payload: {address, name, website, user, notes, restaurantId}
+  payload: {address, name, website, user, notes, restaurantId, photoReference, timestamp}
 });
 
 export const restaurantUploadFailure = restaurants => ({
   type: types.RESTAURANT_UPLOAD_ERROR,
   payload: restaurants,
+});
+
+//upload page
+
+export const moveToNextUploadPage = () => {
+  return {
+    type: types.UPLOAD_NEXT_PAGE
+  }
+}
+
+export const moveBackUploadPage = () => ({
+  type: types.UPLOAD_MOVE_BACK
+})
+
+export const addNotesAtUploadPage = text => ({
+  type: types.UPLOAD_ADD_NOTES,
+  payload: text
+})
+
+//search
+export const moveToNextPageSearch = () => ({
+  type: types.SEARCH_NEXT_PAGE
+})
+
+export const moveBackSearch = () => ({
+  type: types.SEARCH_MOVE_BACK
+})
+
+export const localPicksRefresh = () => ({
+  type: types.LOCAL_PICKS_REFRESH
+})
+
+export const fetchLocalPicks = city => ({
+  type: types.FETCH_LOCAL_PICKS,
+  payload: city
+});
+
+export const fetchLocalPicksSuccess = restaurantObj => ({
+  type: types.FETCH_LOCAL_PICKS_SUCCESS,
+  payload: restaurantObj
+});
+
+export const fetchLocalPicksFailure = errorMessage => ({
+  type: types.FETCH_LOCAL_PICKS_ERROR,
+  payload: errorMessage
 });

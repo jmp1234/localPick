@@ -15,6 +15,9 @@ export default (state = DEFAULT_STATE, action) => {
     case types.FETCH_USER_SUCCESS:
       return {
         ...state,
+        restaurants: {
+          ...state.restaurants,
+        },
         ...action.payload
       };
     case types.LOG_OUT_SUCCESS:
@@ -42,7 +45,9 @@ export default (state = DEFAULT_STATE, action) => {
             name: action.payload.name,
             website: action.payload.website,
             user: action.payload.user,
-            notes: action.payload.notes
+            notes: action.payload.notes,
+            photoReference: action.payload.photoReference,
+            timestamp: action.payload.timestamp
           }
         }
       }
