@@ -5,7 +5,7 @@ import {ProfileContainer} from './app/screens/profile';
 import {EditProfileContainer} from './app/screens/editProfile';
 import {SearchContainer} from './app/screens/search';
 import {UploadContainer} from './app/screens/upload';
-import LocalPicks from './app/screens/localPicks';
+import {LocalPicksContainer} from './app/screens/localPicks';
 import RestaurantDisplay from './app/screens/restaurantDisplay';
 import {CreateNotesContainer} from './app/screens/createNotes'
 import UserAuth from './app/screens/auth';
@@ -44,7 +44,7 @@ const search = createStackNavigator({
     navigationOptions: {
      header: null,
   }},
-  LocalPicks: { screen: LocalPicks,
+  LocalPicks: { screen: LocalPicksContainer,
     navigationOptions: {
      header: null,
   }},
