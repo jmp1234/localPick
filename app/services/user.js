@@ -17,3 +17,8 @@ export function addToMainFeed(restaurantId, restaurantObj) {
 export function setUserRestaurantObj(restaurantId, restaurantObj, userId) {
   database.ref('/users/' + userId + '/restaurants/' + restaurantId).set(restaurantObj);
 }
+
+export function findLocalPicks(city) {
+  const snapshot = database.ref('restaurants').orderByChild('city').equalTo(city).once('value');
+  return snapshot
+}

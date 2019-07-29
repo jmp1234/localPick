@@ -23,4 +23,15 @@ export default  {
   RESTAURANT_UPLOAD_SUCCESS: 'restaurant_upload_success',
   RESTAURANT_UPLOAD_ERROR: 'restaurant_upload_error',
 
+  UPLOAD_NEXT_PAGE: 'upload_next_page',
+  UPLOAD_MOVE_BACK: 'upload_move_back',
+  UPLOAD_ADD_NOTES: 'upload_add_notes',
+
+  SEARCH_NEXT_PAGE: 'search_next_page',
+  SEARCH_MOVE_BACK: 'search_move_back',
+  LOCAL_PICKS_REFRESH:'local_picks_refresh',
+  FETCH_LOCAL_PICKS: 'fetch_local_picks',
+  FETCH_LOCAL_PICKS_SUCCESS: 'fetch_local_picks_success',
+  FETCH_LOCAL_PICKS_ERROR: 'fetch_local_picks_error',
+
 }

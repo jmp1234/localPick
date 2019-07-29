@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
 import { withNavigation } from 'react-navigation';
-import Login from './login';
-import Signup from './signup';
+import {LoginContainer} from './login';
+import {SignupContainer} from './signup';
 import AuthNavBar from '../components/authNavBar';
+import {Header} from 'react-native-elements';
 
 
 class UserAuth extends Component {
@@ -22,14 +23,12 @@ class UserAuth extends Component {
   }
 
   showLogin = () => {
-    console.log('show login')
     this.setState({
       authPage: 2
     })
   }
 
   goBack = () => {
-    console.log('you went back')
     this.setState({
       authPage: 0
     })
@@ -48,6 +47,13 @@ class UserAuth extends Component {
               <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'white'}}>✗</Text>
             </TouchableOpacity>
           </View>
+           {/* <Header
+            leftComponent={{ icon: 'close', color: 'white', underlayColor: 'transparent', onPress: () => this.props.navigation.navigate('Search')}}
+            containerStyle={{
+              backgroundColor: 'transparent',
+              borderBottomColor: 'transparent'
+            }}
+          /> */}
             <View style={{flex: 1, justifyContent: 'flex-end', alignItems: 'center'}}>
                <Text style={{textAlign: 'center', color: 'white', fontSize: 40, textShadowColor: 'black',
                 textShadowOffset: {width: -1, height: 1},
@@ -74,12 +80,12 @@ class UserAuth extends Component {
           {this.state.authPage === 1 ? (
             <View style={{flex: 1, justifyContent: 'space-between', flexDirection: 'column'}}>
               <AuthNavBar type='Sign Up' handlePress={this.goBack}/>
-              <Signup />
+              <SignupContainer />
             </View>
           ) : (
             <View style={{flex: 1, justifyContent: 'space-between', flexDirection: 'column'}}>
               <AuthNavBar type='Log In' handlePress={this.goBack}/>
-              <Login />
+              <LoginContainer />
             </View>
 
           )}

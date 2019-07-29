@@ -1,14 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import { View, Alert, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
-import {auth, database} from '../../config/firebaseconfig';
+import {auth, database} from '../../../config/firebaseconfig';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import config from '../../config/config';
-import { withNavigation } from 'react-navigation';
-import CitySignup from '../components/citySignup';
-import {connect} from 'react-redux';
-import {userSignup} from '../actions';
+import config from '../../../config/config';
+import CitySignup from '../../components/citySignup';
 
-class Signup extends Component {
+class SignupDisplay extends Component {
   constructor(props) {
     super(props);
 
@@ -26,26 +23,12 @@ class Signup extends Component {
     }
   }
 
-  // createUserObj(userObj, email) {
-  //   const {firstName, lastName, userName, coords, city} = this.state
-  //   const uObj = {
-  //     firstName, lastName, userName, email, coords, city,
-  //     avatar: 'https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1966.png'
-  //   }
-  //   database.ref('users').child(userObj.uid).set(uObj).then(() => {
-  //     this.props.navigation.goBack()
-  //   });
-  // }
-
   signup = () => {
     const {firstName, lastName, userName, email, password, city, coords, confirmPassword} = this.state;
     if(firstName && lastName && userName && email && password && confirmPassword && city && coords) {
       if(password !== confirmPassword) {
         Alert.alert('Signup error: ', 'Passwords do not match')
       } else {
-        // let user = auth.createUserWithEmailAndPassword(email, password)
-        //   .then(userObj => this.createUserObj(userObj.user, email))
-        //   .catch(error => Alert.alert('Signup error: ', error.message))
         this.props.userSignup(email, password, firstName, lastName, userName, coords, city)
       }
 
@@ -169,9 +152,4 @@ class Signup extends Component {
   }
 }
 
-const mapDispatchToProps = {userSignup}
-
-export default withNavigation(connect(
-  null,
-  mapDispatchToProps
-)(Signup));
+export default SignupDisplay;
