@@ -1,7 +1,8 @@
-import types from '../actions/types';
+import types from '../../actions/types';
 
 const DEFAULT_STATE = {
   page: 0,
+  city: ''
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -16,14 +17,12 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         page: 0
       };
-    case types.FETCH_LOCAL_PICKS_SUCCESS:
-      return {
+    case types.FETCH_LOCAL_PICKS:
+      return{
         ...state,
-        restaurant: {
-          ...state.restaurants
-        },
-        ...action.payload
+        city: action.payload
       }
+
   default:
     return state;
   }

@@ -80,9 +80,9 @@ export const fetchUserPicksFailure = errorMessage => ({
 });
 
 // RESTAURANT Upload
-export const restaurantUpload =  (restaurantId, address, name, website, user, notes, photoReference, timestamp) => ({
+export const restaurantUpload =  (restaurantId, address, name, website, user, notes, photoReference, timestamp, city) => ({
   type: types.RESTAURANT_UPLOAD,
-  payload: {restaurantId, address, name, website, user, notes, photoReference, timestamp}
+  payload: {restaurantId, address, name, website, user, notes, photoReference, timestamp, city}
 });
 
 
@@ -121,3 +121,22 @@ export const moveToNextPageSearch = () => ({
 export const moveBackSearch = () => ({
   type: types.SEARCH_MOVE_BACK
 })
+
+export const localPicksRefresh = () => ({
+  type: types.LOCAL_PICKS_REFRESH
+})
+
+export const fetchLocalPicks = city => ({
+  type: types.FETCH_LOCAL_PICKS,
+  payload: city
+});
+
+export const fetchLocalPicksSuccess = restaurantObj => ({
+  type: types.FETCH_LOCAL_PICKS_SUCCESS,
+  payload: restaurantObj
+});
+
+export const fetchLocalPicksFailure = errorMessage => ({
+  type: types.FETCH_LOCAL_PICKS_ERROR,
+  payload: errorMessage
+});

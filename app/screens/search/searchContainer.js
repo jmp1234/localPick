@@ -7,7 +7,7 @@ const mapDispatchToProps = {moveToNextPageSearch, moveBackSearch}
 
 const mapStateToProps = state => {
   return {
-    currentPage: state.searchReducer.page
+    currentPage: state.searchReducer.cityInputReducer.page
   }
 }
 

@@ -6,7 +6,7 @@ import { NavigationEvents, StackActions, NavigationActions } from 'react-navigat
 export const CreateNotesDisplay = ({userId, notes, navigation,
   restaurantUpload, addNotesAtUploadPage, charactersRemaining}) => {
 
-  const {address, name, website, photoReference, restaurantId, timestamp} = navigation.state.params
+  const {address, name, website, photoReference, restaurantId, timestamp, city} = navigation.state.params
 
   return(
 
@@ -41,7 +41,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
       <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
         <TouchableOpacity
           style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-              onPress={() => restaurantUpload(restaurantId, address, name, website, userId, notes, photoReference, timestamp)}
+              onPress={() => restaurantUpload(restaurantId, address, name, website, userId, notes, photoReference, timestamp, city)}
         >
           <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Add New Local Pick</Text>
         </TouchableOpacity>

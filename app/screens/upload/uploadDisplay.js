@@ -47,12 +47,19 @@ export const UploadDisplay = ({user, coords, navigation, page, moveToNextUploadP
                 getDefaultValue={() => ''}
                 onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
                   const {name, website, formatted_address, id} = details
+                  const cityComponent = details.address_components.filter(addressType => {
+                    return addressType.types.includes('locality')
+                  })
+                  const city = cityComponent[0].long_name;
                   const photoReference = details.photos[0].photo_reference;
                   const dateTime = Date.now();
                   const timestamp = Math.floor(dateTime/1000);
                   if(details.name) {
                     navigation.navigate('CreateNotes', {
-                      name, website, address: formatted_address, photoReference, restaurantId: id, timestamp
+                      name, website, photoReference, city, timestamp,
+                      address: formatted_address,
+                      restaurantId: id
+
                     })
                   }
                 }}

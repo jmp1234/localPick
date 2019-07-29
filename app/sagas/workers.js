@@ -1,9 +1,13 @@
 import { all, call, fork, put, takeEvery, eventChannel } from "redux-saga/effects";
 import {auth, database} from '../../config/firebaseconfig';
-import {loginSuccess, loginFailure, logoutSuccess, logoutFailure, signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess, restaurantUploadSuccess} from '../actions';
+import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
+  signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
+  restaurantUploadSuccess, fetchLocalPicksSuccess
+} from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
-import {setUser, getUser, addToMainFeed, setUserRestaurantObj} from '../services/user';
+import {setUser, getUser, addToMainFeed,
+  setUserRestaurantObj, findLocalPicks} from '../services/user';
 import config from '../../config/config';
 
 export function* onLogin(action) {
@@ -72,8 +76,8 @@ export function* onSignupSuccess(action) {
   }
 }
 export function* onRestaurantUpload(action) {
-  const {restaurantId, address, name, website, user, notes, photoReference, timestamp} = action.payload
-  const restaurantObj = {address, name, website, user, notes, photoReference, timestamp}
+  const {restaurantId, address, name, website, user, notes, photoReference, timestamp, city} = action.payload
+  const restaurantObj = {address, name, website, user, notes, photoReference, timestamp, city}
   const photosLink = `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${photoReference}&key=${config.GOOGLE_PLACES_KEY}`;
 
   try{
@@ -90,5 +94,15 @@ export function* onRestaurantUpload(action) {
     NavigationService.navigate('Profile');
   } catch(err){
     Alert.alert('Error uploading restaurant: ', err.message)
+  }
+}
+
+export function* onFetchLocalPicks(action) {
+  try {
+    const snapshot = yield call(findLocalPicks, action.payload);
+    yield put (fetchLocalPicksSuccess(snapshot.val()))
+    NavigationService.navigate('LocalPicks');
+  } catch(err) {
+    Alert.alert('Error finding local picks', err)
   }
 }
