@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert} from 'react-native';
 import {Header} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {selectUserNotes, selectNonUserNotes} from '../selectors/notesSelectors';
+import { ListItem } from 'react-native-elements';
+import { NavigationEvents } from 'react-navigation';
+import {restaurantRefresh} from '../actions';
 
-const RestaurantDisplay = ({navigation}) => {
+const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaurantRefresh}) => {
 
   const {notes, address, name, website, link} = navigation.state.params
 
@@ -16,12 +21,15 @@ const RestaurantDisplay = ({navigation}) => {
   }
 
   const goToWebsite = () => {
-    console.log('clicked')
     Linking.openURL(website).catch((err) => Alert.alert('An error occurred', err))
   }
 
+  console.log('::::::::::::::::', userNotes)
+    console.log('::::::::::::::::', nonUserNotes)
+
   return (
     <View style={{flex: 1}}>
+      <NavigationEvents onWillBlur={restaurantRefresh}/>
       <Header
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
         rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: () => console.log('pressed')}}
@@ -30,14 +38,6 @@ const RestaurantDisplay = ({navigation}) => {
           backgroundColor: 'white',
         }}
       />
-      {/* <View style={{position: 'relative', height: 70, paddingTop: 30, borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{width: 100, left: 0, top: 35, justifyContent: 'center', position: 'absolute'}}>
-          <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'black'}}>←</Text>
-        </TouchableOpacity>
-        <Text style={{fontWeight: 'bold'}}>Notes</Text>
-      </View> */}
       <View>
         <Image
           source={{uri: link}}
@@ -52,11 +52,43 @@ const RestaurantDisplay = ({navigation}) => {
           <Text style={{textAlign: 'center', color: 'dodgerblue'}}>Visit Website</Text>
         </TouchableOpacity>
         <View style={{marginTop: 30, borderColor: 'blue', borderWidth: 0.5, borderRadius: 2}}>
-          <Text style={{textAlign: 'center'}}>{notes}</Text>
+          {
+            userNotes.map((noteObj) => (
+              <ListItem
+                key={noteObj.commentId}
+                // leftAvatar={{ source: { uri: l.avatar_url } }}
+                // title={l.name}
+                title={noteObj.note}
+                // subtitle={l.subtitle}
+              />
+            ))
+          }
+        </View>
+        <View style={{marginTop: 30, borderColor: 'red', borderWidth: 0.5, borderRadius: 2}}>
+          {
+            nonUserNotes.map((noteObj) => (
+              <ListItem
+                key={noteObj.commentId}
+                title={noteObj.note}
+              />
+            ))
+          }
         </View>
       </View>
     </View>
   )
 }
 
-export default RestaurantDisplay
+const mapDispatchToProps = {restaurantRefresh}
+
+const mapStateToProps = state => {
+  return {
+    userNotes: selectUserNotes(state),
+    nonUserNotes: selectNonUserNotes(state),
+  }
+}
+
+export  default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RestaurantDisplay)

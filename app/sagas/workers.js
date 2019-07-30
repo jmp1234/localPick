@@ -2,12 +2,12 @@ import { all, call, fork, put, takeEvery, eventChannel } from "redux-saga/effect
 import {auth, database} from '../../config/firebaseconfig';
 import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
   signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
-  restaurantUploadSuccess, fetchLocalPicksSuccess
+  restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
 import {setUser, getUser, addToMainFeed,
-  setUserRestaurantObj, findLocalPicks} from '../services/user';
+  setUserRestaurantObj, findLocalPicks, fetchNotes} from '../services/user';
 import config from '../../config/config';
 
 export function* onLogin(action) {
@@ -104,5 +104,19 @@ export function* onFetchLocalPicks(action) {
     NavigationService.navigate('LocalPicks');
   } catch(err) {
     Alert.alert('Error finding local picks', err)
+  }
+}
+
+export function* onFetchNotes(action) {
+  try{
+    //make a call to the database
+    const snapshot = yield call(fetchNotes, action.payload.restaurantId, action.payload.userId);
+    // // //set restaurant id to state
+    yield put(fetchNotesSuccess(snapshot.val()))
+    //navigate to restaurant display page, passing in the restaurantObj as a param
+    NavigationService.navigate('RestaurantDisplay', action.payload.restaurantObj)
+  } catch(err) {
+    Alert.alert('Error accessing notes', err)
+    console.log('error accessing notes: ', err)
   }
 }

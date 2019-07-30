@@ -4,7 +4,7 @@ import { NavigationEvents } from 'react-navigation';
 import { Image, Header, Icon } from 'react-native-elements';
 
 
-export const LocalPicksDisplay = ({navigation, localPicksRefresh, city, localPicks}) => {
+export const LocalPicksDisplay = ({navigation, localPicksRefresh, city, localPicks, fetchNotes}) => {
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={() => navigation.dismiss()}/>
@@ -51,7 +51,8 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city, localPic
           renderItem={({item, index}) => (
             <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('RestaurantDisplay', localPicks[index])}
+                // onPress={() => navigation.navigate('RestaurantDisplay', localPicks[index])}
+                onPress={() => fetchNotes(localPicks[index], localPicks[index].key)}
                 >
                 <Image
                   PlaceholderContent={<ActivityIndicator />}

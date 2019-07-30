@@ -1,11 +1,11 @@
 import {ProfileDisplay} from './profileDisplay';
 import {connect} from 'react-redux';
-import {userLogout, fetchUserInfo} from '../../actions';
+import {userLogout, fetchUserInfo, fetchNotes} from '../../actions';
 import {selectCurrentUser, selectUserRestaurantsArray} from '../../selectors/profileSelectors';
 
 
 
-const mapDispatchToProps = {userLogout, fetchUserInfo}
+const mapDispatchToProps = {userLogout, fetchUserInfo, fetchNotes}
 
 const mapStateToProps = state => {
   return {

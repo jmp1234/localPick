@@ -3,8 +3,10 @@ import { View, Text, TouchableOpacity, FlatList, ActivityIndicator} from 'react-
 import { NavigationEvents } from 'react-navigation';
 import {Header} from 'react-native-elements';
 import { Image, Avatar, Icon } from 'react-native-elements';
+import {database} from '../../../config/firebaseconfig';
 
-export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, userLogout}) => {
+export const ProfileDisplay = ({user, currentUser, userRestaurants,
+  navigation, userLogout, fetchNotes}) => {
 
   const {userName, city, firstName, lastName, avatar} = currentUser
 
@@ -15,7 +17,11 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants, navigation, 
   }
 
   viewNotes = (restaurantObj) => {
-    navigation.navigate('RestaurantDisplay', restaurantObj);
+    // navigation.navigate('RestaurantDisplay', restaurantObj);
+    fetchNotes(restaurantObj, restaurantObj.key)
+    // database.ref('notes').child(restaurantObj.key).orderByChild('posted').once('value').then(snapshot => {
+    //   console.log(snapshot.val())
+    // });
   }
 
   return (

@@ -79,8 +79,25 @@ export const fetchUserPicksFailure = errorMessage => ({
   payload: errorMessage
 });
 
+//Fetch notes
+export const fetchNotes = (restaurantObj, restaurantId, userId)  => ({
+  type: types.FETCH_NOTES,
+  payload: {restaurantObj, restaurantId, userId}
+});
+
+export const fetchNotesSuccess = (restaurantObj) => {
+  return {
+    type: types.FETCH_NOTES_SUCCESS,
+    payload: restaurantObj
+  }
+}
+
+export const restaurantRefresh = () => ({
+  type: types.RESTAURANT_REFRESH
+})
+
 // RESTAURANT Upload
-export const restaurantUpload =  (restaurantId, address, name, website, user, notes, photoReference, timestamp, city) => ({
+export const restaurantUpload = (restaurantId, address, name, website, user, notes, photoReference, timestamp, city) => ({
   type: types.RESTAURANT_UPLOAD,
   payload: {restaurantId, address, name, website, user, notes, photoReference, timestamp, city}
 });
@@ -95,6 +112,7 @@ export const restaurantUploadFailure = restaurants => ({
   type: types.RESTAURANT_UPLOAD_ERROR,
   payload: restaurants,
 });
+
 
 //upload page
 
