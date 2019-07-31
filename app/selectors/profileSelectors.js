@@ -14,6 +14,16 @@ export const selectUserRestaurants = (state) => {
   return user.restaurants
 }
 
+export const selectAvatar = state => {
+  const user = selectCurrentUser(state);
+  return user.avatar
+}
+
+export const selectUserName = (state) => {
+  const user = selectCurrentUser(state);
+  return user.userName
+}
+
 export const selectUserRestaurantsArray= state => {
   const restaurantNames = selectUserRestaurants(state);
   const arr = _.values(restaurantNames);

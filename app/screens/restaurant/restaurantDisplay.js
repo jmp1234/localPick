@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert} from 'react-native';
-import {Header} from 'react-native-elements';
-import {connect} from 'react-redux';
-import {selectUserNotes, selectNonUserNotes} from '../selectors/notesSelectors';
-import { ListItem } from 'react-native-elements';
+import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView} from 'react-native';
+import {Header, ListItem} from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
-import {restaurantRefresh} from '../actions';
 
-const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaurantRefresh}) => {
+export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaurantRefresh}) => {
+
 
   const {notes, address, name, website, link} = navigation.state.params
 
@@ -24,9 +21,6 @@ const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaurantRefre
     Linking.openURL(website).catch((err) => Alert.alert('An error occurred', err))
   }
 
-  console.log('::::::::::::::::', userNotes)
-    console.log('::::::::::::::::', nonUserNotes)
-
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillBlur={restaurantRefresh}/>
@@ -38,6 +32,7 @@ const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaurantRefre
           backgroundColor: 'white',
         }}
       />
+      <ScrollView>
       <View>
         <Image
           source={{uri: link}}
@@ -46,49 +41,41 @@ const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaurantRefre
         <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{name}</Text>
         <Text  style={{textAlign: 'center'}}>{address}</Text>
         <TouchableOpacity onPress={goToMaps}>
-            <Text  style={{textAlign: 'center', color: 'dodgerblue'}}>Get Directions</Text>
+        <Text  style={{textAlign: 'center', color: 'dodgerblue'}}>Get Directions</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={goToWebsite}>
           <Text style={{textAlign: 'center', color: 'dodgerblue'}}>Visit Website</Text>
         </TouchableOpacity>
-        <View style={{marginTop: 30, borderColor: 'blue', borderWidth: 0.5, borderRadius: 2}}>
+        <View style={{marginTop: 30}}>
           {
             userNotes.map((noteObj) => (
               <ListItem
                 key={noteObj.commentId}
-                // leftAvatar={{ source: { uri: l.avatar_url } }}
-                // title={l.name}
                 title={noteObj.note}
-                // subtitle={l.subtitle}
+                topDivider={true}
+                bottomDivider={true}
               />
             ))
           }
         </View>
-        <View style={{marginTop: 30, borderColor: 'red', borderWidth: 0.5, borderRadius: 2}}>
+        {/* <View style={{marginTop: 30, borderColor: 'red', borderWidth: 0.5, borderRadius: 2}}> */}
+        <View style={{marginTop: 30}}>
           {
             nonUserNotes.map((noteObj) => (
               <ListItem
+                topDivider={true}
+                bottomDivider={true}
                 key={noteObj.commentId}
-                title={noteObj.note}
+                subtitle={noteObj.note}
+                title= {`@${noteObj.userName}`}
+                leftAvatar={{ source: { uri: noteObj.avatar } }}
+                titleStyle={{color: 'blue', fontSize: 12, marginBottom: 10}}
               />
             ))
           }
         </View>
       </View>
+    </ScrollView>
     </View>
   )
 }
-
-const mapDispatchToProps = {restaurantRefresh}
-
-const mapStateToProps = state => {
-  return {
-    userNotes: selectUserNotes(state),
-    nonUserNotes: selectNonUserNotes(state),
-  }
-}
-
-export  default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RestaurantDisplay)

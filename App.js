@@ -6,7 +6,7 @@ import {EditProfileContainer} from './app/screens/editProfile';
 import {SearchContainer} from './app/screens/search';
 import {UploadContainer} from './app/screens/upload';
 import {LocalPicksContainer} from './app/screens/localPicks';
-import RestaurantDisplay from './app/screens/restaurantDisplay';
+import {RestaurantContainer} from './app/screens/restaurant';
 import {CreateNotesContainer} from './app/screens/createNotes'
 import UserAuth from './app/screens/auth';
 import {SignupContainer} from './app/screens/signup';
@@ -22,7 +22,7 @@ const profile = createStackNavigator({
     navigationOptions: {
      header: null,
   }},
-  RestaurantDisplay: { screen: RestaurantDisplay,
+  RestaurantDisplay: { screen: RestaurantContainer,
     navigationOptions: {
      header: null,
   }},
@@ -48,7 +48,7 @@ const search = createStackNavigator({
     navigationOptions: {
      header: null,
   }},
-  RestaurantDisplay: { screen: RestaurantDisplay,
+  RestaurantDisplay: { screen: RestaurantContainer,
     navigationOptions: {
      header: null,
   }},

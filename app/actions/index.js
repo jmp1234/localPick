@@ -98,10 +98,11 @@ export const restaurantRefresh = () => ({
 
 // RESTAURANT Upload
 export const restaurantUpload = (restaurantId, address, name, website, user,
-  notes, photoReference, timestamp, city, notesId) => ({
+  notes, photoReference, timestamp, city, notesId,
+  userName, avatar) => ({
   type: types.RESTAURANT_UPLOAD,
   payload: {restaurantId, address, name, website, user, notes,
-    photoReference, timestamp, city, notesId}
+    photoReference, timestamp, city, notesId, userName, avatar}
 });
 
 

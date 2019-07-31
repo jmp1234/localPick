@@ -76,14 +76,15 @@ export function* onSignupSuccess(action) {
   }
 }
 
-export function *onAddNotes(restaurantId, notesId, author, note, posted) {
-  const notesObj = {author, note, posted};
+export function *onAddNotes(restaurantId, notesId, author, note, posted, userName, avatar) {
+  const notesObj = {author, note, posted, userName, avatar};
   yield call(addNotes, restaurantId, notesId, notesObj)
 
 }
 
 export function* onRestaurantUpload(action) {
-  const {restaurantId, address, name, website, user, notes, photoReference, timestamp, city, notesId} = action.payload
+  const {restaurantId, address, name, website, user, notes, photoReference,
+    timestamp, city, notesId, userName, avatar} = action.payload
   const restaurantObj = {address, name, website, user, notes, photoReference, timestamp, city}
   const photosLink = `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${photoReference}&key=${config.GOOGLE_PLACES_KEY}`;
 
@@ -92,7 +93,7 @@ export function* onRestaurantUpload(action) {
     yield call(addToMainFeed, restaurantId, restaurantObj);
     yield call(setUserRestaurantObj, restaurantId, restaurantObj, user);
 
-    yield call(onAddNotes, restaurantId, notesId, user, notes, timestamp)
+    yield call(onAddNotes, restaurantId, notesId, user, notes, timestamp, userName, avatar)
 
 
     //update state

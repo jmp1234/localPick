@@ -4,7 +4,8 @@ import {auth, database} from '../../../config/firebaseconfig';
 import { NavigationEvents, StackActions, NavigationActions } from 'react-navigation';
 
 export const CreateNotesDisplay = ({userId, notes, navigation,
-  restaurantUpload, addNotesAtUploadPage, charactersRemaining}) => {
+  restaurantUpload, addNotesAtUploadPage, charactersRemaining,
+  userName, avatar}) => {
 
   const {address, name, website, photoReference, restaurantId, timestamp, city} = navigation.state.params
 
@@ -60,7 +61,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
         <TouchableOpacity
           style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
               onPress={() => restaurantUpload(restaurantId, address, name, website, userId, notes,
-                photoReference, timestamp, city, uniqueId())}
+                photoReference, timestamp, city, uniqueId(), userName, avatar)}
         >
           <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Add New Local Pick</Text>
         </TouchableOpacity>
