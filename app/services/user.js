@@ -28,6 +28,7 @@ export function fetchNotes(restaurantId, userId) {
   return snapshot
 }
 
-// export function fetchNotes(userId) {
-//
-// }
+export function addNotes(restaurantId, notesId, notesObj) {
+  // database.ref('/notes/' + restaurantId + '/restaurants/' + restaurantId).set(restaurantObj);
+  database.ref(`/notes/${restaurantId}/${notesId}`).set(notesObj)
+}

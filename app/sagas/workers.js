@@ -7,7 +7,7 @@ import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
 import {setUser, getUser, addToMainFeed,
-  setUserRestaurantObj, findLocalPicks, fetchNotes} from '../services/user';
+  setUserRestaurantObj, findLocalPicks, fetchNotes, addNotes} from '../services/user';
 import config from '../../config/config';
 
 export function* onLogin(action) {
@@ -75,8 +75,15 @@ export function* onSignupSuccess(action) {
     Alert.alert('error')
   }
 }
+
+export function *onAddNotes(restaurantId, notesId, author, note, posted) {
+  const notesObj = {author, note, posted};
+  yield call(addNotes, restaurantId, notesId, notesObj)
+
+}
+
 export function* onRestaurantUpload(action) {
-  const {restaurantId, address, name, website, user, notes, photoReference, timestamp, city} = action.payload
+  const {restaurantId, address, name, website, user, notes, photoReference, timestamp, city, notesId} = action.payload
   const restaurantObj = {address, name, website, user, notes, photoReference, timestamp, city}
   const photosLink = `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${photoReference}&key=${config.GOOGLE_PLACES_KEY}`;
 
@@ -84,6 +91,8 @@ export function* onRestaurantUpload(action) {
     //add data to firebase
     yield call(addToMainFeed, restaurantId, restaurantObj);
     yield call(setUserRestaurantObj, restaurantId, restaurantObj, user);
+
+    yield call(onAddNotes, restaurantId, notesId, user, notes, timestamp)
 
 
     //update state

@@ -14,6 +14,17 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
     }
   }
 
+  const s4 = () => {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+
+  const uniqueId = () => {
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + '-' + s4() + '-' + s4();
+  }
+
   return(
 
     <View style={{flex: 1}}>
@@ -48,7 +59,8 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
       <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
         <TouchableOpacity
           style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-              onPress={() => restaurantUpload(restaurantId, address, name, website, userId, notes, photoReference, timestamp, city)}
+              onPress={() => restaurantUpload(restaurantId, address, name, website, userId, notes,
+                photoReference, timestamp, city, uniqueId())}
         >
           <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Add New Local Pick</Text>
         </TouchableOpacity>

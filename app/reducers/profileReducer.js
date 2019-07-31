@@ -41,6 +41,7 @@ export default (state = DEFAULT_STATE, action) => {
         restaurants: {
           ...state.restaurants,
           [action.payload.restaurantId]: {
+            ...state.restaurants[action.payload.restaurantId],
             address: action.payload.address,
             name: action.payload.name,
             website: action.payload.website,
