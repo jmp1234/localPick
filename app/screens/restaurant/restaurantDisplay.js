@@ -21,6 +21,14 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaura
     Linking.openURL(website).catch((err) => Alert.alert('An error occurred', err))
   }
 
+  const UserLink = (props) => {
+    return(
+      <TouchableOpacity>
+        <Text style={{color: 'blue'}}>@{props.userName}</Text>
+      </TouchableOpacity>
+    )
+  }
+
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillBlur={restaurantRefresh}/>
@@ -67,7 +75,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaura
                 bottomDivider={true}
                 key={noteObj.commentId}
                 subtitle={noteObj.note}
-                title= {`@${noteObj.userName}`}
+                title= <UserLink userName={noteObj.userName}/>
                 leftAvatar={{ source: { uri: noteObj.avatar } }}
                 titleStyle={{color: 'blue', fontSize: 12, marginBottom: 10}}
               />

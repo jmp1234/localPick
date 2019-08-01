@@ -80,9 +80,9 @@ export const fetchUserPicksFailure = errorMessage => ({
 });
 
 //Fetch notes
-export const fetchNotes = (restaurantObj, restaurantId, userId)  => ({
+export const fetchNotes = (restaurantObj, restaurantId, link)  => ({
   type: types.FETCH_NOTES,
-  payload: {restaurantObj, restaurantId, userId}
+  payload: {restaurantObj, restaurantId, link}
 });
 
 export const fetchNotesSuccess = (restaurantObj) => {

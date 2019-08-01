@@ -1,27 +1,22 @@
-import types from '../actions/types';
+import types from '../../actions/types';
 
 const DEFAULT_STATE = {
-  userName: null,
-  city: null,
-  firstName: null,
-  lastName: null,
-  avatar: null,
-  coords: null,
-  restaurants: {},
+
 }
 
 export default (state = DEFAULT_STATE, action) => {
   switch(action.type) {
     case types.FETCH_USER_SUCCESS:
+    console.log(':::::::::::::::::::::::', action.payload.restaurants)
       return {
+        // restaurants: {
+        //   ...state.restaurants,
+        //   [action.payload.restaurantId]: {
+        //     ...state.restaurants[action.payload.restaurantId],
+        //   },
+        // },
         ...state,
-        restaurants: {
-          ...state.restaurants,
-          [action.payload.restaurantId]: {
-            ...state.restaurants[action.payload.restaurantId],
-          },
-        },
-        ...action.payload
+        ...action.payload.restaurants,
       };
     case types.LOG_OUT_SUCCESS:
       return DEFAULT_STATE;
@@ -32,10 +27,10 @@ export default (state = DEFAULT_STATE, action) => {
     case types.RESTAURANT_UPLOAD_SUCCESS:
       return {
         ...state,
-        restaurants: {
-          ...state.restaurants,
+        // restaurants: {
+          // ...state.restaurants,
           [action.payload.restaurantId]: {
-            ...state.restaurants[action.payload.restaurantId],
+            ...state[action.payload.restaurantId],
             address: action.payload.address,
             name: action.payload.name,
             website: action.payload.website,
@@ -44,7 +39,7 @@ export default (state = DEFAULT_STATE, action) => {
             photoReference: action.payload.photoReference,
             timestamp: action.payload.timestamp
           }
-        }
+        // }
       }
     // case types.RESTAURANT_UPLOAD_ERROR:
     //   return {

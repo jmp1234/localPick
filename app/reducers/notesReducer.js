@@ -6,13 +6,17 @@ const DEFAULT_STATE = {
 
 export default (state = DEFAULT_STATE, action) => {
   switch(action.type) {
+    // case types.FETCH_NOTES:
+    //   return {
+    //     ...state
+    //   }
     case types.FETCH_NOTES_SUCCESS:
       return {
         ...state,
-        ...action.payload
+        ...action.payload,
       };
     case types.RESTAURANT_REFRESH: {
-      return DEFAULT_STATE      
+      return DEFAULT_STATE
     }
 
   default:

@@ -6,7 +6,7 @@ import { Image, Avatar, Icon } from 'react-native-elements';
 import {database} from '../../../config/firebaseconfig';
 
 export const ProfileDisplay = ({user, currentUser, userRestaurants,
-  navigation, userLogout, fetchNotes}) => {
+  navigation, userLogout, fetchNotes, userPhotos}) => {
 
   const {userName, city, firstName, lastName, avatar} = currentUser
 
@@ -17,11 +17,7 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants,
   }
 
   viewNotes = (restaurantObj) => {
-    // navigation.navigate('RestaurantDisplay', restaurantObj);
     fetchNotes(restaurantObj, restaurantObj.key)
-    // database.ref('notes').child(restaurantObj.key).orderByChild('posted').once('value').then(snapshot => {
-    //   console.log(snapshot.val())
-    // });
   }
 
   return (
@@ -93,12 +89,13 @@ export const ProfileDisplay = ({user, currentUser, userRestaurants,
             </Fragment>
           ) : (
             <FlatList
-              data={userRestaurants}
+              data={userPhotos}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
                 <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
                   <TouchableOpacity
-                    onPress={(restaurantObj) => viewNotes(userRestaurants[index])}
+                    // onPress={(restaurantObj) => viewNotes(userRestaurants[index])}
+                    onPress={() => fetchNotes(userRestaurants[item.key], item.key, item.link)}
                     >
                     <Image
                       PlaceholderContent={<ActivityIndicator />}
