@@ -133,10 +133,11 @@ export function* onFetchNotes(action) {
 }
 
 export function* onFetchProfile(action) {
+  const {userId, namespace} = action.payload
   try {
-    const snapshot = yield call(getUser, action.payload.userId);
-    console.log('jjjjjjjj: ', snapshot.val())
-    yield put(fetchProfileSuccess(snapshot.val(), action.payload.namespace))
+    const snapshot = yield call(getUser, userId);
+    yield put(fetchProfileSuccess(snapshot.val(), namespace))
+    NavigationService.navigate('ProfileContainer', {namespace});
   } catch(err) {
     console.log('error! ', err)
     Alert.alert('error! ', err)

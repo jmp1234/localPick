@@ -44,4 +44,6 @@ export default  {
   FETCH_PROFILE: 'fetch_profile',
   ['instance1/FETCH_PROFILE_SUCCESS']: 'fetch_profile_success_1',
   ['instance2/FETCH_PROFILE_SUCCESS']: 'fetch_profile_success_2',
+  ['instance1/PROFILE_GO_BACK']: 'profile_go_back_1',
+  ['instance2/PROFILE_GO_BACK']: 'profile_go_back_2',
 }

@@ -4,9 +4,10 @@ import { Header, ListItem } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
-  restaurantRefresh, fetchProfile}) => {
+  restaurantRefresh, fetchProfile, goBackFromProfile}) => {
 
   const {notes, address, name, website, link, namespace} = navigation.state.params
+  console.log('dare: ', namespace)
 
   const goToMaps = () => {
     let daddr = encodeURIComponent(`${address}`);
@@ -36,6 +37,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
         rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: () => console.log('pressed')}}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
           restaurantRefresh()
+          goBackFromProfile(navigation.state.params.namespace)
           navigation.goBack()
         }}}
         containerStyle={{

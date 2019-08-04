@@ -1,6 +1,6 @@
 import { restaurantUpload, addNotesAtUploadPage } from '../../actions';
 import { selectUserId } from '../../selectors/userSelectors';
-import { selectUserName, selectAvatar } from '../../selectors/profileSelectors'
+import { selectUserName, selectAvatar } from '../../selectors/userProfileSelectors'
 import { selectCharactersRemaining, selectNotes } from '../../selectors/uploadSelectors'
 import { CreateNotesDisplay } from './createNotesDisplay';
 import { connect } from 'react-redux';

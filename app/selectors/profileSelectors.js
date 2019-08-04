@@ -2,31 +2,38 @@ import { createSelector } from 'reselect';
 import  _ from 'lodash';
 import config from '../../config/config';
 
-export const selectCurrentUser = state => state.userProfileReducer.userProfileInfoReducer
+export const selectCurrentProfile = state => state.profileReducers;
 
-export const selectCoords = state => {
-  const user = selectCurrentUser(state);
-  return user.coords
+export const selectCurrentProfileInfo = state => {
+  const currentProfile = selectCurrentProfile(state);
+  return currentProfile.profileInfoReducers
 }
 
-
-export const selectUserRestaurants = state => state.userProfileReducer.userRestaurantReducer;
-
-
-export const selectAvatar = state => {
-  const user = selectCurrentUser(state);
-  return user.avatar
+export const selectCurrentProfileRestaurantsReducer = state => {
+  const currentProfile = selectCurrentProfile(state);
+  return currentProfile.restaurantReducers
 }
 
-export const selectUserName = (state) => {
-  const user = selectCurrentUser(state);
-  return user.userName
+export const selectCurrentProfileObj = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
+  const currentProfileInfo = selectCurrentProfileInfo(state);
+  const currentProfileInfoArr =  currentProfileInfo[namespace];
+  return currentProfileInfoArr[currentProfileInfoArr.length-1]
 }
 
+export const selectCurrentProfileRestaurants = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params;
+  const currentProfileRestaurants = selectCurrentProfileRestaurantsReducer(state);
+  const currentProfileRestaurantsArr = currentProfileRestaurants[namespace];
+  return currentProfileRestaurantsArr[currentProfileRestaurantsArr.length-1]
+}
 
-export const selectUserPhotosArray= state => {
-  const restaurantNames = selectUserRestaurants(state);
-  const keys = _.keys(restaurantNames)
+export const selectProfilePhotosArray = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params;
+  const restaurantsArr = selectCurrentProfileRestaurantsReducer(state)[namespace];
+  const restaurantNames = restaurantsArr[restaurantsArr.length-1]
+  const keys = _.keys(restaurantNames);
+
   const keysFiltered = keys.map((restaurantId, index) => {
     return {
       key: restaurantId,
@@ -36,4 +43,5 @@ export const selectUserPhotosArray= state => {
     }
   }).sort((first, second) => second.timestamp - first.timestamp)
   return keysFiltered
+
 }

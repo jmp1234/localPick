@@ -175,3 +175,7 @@ export const fetchProfileSuccess = (profileObj, namespace) => ({
   type: types[`${namespace}/FETCH_PROFILE_SUCCESS`],
   payload: profileObj
 })
+
+export const goBackFromProfile = (namespace) => ({
+  type: types[`${namespace}/PROFILE_GO_BACK`]
+})

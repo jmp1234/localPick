@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
-import { Header } from 'react-native-elements';
-import { Image, Avatar, Icon } from 'react-native-elements';
+import { Image, Avatar, Icon, Header } from 'react-native-elements';
 import { database } from '../../../config/firebaseconfig';
 
 export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
-  navigation, userLogout, fetchNotes, userPhotos}) => {
+  navigation, userLogout, fetchNotes, userPhotos, goBackFromProfile}) => {
 
   const {userName, city, firstName, lastName, avatar} = currentUserObj
 
@@ -20,13 +19,48 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
     fetchNotes(restaurantObj, restaurantObj.key)
   }
 
+  const BackButton = () => {
+    return(
+      <Fragment>
+        {navigation.state.params && (
+        <Icon
+          name='arrow-back'
+          type='material'
+          color='black'
+          onPress={() => {
+            navigation.goBack()
+            // navigation.navigate('Profile')
+            // goBackFromProfile(navigation.state.params.namespace)
+          }}
+        />
+        )}
+      </Fragment>
+    )
+  }
+
+  const EditButton = () => {
+    return(
+      <Fragment>
+        {!navigation.state.params && (
+        <Icon
+          name='edit'
+          type='material'
+          color='black'
+          onPress={() => navigation.navigate('EditProfile')}
+        />
+        )}
+      </Fragment>
+    )
+  }
+
 
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={checkUserAuth}/>
       <Header
+        leftComponent={<BackButton />}
         centerComponent={{ text: userName, style: { color: 'black', fontWeight: 'bold' } }}
-        rightComponent={{ icon: 'edit', color: 'black', onPress: () => navigation.navigate('EditProfile')}}
+        rightComponent={<EditButton />}
         containerStyle={{
           backgroundColor: 'white',
         }}
@@ -42,16 +76,18 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
               <Text>{city}</Text>
             </View>
           </View>
-          <View style={{paddingBottom: 20, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
-            <TouchableOpacity
-              style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}
-              onPress={userLogout}
-              >
-              <Text style={{textAlign: 'center', color: 'grey'}}>Logout</Text>
-            </TouchableOpacity>
-          </View>
+          {!navigation.state.params && (
+            <View style={{paddingBottom: 20, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
+              <TouchableOpacity
+                style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}
+                onPress={userLogout}
+                >
+                <Text style={{textAlign: 'center', color: 'grey'}}>Logout</Text>
+              </TouchableOpacity>
+            </View>
+          )}
           <View style={{backgroundColor: 'white', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 5, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
               <Text style={{fontWeight: 'bold'}}>Fast Casual</Text>
             </TouchableOpacity>
             <TouchableOpacity>
@@ -59,7 +95,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
             </TouchableOpacity>
             <TouchableOpacity>
               <Text style={{fontWeight: 'bold'}}>Fine Dining</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           {Object.keys(userRestaurants).length === 0 ? (
             <Fragment>
@@ -89,8 +125,9 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
                 <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate('RestaurantDisplay', {namespace: 'instance1', ...userRestaurants[item.key], link: item.link})
-                      fetchNotes(userRestaurants[item.key], item.key, item.link, 'instance1')
+                      const namespace = navigation.state.params ? navigation.state.params.namespace: 'instance1'
+                      navigation.navigate('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
+                      fetchNotes(userRestaurants[item.key], item.key, item.link, namespace)
                     }}
                     >
                     <Image

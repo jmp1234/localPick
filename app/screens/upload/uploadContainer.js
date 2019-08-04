@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { moveToNextUploadPage, moveBackUploadPage } from '../../actions';
 import { UploadDisplay } from './uploadDisplay';
-import { selectCoords, selectUserRestaurants } from '../../selectors/profileSelectors';
+import { selectCoords, selectUserRestaurants } from '../../selectors/userProfileSelectors';
 import { selectUserId } from '../../selectors/userSelectors';
 
 
