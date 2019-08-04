@@ -10,12 +10,9 @@ export default namespace => (state = DEFAULT_STATE, action) => {
         {...action.payload.restaurants}
       ]
     case types[`${namespace}/PROFILE_GO_BACK`]:
-      // return [
-      //   ...state,
-      //   state.filter((restaurant, index) => index !== state.length-1)
-      // ];
       return state.filter((restaurant, index) => index !== state.length-1)
-
+    case types[`${namespace}/CLEAR_PROFILES`]:
+      return DEFAULT_STATE;
   default:
     return state;
   }

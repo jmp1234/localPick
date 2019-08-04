@@ -46,4 +46,6 @@ export default  {
   ['instance2/FETCH_PROFILE_SUCCESS']: 'fetch_profile_success_2',
   ['instance1/PROFILE_GO_BACK']: 'profile_go_back_1',
   ['instance2/PROFILE_GO_BACK']: 'profile_go_back_2',
+  ['instance1/CLEAR_PROFILES']: 'clear_profiles_1',
+  ['instance2/CLEAR_PROFILES']: 'clear_profiles_2',
 }

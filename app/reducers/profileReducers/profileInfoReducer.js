@@ -16,11 +16,9 @@ export default namespace => (state = DEFAULT_STATE, action) => {
         userName: action.payload.userName
       }];
     case types[`${namespace}/PROFILE_GO_BACK`]:
-      // return [
-      //   ...state,
-      //   state.filter((profile, index) => index !== state.length-1)
-      // ];
-      return state.filter((profile, index) => index !== state.length-1)
+      return state.filter((profile, index) => index !== state.length-1);
+    case types[`${namespace}/CLEAR_PROFILES`]:
+      return DEFAULT_STATE;
     case types.LOG_OUT_SUCCESS:
       return DEFAULT_STATE;
 

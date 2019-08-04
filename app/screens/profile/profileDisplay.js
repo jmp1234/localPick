@@ -5,16 +5,18 @@ import { Image, Avatar, Icon, Header } from 'react-native-elements';
 import { database } from '../../../config/firebaseconfig';
 
 export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
-  navigation, userLogout, fetchNotes, userPhotos, goBackFromProfile}) => {
-    const {userName, city, firstName, lastName, avatar} = currentUserObj
+  navigation, userLogout, fetchNotes, userPhotos, goBackFromProfile, clearProfiles}) => {
 
+  const {userName, city, firstName, lastName, avatar} = currentUserObj
 
-  // console.log(':::::::::::', navigation.state.routeName, navigation.isFocused())
   checkUserAuth = () => {
+    console.log(';;;;;;;;;;;;;;', navigation.state.routeName === 'Profile', navigation.isFocused())
     if(!userId) {
       navigation.navigate('UserAuth')
     }
   }
+
+
 
   viewNotes = (restaurantObj) => {
     fetchNotes(restaurantObj, restaurantObj.key)
@@ -55,7 +57,12 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
 
   return (
     <View style={{flex: 1}}>
-      <NavigationEvents onWillFocus={checkUserAuth}/>
+      <NavigationEvents onWillFocus={() => {
+        checkUserAuth();
+        if(!navigation.state.params && navigation.state.routeName === 'Profile' && navigation.isFocused()) {
+          clearProfiles('instance1')
+        }
+      }}/>
       <Header
         leftComponent={<BackButton />}
         centerComponent={{ text: userName, style: { color: 'black', fontWeight: 'bold' } }}

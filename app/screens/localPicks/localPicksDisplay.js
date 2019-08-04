@@ -4,10 +4,15 @@ import { NavigationEvents } from 'react-navigation';
 import { Image, Header, Icon } from 'react-native-elements';
 
 
-export const LocalPicksDisplay = ({navigation, localPicksRefresh, city, localPicksArray, fetchNotes, localPicks}) => {
+export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
+  localPicksArray, fetchNotes, localPicks, clearProfiles}) => {
   return (
     <View style={{flex: 1}}>
-      <NavigationEvents onWillFocus={() => navigation.dismiss()}/>
+      <NavigationEvents onWillFocus={() => {
+        navigation.dismiss()
+        clearProfiles('instance2')
+        }}
+      />
       <Header
         centerComponent={{ text: city, style: { color: 'black', fontWeight: 'bold' } }}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {

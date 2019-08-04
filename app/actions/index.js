@@ -179,3 +179,7 @@ export const fetchProfileSuccess = (profileObj, namespace) => ({
 export const goBackFromProfile = (namespace) => ({
   type: types[`${namespace}/PROFILE_GO_BACK`]
 })
+
+export const clearProfiles = (namespace) => ({
+  type: types[`${namespace}/CLEAR_PROFILES`]
+})

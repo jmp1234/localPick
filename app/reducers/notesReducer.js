@@ -34,6 +34,9 @@ export default namespace => (state = DEFAULT_STATE, action) => {
     case types[`${namespace}/RESTAURANT_REFRESH`]:
       return state.filter((notes, index) => index !== state.length-1)
 
+    case types[`${namespace}/CLEAR_PROFILES`]:
+      return DEFAULT_STATE;
+
     default:
       return state;
     }
