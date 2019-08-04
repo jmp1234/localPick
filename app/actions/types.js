@@ -15,7 +15,8 @@ export default  {
   FETCH_USER_PICKS_ERROR: 'fetch_user_picks_error',
 
   FETCH_NOTES: 'fetch_notes',
-  FETCH_NOTES_SUCCESS: 'fetch_notes_success',
+  ['instance1/FETCH_NOTES_SUCCESS']: 'fetch_notes_success_1',
+  ['instance2/FETCH_NOTES_SUCCESS']: 'fetch_notes_success_2',
   FETCH_NOTES_ERROR: 'fetch_notes_error',
 
   SIGN_UP: 'sign_up',
@@ -26,7 +27,8 @@ export default  {
   RESTAURANT_UPLOAD: 'restaurant_upload',
   RESTAURANT_UPLOAD_SUCCESS: 'restaurant_upload_success',
   RESTAURANT_UPLOAD_ERROR: 'restaurant_upload_error',
-  RESTAURANT_REFRESH: 'restaurant_refresh',
+  ['instance1/RESTAURANT_REFRESH']: 'restaurant_refresh_1',
+  ['instance2/RESTAURANT_REFRESH']: 'restaurant_refresh_2',
 
   UPLOAD_NEXT_PAGE: 'upload_next_page',
   UPLOAD_MOVE_BACK: 'upload_move_back',

@@ -1,12 +1,13 @@
-import {connect} from 'react-redux';
-import {selectLocalPicksArray, selectCity} from '../../selectors/localPicksSelectors';
-import {localPicksRefresh} from '../../actions';
-import {LocalPicksDisplay} from './localPicksDisplay';
-import {fetchNotes} from '../../actions';
+import { connect } from 'react-redux';
+import { selectLocalPicksArray, selectCity, selectLocalPicks } from '../../selectors/localPicksSelectors';
+import { localPicksRefresh } from '../../actions';
+import { LocalPicksDisplay } from './localPicksDisplay';
+import { fetchNotes } from '../../actions';
 
 const mapStateToProps = state => {
   return {
-    localPicks: selectLocalPicksArray(state),
+    localPicksArray: selectLocalPicksArray(state),
+    localPicks: selectLocalPicks(state),
     city: selectCity(state),
   }
 }

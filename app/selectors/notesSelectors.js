@@ -3,21 +3,15 @@ import  _ from 'lodash';
 import config from '../../config/config';
 import {selectUserId} from './userSelectors';
 
-export const selectNotesReducer = state => state.notesReducer
-
-export const selectNotesAvatar = state => {
-  const notesReducer = selectNotesReducer(state);
-  return notesReducer.avatar;
+export const selectNotesReducer = (state, ownProps) => {
+  return state.notesReducers
 }
 
-export const selectNotesUsername = state => {
-  const notesReducer = selectNotesReducer(state);
-  return notesReducer.userName;
-}
 
-export const selectUserNotes = state => {
+export const selectUserNotes = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
   const userId = selectUserId(state);
-  const notes = selectNotesReducer(state);
+  const notes = selectNotesReducer(state)[namespace];
   const userNotesKeys = _.keys(notes);
   const filteredArr = userNotesKeys.map(key => {
     return {
@@ -29,9 +23,10 @@ export const selectUserNotes = state => {
   return filteredArr
 }
 
-export const selectNonUserNotes = state => {
+export const selectNonUserNotes = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
   const userId = selectUserId(state);
-  const notes = selectNotesReducer(state);
+  const notes = selectNotesReducer(state)[namespace];
   const userNotesKeys = _.keys(notes);
   const filteredArr = userNotesKeys.map(key => {
     return {

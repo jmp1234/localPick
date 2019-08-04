@@ -1,2 +1,2 @@
-export {ProfileContainer} from './profileContainer';
-export {ProfileDisplay} from './profileDisplay';
+export { ProfileContainer } from './profileContainer';
+export { ProfileDisplay } from './profileDisplay';

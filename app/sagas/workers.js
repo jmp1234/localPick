@@ -119,14 +119,12 @@ export function* onFetchLocalPicks(action) {
 
 export function* onFetchNotes(action) {
   try{
-    NavigationService.navigate('RestaurantDisplay', {...action.payload.restaurantObj, link: action.payload.link})
+    // NavigationService.navigate('RestaurantDisplay', {...action.payload.restaurantObj, link: action.payload.link})
     //make a call to the database
     const snapshot = yield call(fetchNotes, action.payload.restaurantId, action.payload.userId);
-    console.log(':::::::::::::::::::::::::::::::::::::::', snapshot.val())
-    // // //set restaurant id to state
-    yield put(fetchNotesSuccess(snapshot.val()))
-    //navigate to restaurant display page, passing in the restaurantObj as a param
-    // NavigationService.navigate('RestaurantDisplay', action.payload.restaurantObj)
+
+    yield put(fetchNotesSuccess(action.payload.namespace, snapshot.val()))
+
   } catch(err) {
     Alert.alert('Error accessing notes', err)
     console.log('error accessing notes: ', err)

@@ -1,7 +1,7 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import GooglePlaceInput from '../../components/googlePlacesInput';
-import {auth} from '../../../config/firebaseconfig';
+import { auth } from '../../../config/firebaseconfig';
 
 export const SearchDisplay = ({currentPage, moveToNextPageSearch, moveBackSearch}) => {
   return (

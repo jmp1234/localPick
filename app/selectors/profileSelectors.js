@@ -2,18 +2,15 @@ import { createSelector } from 'reselect';
 import  _ from 'lodash';
 import config from '../../config/config';
 
-export const selectCurrentUser = state => state.profileReducer.profileInfoReducer
+export const selectCurrentUser = state => state.userProfileReducer.userProfileInfoReducer
 
 export const selectCoords = state => {
   const user = selectCurrentUser(state);
   return user.coords
 }
 
-// export const selectUserRestaurants = (state) => {
-//   const user = selectCurrentUser(state);
-//   return user.restaurants
-// }
-export const selectUserRestaurants = state => state.profileReducer.restaurantReducer;
+
+export const selectUserRestaurants = state => state.userProfileReducer.userRestaurantReducer;
 
 
 export const selectAvatar = state => {
@@ -26,25 +23,6 @@ export const selectUserName = (state) => {
   return user.userName
 }
 
-// export const selectUserRestaurantsArray= state => {
-//   const restaurantNames = selectUserRestaurants(state);
-//   const arr = _.values(restaurantNames);
-//   const keys = _.keys(restaurantNames)
-//   const arrFiltered = arr.map((restaurant, index) => {
-//     restaurant.link = `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${restaurant.photoReference}&key=${config.GOOGLE_PLACES_KEY}`;
-//     restaurant.key = keys[index]
-//     return restaurant;
-//   }).sort((first, second) => second.timestamp - first.timestamp)
-//   console.log('!!!!!!!!!!!!!!!!', arrFiltered)
-//   return arrFiltered
-// }
-
-export const selectUserRestaurantsArray = state => {
-  const restaurantNames = selectUserRestaurants(state);
-  const arr = _.values(restaurantNames);
-  return arr;
-}
-
 
 export const selectUserPhotosArray= state => {
   const restaurantNames = selectUserRestaurants(state);
@@ -53,7 +31,8 @@ export const selectUserPhotosArray= state => {
     return {
       key: restaurantId,
       link: `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${restaurantNames[restaurantId].photoReference}&key=${config.GOOGLE_PLACES_KEY}`,
-      timestamp: restaurantNames[restaurantId].timestamp
+      timestamp: restaurantNames[restaurantId].timestamp,
+      name: restaurantNames[restaurantId].name
     }
   }).sort((first, second) => second.timestamp - first.timestamp)
   return keysFiltered

@@ -23,10 +23,13 @@ export const selectLocalPicksArray= state => {
   const localPicks = selectLocalPicks(state);
   const arr = _.values(localPicks);
   const keys = _.keys(localPicks)
-  const arrFiltered = arr.map((restaurant, index) => {
-    restaurant.link = `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${restaurant.photoReference}&key=${config.GOOGLE_PLACES_KEY}`;
-    restaurant.key = keys[index]
-    return restaurant;
+  const keysFiltered = keys.map((restaurant, index) => {
+    return {
+      key: restaurant,
+      link: `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${localPicks[restaurant].photoReference}&key=${config.GOOGLE_PLACES_KEY}`,
+      timestamp: localPicks[restaurant].timestamp,
+      name: localPicks[restaurant].name
+    };
   }).sort((first, second) => second.timestamp - first.timestamp)
-  return arrFiltered
+  return keysFiltered
 }

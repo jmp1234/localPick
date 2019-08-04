@@ -1,22 +1,23 @@
 import { combineReducers } from "redux";
 import currentUser from './userReducer';
-import profileReducer from './profileReducer';
 import notesReducer from './notesReducer';
 import uploadReducer from './uploadReducer';
 import cityInputReducer from './searchReducers/cityInputReducer';
 import localPicksReducer from './searchReducers/localPicksReducer';
-import profileInfoReducer from './profileReducers/profileInfoReducer';
-import restaurantReducer from './profileReducers/restaurantReducer';
+import userProfileInfoReducer from './userProfileReducers/userProfileInfoReducer';
+import userRestaurantReducer from './userProfileReducers/userRestaurantReducer';
 
 
 export default combineReducers({
   currentUser,
-  profileReducer,
-  profileReducer: combineReducers({
-    profileInfoReducer,
-    restaurantReducer,
+  userProfileReducer: combineReducers({
+    userProfileInfoReducer,
+    userRestaurantReducer,
   }),
-  notesReducer,
+  notesReducers: combineReducers({
+    instance1: notesReducer('instance1'),
+    instance2: notesReducer('instance2'),
+  }),
   uploadReducer,
   searchReducer: combineReducers({
     cityInputReducer,

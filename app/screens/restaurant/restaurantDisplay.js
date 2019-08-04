@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView} from 'react-native';
-import {Header, ListItem} from 'react-native-elements';
+import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView } from 'react-native';
+import { Header, ListItem } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaurantRefresh}) => {
@@ -31,11 +31,13 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaura
 
   return (
     <View style={{flex: 1}}>
-      <NavigationEvents onWillBlur={restaurantRefresh}/>
       <Header
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
         rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: () => console.log('pressed')}}
-        leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => navigation.goBack()}}
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
+          restaurantRefresh()
+          navigation.goBack()
+        }}}
         containerStyle={{
           backgroundColor: 'white',
         }}
@@ -66,7 +68,6 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaura
             ))
           }
         </View>
-        {/* <View style={{marginTop: 30, borderColor: 'red', borderWidth: 0.5, borderRadius: 2}}> */}
         <View style={{marginTop: 30}}>
           {
             nonUserNotes.map((noteObj) => (

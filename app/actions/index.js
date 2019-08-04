@@ -80,21 +80,23 @@ export const fetchUserPicksFailure = errorMessage => ({
 });
 
 //Fetch notes
-export const fetchNotes = (restaurantObj, restaurantId, link)  => ({
+export const fetchNotes = (restaurantObj, restaurantId, link, namespace)  => ({
   type: types.FETCH_NOTES,
-  payload: {restaurantObj, restaurantId, link}
+  payload: {restaurantObj, restaurantId, link, namespace}
 });
 
-export const fetchNotesSuccess = (restaurantObj) => {
+export const fetchNotesSuccess = (namespace, restaurantObj) => {
   return {
-    type: types.FETCH_NOTES_SUCCESS,
+    type: types[`${namespace}/FETCH_NOTES_SUCCESS`],
     payload: restaurantObj
   }
 }
 
-export const restaurantRefresh = () => ({
-  type: types.RESTAURANT_REFRESH
-})
+export const restaurantRefresh = (namespace) => {
+  return {
+    type: types[`${namespace}/RESTAURANT_REFRESH`],
+  }
+}
 
 // RESTAURANT Upload
 export const restaurantUpload = (restaurantId, address, name, website, user,

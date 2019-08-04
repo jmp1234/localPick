@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native';
-import {auth, database} from '../../../config/firebaseconfig';
+import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
+import { auth, database } from '../../../config/firebaseconfig';
 import { NavigationEvents, StackActions, NavigationActions } from 'react-navigation';
 
 export const CreateNotesDisplay = ({userId, notes, navigation,

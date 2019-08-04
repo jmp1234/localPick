@@ -1,2 +1,2 @@
-export {CreateNotesContainer} from './createNotesContainer';
-export {CreateNotesDisplay} from './createNotesDisplay';
+export { CreateNotesContainer } from './createNotesContainer';
+export { CreateNotesDisplay } from './createNotesDisplay';

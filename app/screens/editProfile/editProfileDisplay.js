@@ -1,5 +1,5 @@
-import {View, Text} from 'react-native';
-import {Header} from 'react-native-elements';
+import { View, Text } from 'react-native';
+import { Header } from 'react-native-elements';
 import React from 'react';
 
 export const EditProfileDisplay = ({navigation}) => {

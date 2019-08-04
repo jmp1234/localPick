@@ -1,15 +1,21 @@
-import {connect} from 'react-redux';
-import {selectUserNotes, selectNonUserNotes} from '../../selectors/notesSelectors';
-import {restaurantRefresh} from '../../actions';
-import {RestaurantDisplay} from './restaurantDisplay';
+import { connect } from 'react-redux';
+import { selectUserNotes, selectNonUserNotes, selectNotesReducer } from '../../selectors/notesSelectors';
+import { restaurantRefresh } from '../../actions';
+import { RestaurantDisplay } from './restaurantDisplay';
 
 
-const mapDispatchToProps = {restaurantRefresh}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
+    return {
+        restaurantRefresh: () => dispatch(restaurantRefresh(namespace))
+    }
+}
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    userNotes: selectUserNotes(state),
-    nonUserNotes: selectNonUserNotes(state),
+    userNotes: selectUserNotes(state, ownProps),
+    nonUserNotes: selectNonUserNotes(state, ownProps),
+    test: selectNotesReducer(state, ownProps)
   }
 }
 

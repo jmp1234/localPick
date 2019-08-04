@@ -1,5 +1,5 @@
-import {EditProfileDisplay} from './editProfileDisplay';
-import {connect} from 'react-redux';
+import { EditProfileDisplay } from './editProfileDisplay';
+import { connect } from 'react-redux';
 
 
 
