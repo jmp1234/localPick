@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import  _ from 'lodash';
 import config from '../../config/config';
+import { selectCurrentUser } from './userProfileSelectors';
 
 export const selectCurrentProfile = state => state.profileReducers;
 
@@ -12,6 +13,13 @@ export const selectCurrentProfileInfo = state => {
 export const selectCurrentProfileRestaurantsReducer = state => {
   const currentProfile = selectCurrentProfile(state);
   return currentProfile.restaurantReducers
+}
+
+export const arrayLength = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params;
+  const currentProfileInfo = selectCurrentProfileInfo(state);
+  const currentProfileInfoArr =  currentProfileInfo[namespace];
+  return currentProfileInfoArr.length
 }
 
 export const selectCurrentProfileObj = (state, ownProps) => {

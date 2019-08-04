@@ -11,7 +11,8 @@ export const selectNotesReducer = (state, ownProps) => {
 export const selectUserNotes = (state, ownProps) => {
   const {namespace} = ownProps.navigation.state.params
   const userId = selectUserId(state);
-  const notes = selectNotesReducer(state)[namespace];
+  const notesArr = selectNotesReducer(state)[namespace]
+  const notes = notesArr[notesArr.length-1]
   const userNotesKeys = _.keys(notes);
   const filteredArr = userNotesKeys.map(key => {
     return {
@@ -26,7 +27,8 @@ export const selectUserNotes = (state, ownProps) => {
 export const selectNonUserNotes = (state, ownProps) => {
   const {namespace} = ownProps.navigation.state.params
   const userId = selectUserId(state);
-  const notes = selectNotesReducer(state)[namespace];
+  const notesArr = selectNotesReducer(state)[namespace]
+  const notes = notesArr[notesArr.length-1]
   const userNotesKeys = _.keys(notes);
   const filteredArr = userNotesKeys.map(key => {
     return {

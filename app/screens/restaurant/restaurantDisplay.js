@@ -4,10 +4,11 @@ import { Header, ListItem } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
-  restaurantRefresh, fetchProfile, goBackFromProfile}) => {
+  restaurantRefresh, fetchProfile, goBackFromProfile, arrLength}) => {
 
   const {notes, address, name, website, link, namespace} = navigation.state.params
-  console.log('dare: ', namespace)
+
+  console.log('rest ::::::::::::::;', arrLength)
 
   const goToMaps = () => {
     let daddr = encodeURIComponent(`${address}`);
@@ -26,7 +27,6 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
     return(
       <TouchableOpacity onPress={() => {
         fetchProfile(props.userId, namespace, navigation)
-        // navigation.push('ProfileContainer', {namespace})
       }}>
         <Text style={{color: 'blue'}}>@{props.userName}</Text>
       </TouchableOpacity>
@@ -39,9 +39,11 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
         rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: () => console.log('pressed')}}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
-          restaurantRefresh()
-          goBackFromProfile(navigation.state.params.namespace)
-          navigation.goBack()
+          navigation.pop()
+          if(arrLength > 1) {
+            goBackFromProfile(navigation.state.params.namespace)
+            restaurantRefresh()
+          }
         }}}
         containerStyle={{
           backgroundColor: 'white',

@@ -6,9 +6,10 @@ import { database } from '../../../config/firebaseconfig';
 
 export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
   navigation, userLogout, fetchNotes, userPhotos, goBackFromProfile}) => {
+    const {userName, city, firstName, lastName, avatar} = currentUserObj
 
-  const {userName, city, firstName, lastName, avatar} = currentUserObj
 
+  // console.log(':::::::::::', navigation.state.routeName, navigation.isFocused())
   checkUserAuth = () => {
     if(!userId) {
       navigation.navigate('UserAuth')
@@ -28,9 +29,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
           type='material'
           color='black'
           onPress={() => {
-            navigation.goBack()
-            // navigation.navigate('Profile')
-            // goBackFromProfile(navigation.state.params.namespace)
+            navigation.pop()
           }}
         />
         )}

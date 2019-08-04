@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchNotes, fetchUserInfo, goBackFromProfile } from '../../actions';
 import { selectCurrentUser, selectUserRestaurants, selectUserPhotosArray } from '../../selectors/userProfileSelectors';
 import { selectCurrentProfileObj, selectCurrentProfileRestaurants,
-  selectProfilePhotosArray} from '../../selectors/profileSelectors';
+  selectProfilePhotosArray, arrayLength} from '../../selectors/profileSelectors';
 
 
 // const mapDispatchToProps = {}

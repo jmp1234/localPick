@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { selectUserNotes, selectNonUserNotes } from '../../selectors/notesSelectors';
 import { restaurantRefresh, fetchProfile, goBackFromProfile } from '../../actions';
 import { RestaurantDisplay } from './restaurantDisplay';
+import { arrayLength } from  '../../selectors/profileSelectors';
 
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -17,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userNotes: selectUserNotes(state, ownProps),
     nonUserNotes: selectNonUserNotes(state, ownProps),
+    arrLength: arrayLength(state, ownProps)
   }
 }
 
