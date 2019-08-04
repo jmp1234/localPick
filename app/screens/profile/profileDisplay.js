@@ -20,6 +20,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
     fetchNotes(restaurantObj, restaurantObj.key)
   }
 
+
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={checkUserAuth}/>

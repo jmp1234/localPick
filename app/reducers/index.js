@@ -6,6 +6,8 @@ import cityInputReducer from './searchReducers/cityInputReducer';
 import localPicksReducer from './searchReducers/localPicksReducer';
 import userProfileInfoReducer from './userProfileReducers/userProfileInfoReducer';
 import userRestaurantReducer from './userProfileReducers/userRestaurantReducer';
+import profileInfoReducer from './profileReducers/profileInfoReducer';
+import restaurantReducer from './profileReducers/restaurantReducer';
 
 
 export default combineReducers({
@@ -13,6 +15,16 @@ export default combineReducers({
   userProfileReducer: combineReducers({
     userProfileInfoReducer,
     userRestaurantReducer,
+  }),
+  profileReducers: combineReducers({
+    profileInfoReducers: combineReducers({
+      instance1: profileInfoReducer('instance1'),
+      instance2: profileInfoReducer('instance2'),
+    }),
+    restaurantReducers: combineReducers({
+      instance1: restaurantReducer('instance1'),
+      instance2: restaurantReducer('instance2'),
+    })
   }),
   notesReducers: combineReducers({
     instance1: notesReducer('instance1'),

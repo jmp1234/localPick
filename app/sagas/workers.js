@@ -2,7 +2,8 @@ import { all, call, fork, put, takeEvery, eventChannel } from "redux-saga/effect
 import {auth, database} from '../../config/firebaseconfig';
 import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
   signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
-  restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess
+  restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess,
+  fetchProfileSuccess
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
@@ -128,5 +129,16 @@ export function* onFetchNotes(action) {
   } catch(err) {
     Alert.alert('Error accessing notes', err)
     console.log('error accessing notes: ', err)
+  }
+}
+
+export function* onFetchProfile(action) {
+  try {
+    const snapshot = yield call(getUser, action.payload.userId);
+    console.log('jjjjjjjj: ', snapshot.val())
+    yield put(fetchProfileSuccess(snapshot.val(), action.payload.namespace))
+  } catch(err) {
+    console.log('error! ', err)
+    Alert.alert('error! ', err)
   }
 }

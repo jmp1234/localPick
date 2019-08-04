@@ -7,14 +7,7 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
   switch(action.type) {
     case types.FETCH_USER_SUCCESS:
-    console.log(':::::::::::::::::::::::', action.payload.restaurants)
       return {
-        // restaurants: {
-        //   ...state.restaurants,
-        //   [action.payload.restaurantId]: {
-        //     ...state.restaurants[action.payload.restaurantId],
-        //   },
-        // },
         ...state,
         ...action.payload.restaurants,
       };

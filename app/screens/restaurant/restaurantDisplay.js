@@ -3,10 +3,10 @@ import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollVi
 import { Header, ListItem } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 
-export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaurantRefresh}) => {
+export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
+  restaurantRefresh, fetchProfile}) => {
 
-
-  const {notes, address, name, website, link} = navigation.state.params
+  const {notes, address, name, website, link, namespace} = navigation.state.params
 
   const goToMaps = () => {
     let daddr = encodeURIComponent(`${address}`);
@@ -23,7 +23,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaura
 
   const UserLink = (props) => {
     return(
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => fetchProfile(props.userId, namespace)}>
         <Text style={{color: 'blue'}}>@{props.userName}</Text>
       </TouchableOpacity>
     )
@@ -76,7 +76,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes, restaura
                 bottomDivider={true}
                 key={noteObj.commentId}
                 subtitle={noteObj.note}
-                title= <UserLink userName={noteObj.userName}/>
+                title= <UserLink userId={noteObj.author} userName={noteObj.userName}/>
                 leftAvatar={{ source: { uri: noteObj.avatar } }}
                 titleStyle={{color: 'blue', fontSize: 12, marginBottom: 10}}
               />
