@@ -126,7 +126,8 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
                   <TouchableOpacity
                     onPress={() => {
                       const namespace = navigation.state.params ? navigation.state.params.namespace: 'instance1'
-                      navigation.navigate('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
+                      // navigation.navigate('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
+                      navigation.push('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
                       fetchNotes(userRestaurants[item.key], item.key, item.link, namespace)
                     }}
                     >

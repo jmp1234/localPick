@@ -24,7 +24,10 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
 
   const UserLink = (props) => {
     return(
-      <TouchableOpacity onPress={() => fetchProfile(props.userId, namespace)}>
+      <TouchableOpacity onPress={() => {
+        fetchProfile(props.userId, namespace, navigation)
+        // navigation.push('ProfileContainer', {namespace})
+      }}>
         <Text style={{color: 'blue'}}>@{props.userName}</Text>
       </TouchableOpacity>
     )

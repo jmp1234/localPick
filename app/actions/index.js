@@ -166,9 +166,9 @@ export const fetchLocalPicksFailure = errorMessage => ({
 
 //non-user profile
 
-export const fetchProfile = (userId, namespace) => ({
+export const fetchProfile = (userId, namespace, navigation) => ({
   type: types.FETCH_PROFILE,
-  payload: {userId, namespace}
+  payload: {userId, namespace, navigation}
 })
 
 export const fetchProfileSuccess = (profileObj, namespace) => ({

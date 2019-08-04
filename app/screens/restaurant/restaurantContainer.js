@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const {namespace} = ownProps.navigation.state.params
     return {
         restaurantRefresh: () => dispatch(restaurantRefresh(namespace)),
-        fetchProfile: (userId, namespace) => dispatch(fetchProfile(userId, namespace)),
+        fetchProfile: (userId, namespace, navigation) => dispatch(fetchProfile(userId, namespace, navigation)),
         goBackFromProfile: (namespace) => dispatch(goBackFromProfile(namespace))
     }
 }
