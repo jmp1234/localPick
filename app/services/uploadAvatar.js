@@ -1,6 +1,6 @@
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-import { storage } from '../../config/firebaseconfig';
+import { storage, database } from '../../config/firebaseconfig';
 
 
 export function awaitStatus() {
@@ -38,4 +38,8 @@ export function uploadTask(userId, filepath, blob) {
 export function getUrl(uploadTask) {
   const url = uploadTask.ref.getDownloadURL();
   return url;
+}
+
+export function saveImageToDatabase(imageUrl, userId) {
+  database.ref('/users/' + userId + '/avatar').set(imageUrl);
 }

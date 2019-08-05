@@ -195,3 +195,27 @@ export const findNewAvatarSuccess = (url) => ({
   type: types.FIND_NEW_AVATAR_SUCCESS,
   payload: {url}
 })
+
+export const editProfile = (link, userId) => ({
+  type: types.EDIT_PROFILE,
+  payload: {link, userId}
+})
+
+export const cancelEdit = () => ({
+  type: types.CANCEL_EDIT
+})
+
+export const editFirstname = (text) => ({
+  type: types.EDIT_FIRSTNAME,
+  payload: {text}
+})
+
+export const editLastname = (text) => ({
+  type: types.EDIT_LASTNAME,
+  payload: {text}
+})
+
+export const editUsername = (text) => ({
+  type: types.EDIT_USERNAME,
+  payload: {text}
+})

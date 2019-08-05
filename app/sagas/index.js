@@ -1,7 +1,7 @@
 import { put, fork, all } from "redux-saga/effects";
 import {watchLogin, watchLogout, watchFetchUser, watchForFirebaseAuth,
   watchSignup, watchSignupSuccess, watchRestaurantUpload, watchFetchLocalPicks,
-  watchFetchNotes, watchFetchProfile, watchFindNewAvatar
+  watchFetchNotes, watchFetchProfile, watchFindNewAvatar, watchEditProfile
 } from './watchers';
 
 export function* stateSagas() {
@@ -16,6 +16,7 @@ export function* stateSagas() {
     fork(watchFetchLocalPicks),
     fork(watchFetchNotes),
     fork(watchFetchProfile),
-    fork(watchFindNewAvatar)
+    fork(watchFindNewAvatar),
+    fork(watchEditProfile)
   ]);
 }

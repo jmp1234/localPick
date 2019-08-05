@@ -52,4 +52,13 @@ export default  {
   FIND_NEW_AVATAR: 'find_new_avatar',
   FIND_NEW_AVATAR_SUCCESS: 'find_new_avatar_success',
   FIND_NEW_AVATAR_ERROR: 'find_new_avatar_error',
+  EDIT_PROFILE: 'edit_profile',
+  EDIT_PROFILE_SUCCESS: 'edit_profile_success',
+  EDIT_PROFILE_ERROR: 'edit_profile_error',
+  CANCEL_EDIT: 'cancel_edit',
+  CANCEL_EDIT_SUCCESS: 'cancel_edit_success',
+  CANCEL_EDIT_ERROR: 'cancel_edit_error',
+  EDIT_FIRSTNAME:'edit_firstname',
+  EDIT_LASTNAME: 'edit_lastname',
+  EDIT_USERNAME: 'edit_username',
 }

@@ -23,6 +23,16 @@ export const selectUserName = (state) => {
   return user.userName
 }
 
+export const selectFirstName = (state) => {
+  const user = selectCurrentUser(state);
+  return user.firstName
+}
+
+export const selectLastName = (state) => {
+  const user = selectCurrentUser(state);
+  return user.lastName
+}
+
 
 export const selectUserPhotosArray= state => {
   const restaurantNames = selectUserRestaurants(state);

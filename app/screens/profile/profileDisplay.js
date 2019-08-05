@@ -10,7 +10,6 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
   const {userName, city, firstName, lastName, avatar} = currentUserObj
 
   checkUserAuth = () => {
-    console.log(';;;;;;;;;;;;;;', navigation.state.routeName === 'Profile', navigation.isFocused())
     if(!userId) {
       navigation.navigate('UserAuth')
     }
