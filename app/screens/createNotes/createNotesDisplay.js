@@ -51,7 +51,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
           onChangeText={(text) => addNotesAtUploadPage(text)}
           value={notes}
           multiline = {true}
-          maxLength = {80}
+          maxLength = {200}
           numberOfLines={4}
           style={{height: 85, justifyContent: "flex-start"}}
         />

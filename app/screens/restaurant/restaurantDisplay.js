@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView } from 'react-native';
 import { Header, ListItem } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
+import Swipeout from 'react-native-swipeout';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   restaurantRefresh, fetchProfile, goBackFromProfile, arrLength}) => {
@@ -32,6 +33,15 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
       </TouchableOpacity>
     )
   }
+
+  const swipeoutBtns = [
+  {
+    text: 'Delete',
+    backgroundColor: 'red',
+    onPress: () => console.log('delete'),
+  }
+  ]
+
 
   return (
     <View style={{flex: 1}}>
@@ -64,6 +74,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
           <Text style={{textAlign: 'center', color: 'dodgerblue'}}>Visit Website</Text>
         </TouchableOpacity>
         <View style={{marginTop: 30}}>
+          <Swipeout right={swipeoutBtns}>
           {
             userNotes.map((noteObj) => (
               <ListItem
@@ -71,9 +82,11 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
                 title={noteObj.note}
                 topDivider={true}
                 bottomDivider={true}
+                titleStyle={{fontSize: 11}}
               />
             ))
           }
+        </Swipeout>
         </View>
         <View style={{marginTop: 30}}>
           {
@@ -83,6 +96,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
                 bottomDivider={true}
                 key={noteObj.commentId}
                 subtitle={noteObj.note}
+                subtitleStyle={{fontSize: 11}}
                 title= <UserLink userId={noteObj.author} userName={noteObj.userName}/>
                 leftAvatar={{ source: { uri: noteObj.avatar } }}
                 titleStyle={{color: 'blue', fontSize: 12, marginBottom: 10}}
