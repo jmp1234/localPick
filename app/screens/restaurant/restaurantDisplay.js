@@ -3,13 +3,12 @@ import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollVi
 import { Header, ListItem } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 import Swipeout from 'react-native-swipeout';
+import Action from '../../components/actionSheet';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   restaurantRefresh, fetchProfile, goBackFromProfile, arrLength}) => {
 
   const {notes, address, name, website, link, namespace} = navigation.state.params
-
-  console.log('rest ::::::::::::::;', arrLength)
 
   const goToMaps = () => {
     let daddr = encodeURIComponent(`${address}`);
@@ -35,19 +34,19 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   }
 
   const swipeoutBtns = [
-  {
-    text: 'Delete',
-    backgroundColor: 'red',
-    onPress: () => console.log('delete'),
-  }
+    {
+      text: 'Delete',
+      backgroundColor: 'red',
+      onPress: () => console.log('delete'),
+    }
   ]
-
 
   return (
     <View style={{flex: 1}}>
       <Header
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
-        rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: () => console.log('pressed')}}
+        // rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: showActionSheet}}
+        rightComponent={<Action />}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
           navigation.pop()
           if(arrLength > 1) {
