@@ -196,10 +196,11 @@ export const findNewAvatarSuccess = (url) => ({
   payload: {url}
 })
 
-export const editProfile = (link, userId) => ({
+export const editProfile = (link, userId, firstname, lastname, username) => ({
   type: types.EDIT_PROFILE,
-  payload: {link, userId}
+  payload: {link, userId, firstname, lastname, username}
 })
+
 
 export const cancelEdit = () => ({
   type: types.CANCEL_EDIT

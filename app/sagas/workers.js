@@ -10,7 +10,9 @@ import {Alert} from 'react-native';
 import {setUser, getUser, addToMainFeed,
   setUserRestaurantObj, findLocalPicks, fetchNotes, addNotes} from '../services/user';
 import { awaitStatus, awaitStatusRoll, awaitImagePicker,
-  getResponse, getBlob, uploadTask, getUrl, saveImageToDatabase} from '../services/uploadAvatar';
+  getResponse, getBlob, uploadTask, getUrl, saveImageToDatabase,
+  saveFirstnameToDatabase, saveLastnameToDatabase, saveUsernameToDatabase
+} from '../services/uploadAvatar';
 import config from '../../config/config';
 
 export function* onLogin(action) {
@@ -184,9 +186,15 @@ export function* onUploadImage(action, uri) {
 }
 
 export function* onEditProfile(action) {
+  const {link, userId, firstname, lastname, username} = action.payload
+
   try{
-      yield call(saveImageToDatabase, action.payload.link, action.payload.userId);
-      yield put(fetchUserInfo(action.payload.userId))
+      yield call(saveImageToDatabase, link, userId);
+      yield call(saveFirstnameToDatabase, firstname, userId)
+      yield call(saveLastnameToDatabase, lastname, userId)
+      yield call(saveUsernameToDatabase, username, userId)
+
+      yield put(fetchUserInfo(userId))
       NavigationService.goBack();
   } catch(err) {
     Alert.alert('error editing profile: ', err)

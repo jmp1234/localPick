@@ -43,3 +43,15 @@ export function getUrl(uploadTask) {
 export function saveImageToDatabase(imageUrl, userId) {
   database.ref('/users/' + userId + '/avatar').set(imageUrl);
 }
+
+export function saveFirstnameToDatabase(firstname, userId) {
+  database.ref('/users/' + userId + '/firstName').set(firstname);
+}
+
+export function saveLastnameToDatabase(lastname, userId) {
+  database.ref('/users/' + userId + '/lastName').set(lastname);
+}
+
+export function saveUsernameToDatabase(username, userId) {
+  database.ref('/users/' + userId + '/userName').set(username);
+}

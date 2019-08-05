@@ -37,7 +37,9 @@ export const EditProfileDisplay = ({navigation, avatar, userId,
       <Header
         centerComponent={{ text: 'Edit Profile', style: { color: 'black', fontWeight: 'bold' } }}
         leftComponent={{ icon: 'close', color: 'black', onPress: () => navigation.goBack()}}
-        rightComponent={{ text: 'Save', color: 'blue', onPress: () => editProfile(image, userId)}}
+        rightComponent={{ text: 'Save', color: 'blue', onPress: () =>
+          editProfile(image, userId, firstName, lastName, userName)
+        }}
         containerStyle={{
           backgroundColor: 'white',
         }}
