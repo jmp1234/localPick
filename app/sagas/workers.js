@@ -3,12 +3,14 @@ import {auth, database} from '../../config/firebaseconfig';
 import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
   signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
   restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess,
-  fetchProfileSuccess
+  fetchProfileSuccess, findNewAvatarSuccess
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
 import {setUser, getUser, addToMainFeed,
   setUserRestaurantObj, findLocalPicks, fetchNotes, addNotes} from '../services/user';
+import { awaitStatus, awaitStatusRoll, awaitImagePicker,
+  getResponse, getBlob, uploadTask, getUrl} from '../services/uploadAvatar';
 import config from '../../config/config';
 
 export function* onLogin(action) {
@@ -143,4 +145,41 @@ export function* onFetchProfile(action) {
     console.log('error! ', err)
     Alert.alert('error! ', err)
   }
+}
+
+export function* onFindNewAvatar(action) {
+  try {
+    //check permissions
+    const status = yield call(awaitStatus);
+    const statusRoll = yield call(awaitStatusRoll)
+
+    //get result
+    const result = yield call(awaitImagePicker)
+    if(!result.cancelled) {
+      yield call(onUploadImage, action, result.uri)
+    }
+  } catch (err) {
+    Alert.alert('error: ', err)
+  }
+}
+
+export function* onUploadImage(action, uri) {
+  const { userId, imageId } = action.payload
+  const re = /(?:\.([^.]+))?$/;
+  const ext = re.exec(uri)[1];
+  const FilePath = imageId + '.' + ext;
+
+  try{
+    const response = yield call(getResponse, uri)
+    const blob = yield call(getBlob, response)
+    const result = yield call(uploadTask, userId, FilePath, blob)
+    const url = yield call(getUrl, result)
+
+    yield put(findNewAvatarSuccess(url))
+
+  } catch(err) {
+    Alert.alert('error with upload: ', err);
+    console.log('error with upload: ', err);
+  }
+
 }

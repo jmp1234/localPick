@@ -48,4 +48,8 @@ export default  {
   ['instance2/PROFILE_GO_BACK']: 'profile_go_back_2',
   ['instance1/CLEAR_PROFILES']: 'clear_profiles_1',
   ['instance2/CLEAR_PROFILES']: 'clear_profiles_2',
+
+  FIND_NEW_AVATAR: 'find_new_avatar',
+  FIND_NEW_AVATAR_SUCCESS: 'find_new_avatar_success',
+  FIND_NEW_AVATAR_ERROR: 'find_new_avatar_error',
 }

@@ -183,3 +183,15 @@ export const goBackFromProfile = (namespace) => ({
 export const clearProfiles = (namespace) => ({
   type: types[`${namespace}/CLEAR_PROFILES`]
 })
+
+//edit profile
+
+export const findNewAvatar = (userId, imageId) => ({
+  type: types.FIND_NEW_AVATAR,
+  payload: {userId, imageId}
+})
+
+export const findNewAvatarSuccess = (url) => ({
+  type: types.FIND_NEW_AVATAR_SUCCESS,
+  payload: {url}
+})

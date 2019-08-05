@@ -5,7 +5,10 @@ import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { f, auth, database, storage } from '../../../config/firebaseconfig';
 
-export const EditProfileDisplay = ({navigation, avatar, userId}) => {
+export const EditProfileDisplay = ({navigation, avatar, userId,
+  findNewAvatar, newAvatarLink}) => {
+
+  const image = newAvatarLink ? newAvatarLink : avatar
 
   const s4 = () => {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -20,13 +23,8 @@ export const EditProfileDisplay = ({navigation, avatar, userId}) => {
 
   const checkPermissions = async () => {
   const { status } = await Permissions.askAsync(Permissions.CAMERA);
-  // this.setState({
-  //   camera: status
-  // })
   const { statusRoll } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  // this.setState({
-  //   cameraRoll: statusRoll
-  // })
+
 }
 
   const findNewImage = async (uri) => {
@@ -39,20 +37,10 @@ export const EditProfileDisplay = ({navigation, avatar, userId}) => {
   });
 
   console.log('result: ', result);
-
   if(!result.cancelled) {
-    console.log('upload image');
-    // this.setState({
-    //   imageSelected: true,
-    //   imageId: this.uniqueId(),
-    //   uri: result.uri
-    // })
     uploadImage(result.uri);
   } else {
     console.log('cancelled')
-    // this.setState({
-    //   imageSelected: false
-    // })
   }
 }
 
@@ -63,12 +51,7 @@ const uploadImage = async (uri) => {
 
   var re = /(?:\.([^.]+))?$/;
   var ext = re.exec(uri)[1];
-  // this.setState({
-  //   currentFileType: ext,
-  //   uploading: true
-  // })
-  //
-  var imageId = 2
+  // var imageId = 2
   const response = await fetch(uri);
   const blob = await response.blob();
   var FilePath = imageId + '.' + ext;
@@ -76,18 +59,9 @@ const uploadImage = async (uri) => {
   var uploadTask = storage.ref('user/' + userid + '/img').child(FilePath).put(blob);
 
   uploadTask.on('state_changed', function(snapshot) {
-    var progress = ((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
-    console.log('upload is '+ progress+ '% complete');
-    // that.setState({
-    //   progress: progress
-    // })
   }, function(error) {
     console.log('error with upload: ', error)
   }, function() {
-    //upload is complete
-    // that.setState({
-    //   progress: 100,
-    // })
     uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
       that.processUpload(downloadURL)
     })
@@ -95,21 +69,11 @@ const uploadImage = async (uri) => {
 }
 
 processUpload = (imageUrl) => {
-  //process here...
 
-  //set needed info
-
-  //set user photos object
   database.ref('/users/' + userId + '/avatar').set(imageUrl);
 
   alert('image uploaded');
 
-  // this.setState({
-  //   uploading: false,
-  //   imageSelected: false,
-  //   caption: '',
-  //   uri: '',
-  // })
 }
 
   return (
@@ -122,11 +86,11 @@ processUpload = (imageUrl) => {
           backgroundColor: 'white',
         }}
       />
-      <Text>Edit Profile</Text>
-      <TouchableOpacity onPress={() => findNewImage()}>
+      {/* <TouchableOpacity onPress={() => findNewImage()}> */}
+      <TouchableOpacity onPress={() => findNewAvatar(userId, uniqueId())}>
         <Image
           PlaceholderContent={<ActivityIndicator />}
-          source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
+          source={{uri: `${image}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
         />
       </TouchableOpacity>
     </View>

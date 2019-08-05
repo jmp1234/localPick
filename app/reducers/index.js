@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import currentUser from './userReducer';
 import notesReducer from './notesReducer';
+import editProfileReducer from './editProfileReducer';
 import uploadReducer from './uploadReducer';
 import cityInputReducer from './searchReducers/cityInputReducer';
 import localPicksReducer from './searchReducers/localPicksReducer';
@@ -34,5 +35,6 @@ export default combineReducers({
   searchReducer: combineReducers({
     cityInputReducer,
     localPicksReducer
-  })
+  }),
+  editProfileReducer,
 })
