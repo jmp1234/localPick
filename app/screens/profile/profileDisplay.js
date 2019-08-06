@@ -132,7 +132,8 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
                     onPress={() => {
                       const namespace = navigation.state.params ? navigation.state.params.namespace: 'instance1'
                       // navigation.navigate('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
-                      navigation.push('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
+                      navigation.push('RestaurantDisplay', {namespace, ...userRestaurants[item.key],
+                        link: item.link, restaurantId: item.key})
                       fetchNotes(userRestaurants[item.key], item.key, item.link, namespace)
                     }}
                     >

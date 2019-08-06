@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView } from 'react-native';
-import { Header, ListItem } from 'react-native-elements';
+import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView, TextInput } from 'react-native';
+import { Header, ListItem, Overlay } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 import Swipeout from 'react-native-swipeout';
 import Action from '../../components/actionSheet';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
-  restaurantRefresh, fetchProfile, goBackFromProfile, arrLength}) => {
+  restaurantRefresh, fetchProfile, goBackFromProfile, arrLength,
+  openOverlay, closeOverlay, overlayVisibility, addNewNotes, editNote, note,
+  author, avatar, username}) => {
 
-  const {notes, address, name, website, link, namespace} = navigation.state.params
-
+  const {notes, address, name, website, link, namespace, restaurantId} = navigation.state.params
+  // console.log('bib', namespace)
   const goToMaps = () => {
     let daddr = encodeURIComponent(`${address}`);
     if (Platform.OS === 'ios') {
@@ -17,6 +19,17 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
     } else {
       Linking.openURL(`http://maps.google.com/?daddr=${daddr}`);
     }
+  }
+
+  const s4 = () => {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+
+  const uniqueId = () => {
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + '-' + s4() + '-' + s4();
   }
 
   const goToWebsite = () => {
@@ -40,13 +53,53 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
       onPress: () => console.log('delete'),
     }
   ]
-
+console.log('ssssssss', userNotes)
+//addNewNotes(restaurantId, notesId, author, note, posted, userName, avatar)
+//addNewNotes(restaurantId, notesId, author, note, posted, userName, avatar)
+// const dateTime = Date.now();
+// const posted = Math.floor(dateTime/1000);
   return (
     <View style={{flex: 1}}>
+    <Overlay
+      isVisible={overlayVisibility}
+      windowBackgroundColor='rgba(169, 169, 169, .8)'
+      // overlayBackgroundColor="red"
+      width='80%'
+      height='80%'
+    >
+    <View style={{borderColor: 'lightgrey', borderWidth: 1, padding: 5, marginTop: 30}}>
+      <TextInput
+        editable={true}
+        placeholder={'Enter your notes'}
+        onChangeText={(text) => editNote(text)}
+        value={note}
+        multiline = {true}
+        maxLength = {200}
+        numberOfLines={4}
+        style={{height: 85, justifyContent: "flex-start"}}
+      />
+    </View>
+      <TouchableOpacity
+        style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
+        onPress={() => {
+          const userId = author
+          const dateTime = Date.now();
+          const posted = Math.floor(dateTime/1000);
+          closeOverlay()
+          addNewNotes(restaurantId, uniqueId(), userId, note, posted, username, avatar, namespace)
+          // console.log(restaurantId, uniqueId(), author, note, posted, username, avatar)
+        }}
+      >
+        <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Add Note</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={{color: 'grey'}} onPress={closeOverlay}>
+        <Text>Cancel</Text>
+      </TouchableOpacity>
+    </Overlay>
       <Header
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
         // rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: showActionSheet}}
-        rightComponent={<Action />}
+        rightComponent={<Action openOverlay={openOverlay}/>}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
           navigation.pop()
           if(arrLength > 1) {
@@ -73,19 +126,20 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
           <Text style={{textAlign: 'center', color: 'dodgerblue'}}>Visit Website</Text>
         </TouchableOpacity>
         <View style={{marginTop: 30}}>
-          <Swipeout right={swipeoutBtns}>
           {
             userNotes.map((noteObj) => (
-              <ListItem
-                key={noteObj.commentId}
-                title={noteObj.note}
-                topDivider={true}
-                bottomDivider={true}
-                titleStyle={{fontSize: 11}}
-              />
+              <Swipeout right={swipeoutBtns}>
+                <ListItem
+                  key={noteObj.commentId}
+                  title={noteObj.note}
+                  topDivider={true}
+                  bottomDivider={true}
+                  titleStyle={{fontSize: 11}}
+                >
+                </ListItem>
+              </Swipeout>
             ))
           }
-        </Swipeout>
         </View>
         <View style={{marginTop: 30}}>
           {

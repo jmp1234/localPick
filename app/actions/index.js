@@ -220,3 +220,23 @@ export const editUsername = (text) => ({
   type: types.EDIT_USERNAME,
   payload: {text}
 })
+
+//restaurant display
+export const openOverlay = () => ({
+  type: types.OPEN_OVERLAY,
+})
+
+export const closeOverlay = () => ({
+  type: types.CLOSE_OVERLAY,
+})
+
+export const addNewNotes = (restaurantId, notesId, userId, note, posted, userName, avatar, namespace) => ({
+  type: types.ADD_NEW_NOTES,
+  payload: {restaurantId, notesId, userId, note, posted, userName, avatar, namespace}
+})
+
+
+export const editNote = (text) => ({
+  type: types.EDIT_NOTE,
+  payload: {text}
+})

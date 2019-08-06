@@ -3,7 +3,7 @@ import {auth, database} from '../../config/firebaseconfig';
 import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
   signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
   restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess,
-  fetchProfileSuccess, findNewAvatarSuccess
+  fetchProfileSuccess, findNewAvatarSuccess, restaurantRefresh
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
@@ -81,9 +81,17 @@ export function* onSignupSuccess(action) {
   }
 }
 
-export function *onAddNotes(restaurantId, notesId, author, note, posted, userName, avatar) {
-  const notesObj = {author, note, posted, userName, avatar};
+// export function *onAddNotes(restaurantId, notesId, author, note, posted, userName, avatar) {
+export function *onAddNotes(action) {
+  console.log('action!!!: ', action)
+  const {restaurantId, notesId, userId, note, posted, userName, avatar} = action.payload
+  const notesObj = {author: userId, avatar, note, posted, userName};
   yield call(addNotes, restaurantId, notesId, notesObj)
+
+  // yield put(restaurantRefresh('instance1'))
+  // yield put(fetchNotesSuccess(action.payload.namespace, snapshot.val()))
+    // yield put(fetchNotesSuccess('instance1', {[notesId]: notesObj}))
+    yield call(onFetchNotes, action)
 
 }
 
@@ -127,7 +135,7 @@ export function* onFetchNotes(action) {
     // NavigationService.navigate('RestaurantDisplay', {...action.payload.restaurantObj, link: action.payload.link})
     //make a call to the database
     const snapshot = yield call(fetchNotes, action.payload.restaurantId, action.payload.userId);
-
+    console.log('fuck: ', snapshot.val())
     yield put(fetchNotesSuccess(action.payload.namespace, snapshot.val()))
 
   } catch(err) {

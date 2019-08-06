@@ -19,8 +19,9 @@ export const selectUserNotes = (state, ownProps) => {
       commentId: key,
       note: notes[key].note,
       author: notes[key].author,
+      posted: notes[key].posted
     }
-  }).filter(note => note.author === userId)
+  }).filter(note => note.author === userId).sort((a,b) => b.posted - a.posted)
   return filteredArr
 }
 
@@ -36,8 +37,9 @@ export const selectNonUserNotes = (state, ownProps) => {
       note: notes[key].note,
       author: notes[key].author,
       avatar: notes[key].avatar,
-      userName: notes[key].userName
+      userName: notes[key].userName,
+      posted: notes[key].posted
     }
-  }).filter(note => note.author !== userId)
+  }).filter(note => note.author !== userId).sort((a,b) => b.posted - a.posted)
   return filteredArr
 }

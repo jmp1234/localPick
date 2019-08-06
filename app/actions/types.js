@@ -61,4 +61,9 @@ export default  {
   EDIT_FIRSTNAME:'edit_firstname',
   EDIT_LASTNAME: 'edit_lastname',
   EDIT_USERNAME: 'edit_username',
+
+  OPEN_OVERLAY: 'open_overlay',
+  CLOSE_OVERLAY: 'close_overlay',
+  ADD_NEW_NOTES: 'add_new_notes',
+  EDIT_NOTE: 'edit_note'
 }
