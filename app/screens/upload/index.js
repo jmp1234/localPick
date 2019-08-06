@@ -1,2 +1,2 @@
-export {UploadContainer} from './uploadContainer';
-export {UploadDisplay} from './uploadDisplay';
+export { UploadContainer } from './uploadContainer';
+export { UploadDisplay } from './uploadDisplay';

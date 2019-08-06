@@ -1,11 +1,12 @@
-import React, {Fragment} from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import React, { Fragment } from 'react';
+import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../../config/config';
-import {auth} from '../../../config/firebaseconfig';
+import { auth } from '../../../config/firebaseconfig';
 import { NavigationEvents } from 'react-navigation';
 
-export const UploadDisplay = ({user, coords, navigation, page, moveToNextUploadPage, moveBackUploadPage}) => {
+export const UploadDisplay = ({user, coords, navigation, page,
+  moveToNextUploadPage, moveBackUploadPage, restaurants}) => {
 
   const checkUserAuth = () => {
     if(!user) {
@@ -54,13 +55,15 @@ export const UploadDisplay = ({user, coords, navigation, page, moveToNextUploadP
                   const photoReference = details.photos[0].photo_reference;
                   const dateTime = Date.now();
                   const timestamp = Math.floor(dateTime/1000);
-                  if(details.name) {
+                  if(details.name && !restaurants[id]) {
                     navigation.navigate('CreateNotes', {
                       name, website, photoReference, city, timestamp,
                       address: formatted_address,
                       restaurantId: id
-
                     })
+                  }
+                  if(restaurants[id]) {
+                    Alert.alert('Upload Error', 'You have already recommended this local pick')
                   }
                 }}
                 query={{

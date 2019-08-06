@@ -1,13 +1,7 @@
-import types from '../actions/types';
+import types from '../../actions/types';
 
 const DEFAULT_STATE = {
-  userName: null,
-  city: null,
-  firstName: null,
-  lastName: null,
-  avatar: null,
-  coords: null,
-  restaurants: {},
+
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -15,32 +9,21 @@ export default (state = DEFAULT_STATE, action) => {
     case types.FETCH_USER_SUCCESS:
       return {
         ...state,
-        restaurants: {
-          ...state.restaurants,
-        },
-        ...action.payload
+        ...action.payload.restaurants,
       };
     case types.LOG_OUT_SUCCESS:
-      return {
-        ...state,
-          userName: null,
-          city: null,
-          firstName: null,
-          lastName: null,
-          avatar: null,
-          coords: null,
-          restaurants: {}
-      };
-    case types.RESTAURANT_UPLOAD:
-      return {
-        ...state
-      }
+      return DEFAULT_STATE;
+    // case types.RESTAURANT_UPLOAD:
+    //   return {
+    //     ...state
+    //   }
     case types.RESTAURANT_UPLOAD_SUCCESS:
       return {
         ...state,
-        restaurants: {
-          ...state.restaurants,
+        // restaurants: {
+          // ...state.restaurants,
           [action.payload.restaurantId]: {
+            ...state[action.payload.restaurantId],
             address: action.payload.address,
             name: action.payload.name,
             website: action.payload.website,
@@ -49,12 +32,12 @@ export default (state = DEFAULT_STATE, action) => {
             photoReference: action.payload.photoReference,
             timestamp: action.payload.timestamp
           }
-        }
+        // }
       }
-    case types.RESTAURANT_UPLOAD_ERROR:
-      return {
-        ...state
-      }
+    // case types.RESTAURANT_UPLOAD_ERROR:
+    //   return {
+    //     ...state
+    //   }
 
   default:
     return state;

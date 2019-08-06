@@ -22,3 +22,13 @@ export function findLocalPicks(city) {
   const snapshot = database.ref('restaurants').orderByChild('city').equalTo(city).once('value');
   return snapshot
 }
+
+export function fetchNotes(restaurantId, userId) {
+  const snapshot = database.ref('notes').child(restaurantId).once('value');
+  return snapshot
+}
+
+export function addNotes(restaurantId, notesId, notesObj) {
+  // database.ref('/notes/' + restaurantId + '/restaurants/' + restaurantId).set(restaurantObj);
+  database.ref(`/notes/${restaurantId}/${notesId}`).set(notesObj)
+}

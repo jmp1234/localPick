@@ -1,2 +1,2 @@
-export {SearchContainer} from './searchContainer';
-export {SearchDisplay} from './searchDisplay';
+export { SearchContainer } from './searchContainer';
+export { SearchDisplay } from './searchDisplay';

@@ -1,2 +1,2 @@
-export {LoginContainer} from './loginContainer';
+export { LoginContainer } from './loginContainer';
 export LoginDisplay from './loginDisplay';
