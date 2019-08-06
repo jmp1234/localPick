@@ -1,16 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import {ProfileContainer} from './app/screens/profile';
-import {EditProfileContainer} from './app/screens/editProfile';
-import {SearchContainer} from './app/screens/search';
-import {UploadContainer} from './app/screens/upload';
-import {LocalPicksContainer} from './app/screens/localPicks';
-import RestaurantDisplay from './app/screens/restaurantDisplay';
-import {CreateNotesContainer} from './app/screens/createNotes'
+import { UserProfileContainer } from './app/screens/profile';
+import { ProfileContainer } from './app/screens/profile';
+import { EditProfileContainer } from './app/screens/editProfile';
+import { SearchContainer } from './app/screens/search';
+import { UploadContainer } from './app/screens/upload';
+import { LocalPicksContainer } from './app/screens/localPicks';
+import { RestaurantContainer } from './app/screens/restaurant';
+import { CreateNotesContainer } from './app/screens/createNotes'
 import UserAuth from './app/screens/auth';
-import {SignupContainer} from './app/screens/signup';
-import {LoginContainer} from './app/screens/login';
+import { SignupContainer } from './app/screens/signup';
+import { LoginContainer } from './app/screens/login';
 import { f, auth, database} from './config/firebaseconfig';
 import { Provider } from 'react-redux';
 import store from './app/store';
@@ -18,14 +19,19 @@ import * as NavigationService from './app/services/navigation/navigationService'
 import axios from 'axios';
 
 const profile = createStackNavigator({
-  Profile: {screen: ProfileContainer,
+  Profile: {screen: UserProfileContainer,
     navigationOptions: {
      header: null,
   }},
-  RestaurantDisplay: { screen: RestaurantDisplay,
+  RestaurantDisplay: { screen: RestaurantContainer,
     navigationOptions: {
      header: null,
   }},
+  ProfileContainer: { screen: ProfileContainer,
+    navigationOptions: {
+      header: null,
+    }
+  }
 })
 
 const upload= createStackNavigator({
@@ -48,7 +54,11 @@ const search = createStackNavigator({
     navigationOptions: {
      header: null,
   }},
-  RestaurantDisplay: { screen: RestaurantDisplay,
+  RestaurantDisplay: { screen: RestaurantContainer,
+    navigationOptions: {
+     header: null,
+  }},
+  ProfileContainer: { screen: ProfileContainer,
     navigationOptions: {
      header: null,
   }},

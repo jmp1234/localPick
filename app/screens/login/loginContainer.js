@@ -1,5 +1,5 @@
-import {userLogin} from '../../actions';
-import {connect} from 'react-redux';
+import { userLogin } from '../../actions';
+import { connect } from 'react-redux';
 import { withNavigation, NavigationEvents } from 'react-navigation';
 import LoginDisplay from './loginDisplay';
 

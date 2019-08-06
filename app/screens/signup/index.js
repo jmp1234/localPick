@@ -1,2 +1,2 @@
-export {SignupContainer} from './signupContainer';
+export { SignupContainer } from './signupContainer';
 export SignupDisplay from './signupDisplay';

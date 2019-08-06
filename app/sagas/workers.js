@@ -2,12 +2,17 @@ import { all, call, fork, put, takeEvery, eventChannel } from "redux-saga/effect
 import {auth, database} from '../../config/firebaseconfig';
 import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
   signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
-  restaurantUploadSuccess, fetchLocalPicksSuccess
+  restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess,
+  fetchProfileSuccess, findNewAvatarSuccess
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
 import {setUser, getUser, addToMainFeed,
-  setUserRestaurantObj, findLocalPicks} from '../services/user';
+  setUserRestaurantObj, findLocalPicks, fetchNotes, addNotes} from '../services/user';
+import { awaitStatus, awaitStatusRoll, awaitImagePicker,
+  getResponse, getBlob, uploadTask, getUrl, saveImageToDatabase,
+  saveFirstnameToDatabase, saveLastnameToDatabase, saveUsernameToDatabase
+} from '../services/uploadAvatar';
 import config from '../../config/config';
 
 export function* onLogin(action) {
@@ -75,8 +80,16 @@ export function* onSignupSuccess(action) {
     Alert.alert('error')
   }
 }
+
+export function *onAddNotes(restaurantId, notesId, author, note, posted, userName, avatar) {
+  const notesObj = {author, note, posted, userName, avatar};
+  yield call(addNotes, restaurantId, notesId, notesObj)
+
+}
+
 export function* onRestaurantUpload(action) {
-  const {restaurantId, address, name, website, user, notes, photoReference, timestamp, city} = action.payload
+  const {restaurantId, address, name, website, user, notes, photoReference,
+    timestamp, city, notesId, userName, avatar} = action.payload
   const restaurantObj = {address, name, website, user, notes, photoReference, timestamp, city}
   const photosLink = `https://maps.googleapis.com/maps/api/place/photo?maxheight=200&photoreference=${photoReference}&key=${config.GOOGLE_PLACES_KEY}`;
 
@@ -84,6 +97,8 @@ export function* onRestaurantUpload(action) {
     //add data to firebase
     yield call(addToMainFeed, restaurantId, restaurantObj);
     yield call(setUserRestaurantObj, restaurantId, restaurantObj, user);
+
+    yield call(onAddNotes, restaurantId, notesId, user, notes, timestamp, userName, avatar)
 
 
     //update state
@@ -104,5 +119,85 @@ export function* onFetchLocalPicks(action) {
     NavigationService.navigate('LocalPicks');
   } catch(err) {
     Alert.alert('Error finding local picks', err)
+  }
+}
+
+export function* onFetchNotes(action) {
+  try{
+    // NavigationService.navigate('RestaurantDisplay', {...action.payload.restaurantObj, link: action.payload.link})
+    //make a call to the database
+    const snapshot = yield call(fetchNotes, action.payload.restaurantId, action.payload.userId);
+
+    yield put(fetchNotesSuccess(action.payload.namespace, snapshot.val()))
+
+  } catch(err) {
+    Alert.alert('Error accessing notes', err)
+    console.log('error accessing notes: ', err)
+  }
+}
+
+export function* onFetchProfile(action) {
+  const {userId, namespace, navigation} = action.payload
+  console.log('under: ', navigation)
+  try {
+    const snapshot = yield call(getUser, userId);
+    yield put(fetchProfileSuccess(snapshot.val(), namespace))
+    navigation.push('ProfileContainer', {namespace})
+  } catch(err) {
+    console.log('error! ', err)
+    Alert.alert('error! ', err)
+  }
+}
+
+export function* onFindNewAvatar(action) {
+  try {
+    //check permissions
+    const status = yield call(awaitStatus);
+    const statusRoll = yield call(awaitStatusRoll)
+
+    //get result
+    const result = yield call(awaitImagePicker)
+    if(!result.cancelled) {
+      yield call(onUploadImage, action, result.uri)
+    }
+  } catch (err) {
+    Alert.alert('error: ', err)
+  }
+}
+
+export function* onUploadImage(action, uri) {
+  const { userId, imageId } = action.payload
+  const re = /(?:\.([^.]+))?$/;
+  const ext = re.exec(uri)[1];
+  const FilePath = imageId + '.' + ext;
+
+  try{
+    const response = yield call(getResponse, uri)
+    const blob = yield call(getBlob, response)
+    const result = yield call(uploadTask, userId, FilePath, blob)
+    const url = yield call(getUrl, result)
+
+    yield put(findNewAvatarSuccess(url))
+
+  } catch(err) {
+    Alert.alert('error with upload: ', err);
+    console.log('error with upload: ', err);
+  }
+}
+
+export function* onEditProfile(action) {
+  const {link, userId, firstname, lastname, username} = action.payload
+
+  try{
+      yield call(saveImageToDatabase, link, userId);
+      yield call(saveFirstnameToDatabase, firstname, userId)
+      yield call(saveLastnameToDatabase, lastname, userId)
+      yield call(saveUsernameToDatabase, username, userId)
+
+      yield put(fetchUserInfo(userId))
+      NavigationService.goBack();
+  } catch(err) {
+    Alert.alert('error editing profile: ', err)
+    console.log('error editing profile: ', err)
   }
 }

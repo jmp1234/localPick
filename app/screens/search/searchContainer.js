@@ -1,6 +1,6 @@
-import {moveToNextPageSearch, moveBackSearch} from '../../actions';
-import {connect} from 'react-redux';
-import {SearchDisplay} from './searchDisplay';
+import { moveToNextPageSearch, moveBackSearch } from '../../actions';
+import { connect } from 'react-redux';
+import { SearchDisplay } from './searchDisplay';
 
 
 const mapDispatchToProps = {moveToNextPageSearch, moveBackSearch}

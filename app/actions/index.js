@@ -79,10 +79,32 @@ export const fetchUserPicksFailure = errorMessage => ({
   payload: errorMessage
 });
 
+//Fetch notes
+export const fetchNotes = (restaurantObj, restaurantId, link, namespace)  => ({
+  type: types.FETCH_NOTES,
+  payload: {restaurantObj, restaurantId, link, namespace}
+});
+
+export const fetchNotesSuccess = (namespace, restaurantObj) => {
+  return {
+    type: types[`${namespace}/FETCH_NOTES_SUCCESS`],
+    payload: restaurantObj
+  }
+}
+
+export const restaurantRefresh = (namespace) => {
+  return {
+    type: types[`${namespace}/RESTAURANT_REFRESH`],
+  }
+}
+
 // RESTAURANT Upload
-export const restaurantUpload =  (restaurantId, address, name, website, user, notes, photoReference, timestamp, city) => ({
+export const restaurantUpload = (restaurantId, address, name, website, user,
+  notes, photoReference, timestamp, city, notesId,
+  userName, avatar) => ({
   type: types.RESTAURANT_UPLOAD,
-  payload: {restaurantId, address, name, website, user, notes, photoReference, timestamp, city}
+  payload: {restaurantId, address, name, website, user, notes,
+    photoReference, timestamp, city, notesId, userName, avatar}
 });
 
 
@@ -95,6 +117,7 @@ export const restaurantUploadFailure = restaurants => ({
   type: types.RESTAURANT_UPLOAD_ERROR,
   payload: restaurants,
 });
+
 
 //upload page
 
@@ -140,3 +163,60 @@ export const fetchLocalPicksFailure = errorMessage => ({
   type: types.FETCH_LOCAL_PICKS_ERROR,
   payload: errorMessage
 });
+
+//non-user profile
+
+export const fetchProfile = (userId, namespace, navigation) => ({
+  type: types.FETCH_PROFILE,
+  payload: {userId, namespace, navigation}
+})
+
+export const fetchProfileSuccess = (profileObj, namespace) => ({
+  type: types[`${namespace}/FETCH_PROFILE_SUCCESS`],
+  payload: profileObj
+})
+
+export const goBackFromProfile = (namespace) => ({
+  type: types[`${namespace}/PROFILE_GO_BACK`]
+})
+
+export const clearProfiles = (namespace) => ({
+  type: types[`${namespace}/CLEAR_PROFILES`]
+})
+
+//edit profile
+
+export const findNewAvatar = (userId, imageId) => ({
+  type: types.FIND_NEW_AVATAR,
+  payload: {userId, imageId}
+})
+
+export const findNewAvatarSuccess = (url) => ({
+  type: types.FIND_NEW_AVATAR_SUCCESS,
+  payload: {url}
+})
+
+export const editProfile = (link, userId, firstname, lastname, username) => ({
+  type: types.EDIT_PROFILE,
+  payload: {link, userId, firstname, lastname, username}
+})
+
+
+export const cancelEdit = () => ({
+  type: types.CANCEL_EDIT
+})
+
+export const editFirstname = (text) => ({
+  type: types.EDIT_FIRSTNAME,
+  payload: {text}
+})
+
+export const editLastname = (text) => ({
+  type: types.EDIT_LASTNAME,
+  payload: {text}
+})
+
+export const editUsername = (text) => ({
+  type: types.EDIT_USERNAME,
+  payload: {text}
+})

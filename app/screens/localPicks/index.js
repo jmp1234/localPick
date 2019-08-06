@@ -1,2 +1,2 @@
-export {LocalPicksContainer} from './localPicksContainer';
-export {LocalPicksDisplay} from './localPicksDisplay';
+export { LocalPicksContainer } from './localPicksContainer';
+export { LocalPicksDisplay } from './localPicksDisplay';

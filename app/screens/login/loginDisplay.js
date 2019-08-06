@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
-import { Alert, View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native';
-import {auth} from '../../../config/firebaseconfig';
+import { Alert, View, Text, TouchableOpacity, ImageBackground, TextInput, KeyboardAvoidingView } from 'react-native';
+import { auth } from '../../../config/firebaseconfig';
 import { Input } from 'react-native-elements';
 
 class LoginDisplay extends Component {
