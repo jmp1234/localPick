@@ -13,10 +13,7 @@ export default (state = DEFAULT_STATE, action) => {
         overlayVisible: true
       };
     case types.CLOSE_OVERLAY:
-      return {
-        ...state,
-        overlayVisible: false
-      };
+      return DEFAULT_STATE;
     case types.EDIT_NOTE:
       return {
         ...state,

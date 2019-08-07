@@ -41,7 +41,7 @@ export const EditProfileDisplay = ({navigation, avatar, userId,
           editProfile(image, userId, firstName, lastName, userName)
         }}
         containerStyle={{
-          backgroundColor: 'white',
+          backgroundColor: 'rgb(64,64,64)',
         }}
       />
       <View style={{flex:1}}>
