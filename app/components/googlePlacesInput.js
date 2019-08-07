@@ -10,7 +10,7 @@ import {fetchLocalPicks} from '../actions';
 export const GooglePlaceInput = ({navigation, fetchLocalPicks}) => {
   return (
     <GooglePlacesAutocomplete
-      placeholder='Enter city'
+      placeholder='Search'
       minLength={2}
       autoFocus={false}
       returnKeyType={'search'}
@@ -30,16 +30,34 @@ export const GooglePlaceInput = ({navigation, fetchLocalPicks}) => {
         types: '(cities)'
       }}
 
+      // styles={{
+      //   textInputContainer: {
+      //     width: '100%'
+      //   },
+      //   description: {
+      //     fontWeight: 'bold'
+      //   },
+      //   predefinedPlacesDescription: {
+      //     color: '#1faadb'
+      //   }
+      // }}
       styles={{
+        container: {
+          backgroundColor: 'rgba(0,0,0,0.4)',
+        },
         textInputContainer: {
           width: '100%'
         },
         description: {
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          color: 'white'
         },
         predefinedPlacesDescription: {
           color: '#1faadb'
-        }
+        },
+        // listView: {
+        //   display: `${!inputFocus ? 'none' : 'block'}`
+        // }
       }}
 
       currentLocation={true}

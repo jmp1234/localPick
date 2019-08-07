@@ -17,7 +17,8 @@ import { Provider } from 'react-redux';
 import store from './app/store';
 import * as NavigationService from './app/services/navigation/navigationService';
 import axios from 'axios';
-import { Icon } from 'react-native-elements'
+// import { Icon } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 const profile = createStackNavigator({
@@ -72,24 +73,24 @@ const TabStack = createMaterialBottomTabNavigator(
     Search: {
       screen: search,
       navigationOptions: {
-        tabBarIcon: () => (
-          <Icon name='search' type='material' iconStyle={{color: 'white'}} />
+        tabBarIcon: ({tintColor}) =>  (
+          <Icon name='search' style={{color: tintColor}} size={25}/>
         ),
       },
     },
     Upload: {
       screen: upload,
       navigationOptions: {
-        tabBarIcon: () => (
-          <Icon name='add' type='material' iconStyle={{color: 'white'}} />
+        tabBarIcon: ({tintColor}) =>  (
+          <Icon name='add' style={{color: tintColor}} size={25}/>
         ),
       },
     },
     Profile: {
       screen: profile,
       navigationOptions: {
-        tabBarIcon: () => (
-          <Icon name='person' type='material' iconStyle={{color: 'white'}} />
+        tabBarIcon: ({tintColor}) =>  (
+          <Icon name='person' style={{color: tintColor}} size={25}/>
         ),
       },
     },

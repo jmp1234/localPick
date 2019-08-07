@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Image, Header, Icon } from 'react-native-elements';
 
@@ -49,12 +49,32 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
                   fetchNotes(localPicks[item.key], item.key, item.link, 'instance2')
                 }}
                 >
-                <Image
+                {/* <Image
                   PlaceholderContent={<ActivityIndicator />}
                   source={{uri: item.link}}
                   style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
                 />
-                <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text>
+                <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text> */}
+                <ImageBackground
+                  source={{uri: item.link}}
+                  PlaceholderContent={<ActivityIndicator />}
+                  style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
+                  >
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        color: 'white',
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                        textShadowOffset: {width: -1, height: 1},
+                        textShadowRadius: 10,
+                      }}
+                      >
+                      {item.name}
+                    </Text>
+                  </ImageBackground>
               </TouchableOpacity>
             </View>
           )}

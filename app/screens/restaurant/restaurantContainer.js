@@ -6,7 +6,7 @@ import { restaurantRefresh, fetchProfile, goBackFromProfile,
 import { RestaurantDisplay } from './restaurantDisplay';
 import { arrayLength } from  '../../selectors/profileSelectors';
 import { selectUserId } from '../../selectors/userSelectors';
-import { selectAvatar, selectUserName } from '../../selectors/userProfileSelectors';
+import { selectAvatar, selectUserName, selectUserRestaurants } from '../../selectors/userProfileSelectors';
 
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -33,7 +33,8 @@ const mapStateToProps = (state, ownProps) => {
     note: state.restaurantDisplayReducer.note,
     author: selectUserId(state),
     avatar: selectAvatar(state),
-    username: selectUserName(state)
+    username: selectUserName(state),
+    userRestaurants: selectUserRestaurants(state)
   }
 }
 

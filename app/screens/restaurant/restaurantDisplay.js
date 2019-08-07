@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView, TextInput, ImageBackground } from 'react-native';
 import { Header, ListItem, Overlay } from 'react-native-elements';
 import { NavigationEvents } from 'react-navigation';
 import Swipeout from 'react-native-swipeout';
@@ -8,10 +8,9 @@ import Action from '../../components/actionSheet';
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   restaurantRefresh, fetchProfile, goBackFromProfile, arrLength,
   openOverlay, closeOverlay, overlayVisibility, addNewNotes, editNote, note,
-  author, avatar, username}) => {
+  author, avatar, username, userRestaurants}) => {
 
   const {notes, address, name, website, link, namespace, restaurantId} = navigation.state.params
-  // console.log('bib', namespace)
   const goToMaps = () => {
     let daddr = encodeURIComponent(`${address}`);
     if (Platform.OS === 'ios') {
@@ -41,7 +40,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
       <TouchableOpacity onPress={() => {
         fetchProfile(props.userId, namespace, navigation)
       }}>
-        <Text style={{color: 'blue'}}>@{props.userName}</Text>
+        <Text style={{fontWeight: 'bold'}}>{props.userName}</Text>
       </TouchableOpacity>
     )
   }
@@ -53,11 +52,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
       onPress: () => console.log('delete'),
     }
   ]
-console.log('ssssssss', userNotes)
-//addNewNotes(restaurantId, notesId, author, note, posted, userName, avatar)
-//addNewNotes(restaurantId, notesId, author, note, posted, userName, avatar)
-// const dateTime = Date.now();
-// const posted = Math.floor(dateTime/1000);
+
   return (
     <View style={{flex: 1}}>
     <Overlay
@@ -87,7 +82,6 @@ console.log('ssssssss', userNotes)
           const posted = Math.floor(dateTime/1000);
           closeOverlay()
           addNewNotes(restaurantId, uniqueId(), userId, note, posted, username, avatar, namespace)
-          // console.log(restaurantId, uniqueId(), author, note, posted, username, avatar)
         }}
       >
         <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Add Note</Text>
@@ -98,8 +92,7 @@ console.log('ssssssss', userNotes)
     </Overlay>
       <Header
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
-        // rightComponent={{icon: 'more-horiz', underlayColor: 'white', color: 'black', onPress: showActionSheet}}
-        rightComponent={<Action openOverlay={openOverlay}/>}
+        rightComponent={userRestaurants[restaurantId] && <Action openOverlay={openOverlay}/>}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
           navigation.pop()
           if(arrLength > 1) {
@@ -113,11 +106,26 @@ console.log('ssssssss', userNotes)
       />
       <ScrollView>
       <View>
-        <Image
+        <ImageBackground
           source={{uri: link}}
           style={{resizeMode: 'cover', width: '100%', height: 240}}
-        />
-        <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{name}</Text>
+        >
+           {/* <Header
+            centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
+            rightComponent={userRestaurants[restaurantId] && <Action openOverlay={openOverlay}/>}
+            leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
+              navigation.pop()
+              if(arrLength > 1) {
+                goBackFromProfile(navigation.state.params.namespace)
+                restaurantRefresh()
+              }
+            }}}
+            containerStyle={{
+              backgroundColor: 'transparent',
+            }}
+          /> */}
+      </ImageBackground>
+        {/* <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{name}</Text> */}
         <Text  style={{textAlign: 'center'}}>{address}</Text>
         <TouchableOpacity onPress={goToMaps}>
         <Text  style={{textAlign: 'center', color: 'dodgerblue'}}>Get Directions</Text>
@@ -126,6 +134,9 @@ console.log('ssssssss', userNotes)
           <Text style={{textAlign: 'center', color: 'dodgerblue'}}>Visit Website</Text>
         </TouchableOpacity>
         <View style={{marginTop: 30}}>
+          {userNotes.length > 0 && (
+            <Text style={{fontWeight: 'bold', marginBottom: 5}}>My recommendations:</Text>
+          )}
           {
             userNotes.map((noteObj) => (
               <Swipeout right={swipeoutBtns}>
@@ -142,6 +153,9 @@ console.log('ssssssss', userNotes)
           }
         </View>
         <View style={{marginTop: 30}}>
+          {nonUserNotes.length > 0 && (
+            <Text style={{fontWeight: 'bold', marginBottom: 5}}>Other recommendations:</Text>
+          )}
           {
             nonUserNotes.map((noteObj) => (
               <ListItem
