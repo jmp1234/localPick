@@ -8,7 +8,7 @@ export const SearchDisplay = ({currentPage, moveToNextPageSearch, moveBackSearch
   return (
     <Fragment>
     {currentPage === 0 ? (
-              <ImageBackground source={require('../../../assets/coffeeBackground.jpeg')} style={{width: '100%', height: '100%'}}>
+      <ImageBackground source={require('../../../assets/coffeeBackground.jpeg')} style={{width: '100%', height: '100%'}}>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.45)'}}>
         <Text style={{fontSize: 30, marginBottom: 30, color: 'white',
           textShadowColor: 'black',
@@ -60,7 +60,7 @@ export const SearchDisplay = ({currentPage, moveToNextPageSearch, moveBackSearch
             }}
           />
           <View style={{alignItems: 'center'}}>
-              <Text style={{color: 'white'}}>Discover the best spots to eat</Text>
+              <Text style={{color: 'white'}}>Discover the best spots to eat at</Text>
           </View>
         </View>
       </View>

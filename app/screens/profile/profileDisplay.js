@@ -110,7 +110,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
               <Text style={{fontWeight: 'bold'}}>Fine Dining</Text>
             </TouchableOpacity> */}
           {/* </View> */}
-          <Divider style={{ backgroundColor: 'lightgrey', height: 1.5, marginTop: 20}} />
+          <Divider style={{ backgroundColor: 'lightgrey', height: 1.5, marginTop: 14}} />
           {Object.keys(userRestaurants).length === 0 ? (
             <Fragment>
               <Icon
