@@ -33,6 +33,11 @@ export const selectLastName = (state) => {
   return user.lastName
 }
 
+export const selectCity = (state) => {
+  const user = selectCurrentUser(state);
+  return user.city
+}
+
 
 export const selectUserPhotosArray= state => {
   const restaurantNames = selectUserRestaurants(state);

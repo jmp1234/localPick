@@ -95,10 +95,10 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
         rightComponent={userRestaurants[restaurantId] && <Action openOverlay={openOverlay}/>}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
           navigation.pop()
-          if(arrLength > 1) {
-            goBackFromProfile(navigation.state.params.namespace)
+          // if(arrLength > 1) {
+            // goBackFromProfile(navigation.state.params.namespace)
             restaurantRefresh()
-          }
+          // }
         }}}
         containerStyle={{
           backgroundColor: 'white',

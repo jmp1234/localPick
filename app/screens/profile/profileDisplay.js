@@ -5,9 +5,15 @@ import { Image, Avatar, Icon, Header, Divider } from 'react-native-elements';
 import { database } from '../../../config/firebaseconfig';
 
 export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
-  navigation, userLogout, fetchNotes, userPhotos, goBackFromProfile, clearProfiles}) => {
+  navigation, userLogout, fetchNotes, userPhotos, goBackFromProfile, clearProfiles,
+  userName, city, firstName, lastName, avatar
+  }) => {
 
-  const {userName, city, firstName, lastName, avatar} = currentUserObj
+
+    // const {userName, city, firstName, lastName, avatar} = currentUserObj
+
+
+
 
   checkUserAuth = () => {
     if(!userId) {
@@ -30,7 +36,9 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
           type='material'
           color='black'
           onPress={() => {
-            navigation.pop()
+            navigation.goBack();
+            goBackFromProfile('instance1')
+
           }}
         />
         )}
@@ -52,7 +60,6 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
       </Fragment>
     )
   }
-
 
   return (
     <View style={{flex: 1}}>
@@ -111,7 +118,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
             </TouchableOpacity> */}
           {/* </View> */}
           <Divider style={{ backgroundColor: 'lightgrey', height: 1.5, marginTop: 14}} />
-          {Object.keys(userRestaurants).length === 0 ? (
+          {userRestaurants && Object.keys(userRestaurants).length === 0 ? (
             <Fragment>
               <Icon
                 name='food'
