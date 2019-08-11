@@ -32,13 +32,6 @@ export const SearchDisplay = ({currentPage, moveToNextPageSearch, moveBackSearch
     </ImageBackground>
     ) : (
       <View style={{ backgroundColor: 'rgb(64,64,64)',flex: 1 }}>
-        {/* <View style={{flexDirection: 'row',paddingTop: 30, alignItems: 'center', justifyContent: 'space-between'}}>
-          <TouchableOpacity
-            onPress={moveBackSearch}
-            style={{width:100}}>
-            <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'white'}}>✗</Text>
-          </TouchableOpacity>
-        </View> */}
         <Header
           centerComponent={{ text: 'Enter Location', style: { color: 'white'} }}
           leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'white', onPress: () => {

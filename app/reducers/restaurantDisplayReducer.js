@@ -2,7 +2,8 @@ import types from '../actions/types';
 
 const DEFAULT_STATE = {
   overlayVisible: false,
-  note: ''
+  note: '',
+  focusedCommentId: ''
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -13,12 +14,30 @@ export default (state = DEFAULT_STATE, action) => {
         overlayVisible: true
       };
     case types.CLOSE_OVERLAY:
-      return DEFAULT_STATE;
+      return {
+        ...state,
+        overlayVisible: false,
+        note: ''
+      }
     case types.EDIT_NOTE:
       return {
         ...state,
         note: action.payload.text
       }
+    case types.USER_NOTE_PRESSED:
+      return {
+        ...state,
+        focusedCommentId: action.payload.commentId
+      }
+    case types.USER_NOTE_CLOSED:
+      return {
+        ...state,
+        focusedCommentId: ''
+      }
+    // case types.USER_NOTE_DELETED:
+    //   return {
+    //     ...state
+    //   }
   default:
     return state;
   }

@@ -45,7 +45,7 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
             <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('RestaurantDisplay', {namespace: 'instance2', ...localPicks[item.key], link: item.link})
+                  navigation.navigate('RestaurantDisplay', {restaurantId: item.key, namespace: 'instance2', ...localPicks[item.key], link: item.link})
                   fetchNotes(localPicks[item.key], item.key, item.link, 'instance2')
                 }}
                 >

@@ -16,7 +16,7 @@ export const UploadDisplay = ({user, coords, navigation, page,
   }
 
   return (
-    <View style={{flex: 1}}>
+    <Fragment>
         <NavigationEvents onWillFocus={checkUserAuth}/>
         <Fragment>
           {page === 0 ? (
@@ -28,32 +28,33 @@ export const UploadDisplay = ({user, coords, navigation, page,
                   backgroundColor: 'transparent',
                 }}
               /> */}
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center',  backgroundColor: 'rgba(0,0,0,0.45)'}}>
-                <View style={{justifyContent: 'flex-end',flex: 1}}>
-                <Text style={{fontSize: 28, marginBottom: 15, color: 'white', textAlign: 'center',
-                  textShadowColor: 'black',
-                  textShadowOffset: {width: -3, height: 3},
-                  textShadowRadius: 10}}>Share your local pick</Text>
-                <Text style={{fontSize: 15, alignItems: 'center', textAlign: 'center', color: 'white',
-                  textShadowColor: 'black',
-                  textShadowOffset: {width: -3, height: 3},
-                  textShadowRadius: 10}}>Allow others to view your favorite restaurants</Text>
-                </View>
+              <View style={{flex: 1, justifyContent: 'space-between', alignItems: 'center',  backgroundColor: 'rgba(0,0,0,0.45)'}}>
+                {/* <View style={{justifyContent: 'flex-end',flex: 1}}> */}
+                <View></View>
+                <View>
+                  <Text style={{marginTop: 50, marginBottom: 20, fontSize: 30, color: 'white', textAlign: 'center',
+                    textShadowColor: 'black',
+                    textShadowOffset: {width: -3, height: 3},
+                    textShadowRadius: 10}}>Share your local pick</Text>
+                  <Text style={{fontSize: 15, textAlign: 'center', color: 'white',
+                    textShadowColor: 'black',
+                    textShadowOffset: {width: -3, height: 3},
+                    textShadowRadius: 10}}>Allow others to view your favorite restaurants</Text>
+                  </View>
+                {/* </View> */}
                 {/* <TouchableOpacity
                   onPress={moveToNextUploadPage}
                   >
                   <Text>➕</Text>
                 </TouchableOpacity> */}
-                {/* <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}> */}
-                  <View style={{width: '100%', flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
+                  <View style={{width: '100%', paddingHorizontal: 15, paddingBottom: 14}}>
                       <TouchableOpacity
                         style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
                         onPress={moveToNextUploadPage}
                       >
-                        <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Recommend your restaurant</Text>
+                        <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Recommend a restaurant</Text>
                       </TouchableOpacity>
-                    </View>
-                {/* </KeyboardAvoidingView> */}
+                  </View>
               </View>
             </ImageBackground>
             </Fragment>
@@ -133,6 +134,6 @@ export const UploadDisplay = ({user, coords, navigation, page,
             </View>
           )}
         </Fragment>
-    </View>
+    </Fragment>
   )
 }

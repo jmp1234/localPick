@@ -9,12 +9,6 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
   userName, city, firstName, lastName, avatar
   }) => {
 
-
-    // const {userName, city, firstName, lastName, avatar} = currentUserObj
-
-
-
-
   checkUserAuth = () => {
     if(!userId) {
       navigation.navigate('UserAuth')

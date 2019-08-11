@@ -23,11 +23,15 @@ export function findLocalPicks(city) {
   return snapshot
 }
 
-export function fetchNotes(restaurantId, userId) {
+export function fetchNotes(restaurantId) {
   const snapshot = database.ref('notes').child(restaurantId).once('value');
   return snapshot
 }
 
 export function addNotes(restaurantId, notesId, notesObj) {
   database.ref(`/notes/${restaurantId}/${notesId}`).set(notesObj)
+}
+
+export function deleteUserNote(restaurantId, noteId) {
+  database.ref('/notes/' + restaurantId + '/' + noteId).remove()
 }

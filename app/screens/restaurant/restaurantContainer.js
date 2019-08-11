@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { selectUserNotes, selectNonUserNotes } from '../../selectors/notesSelectors';
 import { restaurantRefresh, fetchProfile, goBackFromProfile,
-  openOverlay, closeOverlay, addNewNotes, editNote
+  openOverlay, closeOverlay, addNewNotes, editNote, userNotePressed, userNoteClosed,
+  userNoteDeleted
 } from '../../actions';
 import { RestaurantDisplay } from './restaurantDisplay';
 import { arrayLength } from  '../../selectors/profileSelectors';
@@ -20,7 +21,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         addNewNotes: (restaurantId, notesId, author, note, posted, userName, avatar) => {
           dispatch(addNewNotes(restaurantId, notesId, author, note, posted, userName, avatar, namespace))
         },
-        editNote: (text) => dispatch(editNote(text))
+        editNote: (text) => dispatch(editNote(text)),
+        userNotePressed: (commentId) => dispatch(userNotePressed(commentId)),
+        userNoteClosed: () => dispatch(userNoteClosed()),
+        userNoteDeleted: (restaurantId, commentId, namespace) => dispatch(userNoteDeleted(restaurantId, commentId, namespace))
     }
 }
 
@@ -34,7 +38,8 @@ const mapStateToProps = (state, ownProps) => {
     author: selectUserId(state),
     avatar: selectAvatar(state),
     username: selectUserName(state),
-    userRestaurants: selectUserRestaurants(state)
+    userRestaurants: selectUserRestaurants(state),
+    focusedCommentId: state.restaurantDisplayReducer.focusedCommentId
   }
 }
 

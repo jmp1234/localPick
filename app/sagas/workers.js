@@ -7,7 +7,7 @@ import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
-import {setUser, getUser, addToMainFeed,
+import {setUser, getUser, addToMainFeed, deleteUserNote,
   setUserRestaurantObj, findLocalPicks, fetchNotes, addNotes} from '../services/user';
 import { awaitStatus, awaitStatusRoll, awaitImagePicker,
   getResponse, getBlob, uploadTask, getUrl, saveImageToDatabase,
@@ -148,8 +148,7 @@ export function* onFetchNotes(action) {
   try{
     // NavigationService.navigate('RestaurantDisplay', {...action.payload.restaurantObj, link: action.payload.link})
     //make a call to the database
-    const snapshot = yield call(fetchNotes, action.payload.restaurantId, action.payload.userId);
-    console.log('fuck: ', snapshot.val())
+    const snapshot = yield call(fetchNotes, action.payload.restaurantId);
     yield put(fetchNotesSuccess(namespace, snapshot.val()))
 
   } catch(err) {
@@ -222,4 +221,17 @@ export function* onEditProfile(action) {
     Alert.alert('error editing profile: ', err)
     console.log('error editing profile: ', err)
   }
+}
+
+export function* onNoteDeleted(action) {
+  const {restaurantId, commentId, namespace} = action.payload
+  try {
+    yield call(deleteUserNote, restaurantId, commentId)
+    const snapshot = yield call(fetchNotes, restaurantId);
+    yield put(fetchNotesSuccess(namespace, snapshot.val()))
+  } catch(err) {
+    console.log('note deletion error: ', err)
+    Alert.alert('note deletion error: ', err)
+  }
+
 }

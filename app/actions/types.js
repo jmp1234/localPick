@@ -65,5 +65,10 @@ export default  {
   OPEN_OVERLAY: 'open_overlay',
   CLOSE_OVERLAY: 'close_overlay',
   ADD_NEW_NOTES: 'add_new_notes',
-  EDIT_NOTE: 'edit_note'
+  EDIT_NOTE: 'edit_note',
+  USER_NOTE_PRESSED: 'user_note_pressed',
+  USER_NOTE_CLOSED: 'user_note_closed',
+  USER_NOTE_DELETED: 'user_note_deleted',
+  USER_NOTE_DELETED_SUCCESS: 'user_note_deleted_success',
+  USER_NOTE_DELETED_ERROR: 'user_note_deleted_error',
 }

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert, ScrollView, TextInput, ImageBackground } from 'react-native';
 import { Header, ListItem, Overlay } from 'react-native-elements';
-import { NavigationEvents } from 'react-navigation';
 import Swipeout from 'react-native-swipeout';
 import Action from '../../components/actionSheet';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   restaurantRefresh, fetchProfile, goBackFromProfile, arrLength,
   openOverlay, closeOverlay, overlayVisibility, addNewNotes, editNote, note,
-  author, avatar, username, userRestaurants}) => {
+  author, avatar, username, userRestaurants, userNotePressed,
+  focusedCommentId, userNoteClosed, userNoteDeleted}) => {
 
   const {notes, address, name, website, link, namespace, restaurantId} = navigation.state.params
+
+  console.log('gold: ', navigation.state.params)
   const goToMaps = () => {
     let daddr = encodeURIComponent(`${address}`);
     if (Platform.OS === 'ios') {
@@ -49,7 +51,9 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
     {
       text: 'Delete',
       backgroundColor: 'red',
-      onPress: () => console.log('delete'),
+      onPress: () => {
+        userNoteDeleted(restaurantId, focusedCommentId, namespace);
+      },
     }
   ]
 
@@ -139,7 +143,11 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
           )}
           {
             userNotes.map((noteObj) => (
-              <Swipeout right={swipeoutBtns}>
+              <Swipeout
+                onOpen={() => userNotePressed(noteObj.commentId)}
+                onClose={userNoteClosed}
+                key={noteObj.commentId} right={swipeoutBtns}
+              >
                 <ListItem
                   key={noteObj.commentId}
                   title={noteObj.note}

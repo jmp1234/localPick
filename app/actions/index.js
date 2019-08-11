@@ -240,3 +240,22 @@ export const editNote = (text) => ({
   type: types.EDIT_NOTE,
   payload: {text}
 })
+
+export const userNotePressed = (commentId) => ({
+  type: types.USER_NOTE_PRESSED,
+  payload: {commentId}
+})
+
+export const userNoteClosed = () => ({
+  type: types.USER_NOTE_CLOSED
+})
+
+export const userNoteDeleted = (restaurantId, commentId, namespace) => ({
+  type: types.USER_NOTE_DELETED,
+  payload: {restaurantId, commentId, namespace}
+})
+
+export const userNoteDeletedSuccess = (restaurantId, commentId) => ({
+  type: types.USER_NOTE_DELETED_SUCCESS,
+  payload: {restaurantId, commentId}
+})
