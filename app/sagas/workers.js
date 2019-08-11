@@ -3,11 +3,11 @@ import {auth, database} from '../../config/firebaseconfig';
 import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
   signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
   restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess,
-  fetchProfileSuccess, findNewAvatarSuccess
+  fetchProfileSuccess, findNewAvatarSuccess, restaurantRefresh
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
-import {setUser, getUser, addToMainFeed,
+import {setUser, getUser, addToMainFeed, deleteUserNote,
   setUserRestaurantObj, findLocalPicks, fetchNotes, addNotes} from '../services/user';
 import { awaitStatus, awaitStatusRoll, awaitImagePicker,
   getResponse, getBlob, uploadTask, getUrl, saveImageToDatabase,
@@ -81,11 +81,25 @@ export function* onSignupSuccess(action) {
   }
 }
 
-export function *onAddNotes(restaurantId, notesId, author, note, posted, userName, avatar) {
-  const notesObj = {author, note, posted, userName, avatar};
+// export function *onAddNotes(restaurantId, notesId, author, note, posted, userName, avatar) {
+export function *onAddNotes(action) {
+
+  let {restaurantId, notesId, userId, note, posted, userName, avatar} = action.payload
+  const notesObj = {author: userId, avatar, note, posted, userName};
+  yield call(addNotes, restaurantId, notesId, notesObj)
+
+  // yield put(restaurantRefresh('instance1'))
+  // yield put(fetchNotesSuccess(action.payload.namespace, snapshot.val()))
+    // yield put(fetchNotesSuccess('instance1', {[notesId]: notesObj}))
+    yield call(onFetchNotes, action)
+}
+
+export function *onAddNotesFromUpload(restaurantId, notesId, author, note, posted, userName, avatar) {
+  const notesObj = {author, avatar, note, posted, userName};
   yield call(addNotes, restaurantId, notesId, notesObj)
 
 }
+
 
 export function* onRestaurantUpload(action) {
   const {restaurantId, address, name, website, user, notes, photoReference,
@@ -98,7 +112,9 @@ export function* onRestaurantUpload(action) {
     yield call(addToMainFeed, restaurantId, restaurantObj);
     yield call(setUserRestaurantObj, restaurantId, restaurantObj, user);
 
-    yield call(onAddNotes, restaurantId, notesId, user, notes, timestamp, userName, avatar)
+    yield call(onAddNotesFromUpload, restaurantId, notesId, user, notes, timestamp, userName, avatar)
+    console.log('payload: ', action.payload)
+        // yield call(onAddNotes, action)
 
 
     //update state
@@ -108,7 +124,9 @@ export function* onRestaurantUpload(action) {
     NavigationService.goBack();
     NavigationService.navigate('Profile');
   } catch(err){
+    console.log('Error uploading restaurant: ', err.message)
     Alert.alert('Error uploading restaurant: ', err.message)
+    // console.log('Error uploading restaurant: ', err.message)
   }
 }
 
@@ -123,12 +141,15 @@ export function* onFetchLocalPicks(action) {
 }
 
 export function* onFetchNotes(action) {
+  const {namespace} = action.payload;
+  if(!namespace) {
+    namespace = 'instance1'
+  }
   try{
     // NavigationService.navigate('RestaurantDisplay', {...action.payload.restaurantObj, link: action.payload.link})
     //make a call to the database
-    const snapshot = yield call(fetchNotes, action.payload.restaurantId, action.payload.userId);
-
-    yield put(fetchNotesSuccess(action.payload.namespace, snapshot.val()))
+    const snapshot = yield call(fetchNotes, action.payload.restaurantId);
+    yield put(fetchNotesSuccess(namespace, snapshot.val()))
 
   } catch(err) {
     Alert.alert('Error accessing notes', err)
@@ -200,4 +221,17 @@ export function* onEditProfile(action) {
     Alert.alert('error editing profile: ', err)
     console.log('error editing profile: ', err)
   }
+}
+
+export function* onNoteDeleted(action) {
+  const {restaurantId, commentId, namespace} = action.payload
+  try {
+    yield call(deleteUserNote, restaurantId, commentId)
+    const snapshot = yield call(fetchNotes, restaurantId);
+    yield put(fetchNotesSuccess(namespace, snapshot.val()))
+  } catch(err) {
+    console.log('note deletion error: ', err)
+    Alert.alert('note deletion error: ', err)
+  }
+
 }

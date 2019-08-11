@@ -22,11 +22,68 @@ export const arrayLength = (state, ownProps) => {
   return currentProfileInfoArr.length
 }
 
+// userName, city, firstName, lastName, avatar
+
 export const selectCurrentProfileObj = (state, ownProps) => {
   const {namespace} = ownProps.navigation.state.params
   const currentProfileInfo = selectCurrentProfileInfo(state);
   const currentProfileInfoArr =  currentProfileInfo[namespace];
   return currentProfileInfoArr[currentProfileInfoArr.length-1]
+}
+
+export const selectCurrentProfileUsername = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
+  const currentProfileInfo = selectCurrentProfileInfo(state);
+  const currentProfileInfoArr =  currentProfileInfo[namespace];
+  if(currentProfileInfoArr[currentProfileInfoArr.length-1] ) {
+    return currentProfileInfoArr[currentProfileInfoArr.length-1].userName
+  } else {
+    return ''
+  }
+}
+
+export const selectCurrentProfileCity = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
+  const currentProfileInfo = selectCurrentProfileInfo(state);
+  const currentProfileInfoArr =  currentProfileInfo[namespace];
+  if(currentProfileInfoArr[currentProfileInfoArr.length-1] ) {
+    return currentProfileInfoArr[currentProfileInfoArr.length-1].city
+  } else {
+    return ''
+  }
+}
+
+export const selectCurrentProfileFirstname = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
+  const currentProfileInfo = selectCurrentProfileInfo(state);
+  const currentProfileInfoArr =  currentProfileInfo[namespace];
+  if(currentProfileInfoArr[currentProfileInfoArr.length-1] ) {
+    return currentProfileInfoArr[currentProfileInfoArr.length-1].firstName
+  } else {
+    return ''
+  }
+}
+
+export const selectCurrentProfileLastname = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
+  const currentProfileInfo = selectCurrentProfileInfo(state);
+  const currentProfileInfoArr =  currentProfileInfo[namespace];
+  if(currentProfileInfoArr[currentProfileInfoArr.length-1] ) {
+    return currentProfileInfoArr[currentProfileInfoArr.length-1].lastName
+  } else {
+    return ''
+  }
+}
+
+export const selectCurrentProfileAvatar = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
+  const currentProfileInfo = selectCurrentProfileInfo(state);
+  const currentProfileInfoArr =  currentProfileInfo[namespace];
+  if(currentProfileInfoArr[currentProfileInfoArr.length-1] ) {
+    return currentProfileInfoArr[currentProfileInfoArr.length-1].avatar
+  } else {
+    return ''
+  }
 }
 
 export const selectCurrentProfileRestaurants = (state, ownProps) => {

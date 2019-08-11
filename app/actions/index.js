@@ -220,3 +220,42 @@ export const editUsername = (text) => ({
   type: types.EDIT_USERNAME,
   payload: {text}
 })
+
+//restaurant display
+export const openOverlay = () => ({
+  type: types.OPEN_OVERLAY,
+})
+
+export const closeOverlay = () => ({
+  type: types.CLOSE_OVERLAY,
+})
+
+export const addNewNotes = (restaurantId, notesId, userId, note, posted, userName, avatar, namespace) => ({
+  type: types.ADD_NEW_NOTES,
+  payload: {restaurantId, notesId, userId, note, posted, userName, avatar, namespace}
+})
+
+
+export const editNote = (text) => ({
+  type: types.EDIT_NOTE,
+  payload: {text}
+})
+
+export const userNotePressed = (commentId) => ({
+  type: types.USER_NOTE_PRESSED,
+  payload: {commentId}
+})
+
+export const userNoteClosed = () => ({
+  type: types.USER_NOTE_CLOSED
+})
+
+export const userNoteDeleted = (restaurantId, commentId, namespace) => ({
+  type: types.USER_NOTE_DELETED,
+  payload: {restaurantId, commentId, namespace}
+})
+
+export const userNoteDeletedSuccess = (restaurantId, commentId) => ({
+  type: types.USER_NOTE_DELETED_SUCCESS,
+  payload: {restaurantId, commentId}
+})

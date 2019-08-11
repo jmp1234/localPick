@@ -2,7 +2,7 @@ import { all, call, fork, put, takeEvery, take } from "redux-saga/effects";
 import types from '../actions/types';
 import {onLogin, onLogout, onSignup, onSignupSuccess, onFetchUser,
   onRestaurantUpload, onFetchLocalPicks, onFetchNotes, onFetchProfile,
-  onFindNewAvatar, onEditProfile
+  onFindNewAvatar, onEditProfile, onAddNotes, onNoteDeleted
 } from './workers';
 import {getAuthChannel} from './eventChannelSaga';
 
@@ -57,4 +57,12 @@ export function* watchFindNewAvatar() {
 
 export function* watchEditProfile() {
   yield takeEvery(types.EDIT_PROFILE, onEditProfile)
+}
+
+export function* watchAddNewNotes() {
+  yield takeEvery(types.ADD_NEW_NOTES, onAddNotes)
+}
+
+export function* watchNoteDeleted() {
+  yield takeEvery(types.USER_NOTE_DELETED, onNoteDeleted)
 }

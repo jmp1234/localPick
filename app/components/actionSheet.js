@@ -4,12 +4,16 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 class Action extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   showActionSheet = () => {
     this.ActionSheet.show()
   }
 
   render() {
+
     return (
       <View>
         <Icon
@@ -25,7 +29,11 @@ class Action extends Component {
            options={['Add Note', 'Delete Local Pick', 'cancel']}
            cancelButtonIndex={2}
            destructiveButtonIndex={1}
-           onPress={(index) => { /* do something */ }}
+           onPress={(index) => {
+             if(index === 0) {
+                this.props.openOverlay()
+             }
+           }}
          />
       </View>
 

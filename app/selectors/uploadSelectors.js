@@ -7,5 +7,5 @@ export const selectNotesLength = state => {
 
 export const selectCharactersRemaining = state => {
   const notesLength = selectNotesLength(state);
-  return 80 - notesLength 
+  return 200 - notesLength 
 }

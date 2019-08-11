@@ -41,7 +41,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
         <Text style={{fontWeight: 'bold'}}>Add Notes</Text>
       </View>
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontWeight: 'bold'}}>{name}</Text>
+        <Text style={{fontWeight: 'bold', marginBottom: 10}}>{name}</Text>
         <Text style={{fontWeight: 'bold'}}>{address}</Text>
       </View>
       <View style={{borderColor: 'lightgrey', borderWidth: 1, padding: 5, marginTop: 30}}>
