@@ -55,3 +55,11 @@ export function saveLastnameToDatabase(lastname, userId) {
 export function saveUsernameToDatabase(username, userId) {
   database.ref('/users/' + userId + '/userName').set(username);
 }
+
+export function saveUsernameToNotes(username, userId) {
+  database.ref(`/notes/${restaurantId}/${notesId}`).set(notesObj)
+}
+
+export function saveAvatarToNotes(avatar, userId) {
+
+}

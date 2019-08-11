@@ -1,5 +1,5 @@
 import { View, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
-import { Header, Image, Input } from 'react-native-elements';
+import { Header, Image, Input, Badge } from 'react-native-elements';
 import React from 'react';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
@@ -46,12 +46,19 @@ export const EditProfileDisplay = ({navigation, avatar, userId,
       />
       <View style={{flex:1}}>
         <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
-          <TouchableOpacity onPress={() => findNewAvatar(userId, uniqueId())}>
+          <View>
             <Image
               PlaceholderContent={<ActivityIndicator />}
               source={{uri: `${image}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
             />
-          </TouchableOpacity>
+            <Badge
+              status='primary'
+              top={0}
+              value='edit'
+              containerStyle={{ position: 'absolute', top: -4, right: -4 }}
+              onPress={() => findNewAvatar(userId, uniqueId())}
+            />
+          </View>
         </View>
         <View>
           <Input

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { fetchNotes, fetchUserInfo, goBackFromProfile } from '../../actions';
 import { selectCurrentUser, selectUserRestaurants, selectUserPhotosArray } from '../../selectors/userProfileSelectors';
 import { selectCurrentProfileObj, selectCurrentProfileRestaurants,
-  selectProfilePhotosArray, arrayLength} from '../../selectors/profileSelectors';
+  selectProfilePhotosArray, arrayLength,
+selectCurrentProfileUsername, selectCurrentProfileCity, selectCurrentProfileFirstname,
+selectCurrentProfileLastname, selectCurrentProfileAvatar } from '../../selectors/profileSelectors';
 
 
 // const mapDispatchToProps = {}
@@ -16,6 +18,11 @@ const mapStateToProps = (state, ownProps) => {
     currentUserObj: selectCurrentProfileObj(state, ownProps),
     userRestaurants: selectCurrentProfileRestaurants(state, ownProps),
     userPhotos: selectProfilePhotosArray(state, ownProps),
+    userName: selectCurrentProfileUsername(state, ownProps),
+    firstName: selectCurrentProfileFirstname(state, ownProps),
+    lastName: selectCurrentProfileLastname(state, ownProps),
+    city: selectCurrentProfileCity(state, ownProps),
+    avatar: selectCurrentProfileAvatar(state, ownProps),
   }
 }
 

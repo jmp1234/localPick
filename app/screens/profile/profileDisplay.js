@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
-import { Image, Avatar, Icon, Header } from 'react-native-elements';
+import { Image, Avatar, Icon, Header, Divider } from 'react-native-elements';
 import { database } from '../../../config/firebaseconfig';
 
 export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
-  navigation, userLogout, fetchNotes, userPhotos, goBackFromProfile, clearProfiles}) => {
-
-  const {userName, city, firstName, lastName, avatar} = currentUserObj
+  navigation, userLogout, fetchNotes, userPhotos, goBackFromProfile, clearProfiles,
+  userName, city, firstName, lastName, avatar
+  }) => {
 
   checkUserAuth = () => {
     if(!userId) {
@@ -30,7 +30,9 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
           type='material'
           color='black'
           onPress={() => {
-            navigation.pop()
+            navigation.goBack();
+            goBackFromProfile('instance1')
+
           }}
         />
         )}
@@ -53,7 +55,6 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
     )
   }
 
-
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={() => {
@@ -64,7 +65,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
       }}/>
       <Header
         leftComponent={<BackButton />}
-        centerComponent={{ text: userName, style: { color: 'black', fontWeight: 'bold' } }}
+        centerComponent={{ text: userName, style: { color: 'black'} }}
         rightComponent={<EditButton />}
         containerStyle={{
           backgroundColor: 'white',
@@ -74,14 +75,22 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
           <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
             <Image
               PlaceholderContent={<ActivityIndicator />}
-              source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
+              source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 105, height: 105, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
             />
             <View style={{marginRight: 10}}>
-              <Text style={{paddingBottom: 5}}>{firstName} {lastName}</Text>
+              <Text style={{paddingBottom: 5, fontWeight: 'bold' }}>{firstName} {lastName}</Text>
               <Text>{city}</Text>
+              {!navigation.state.params && (
+                <TouchableOpacity
+                  style={{marginTop: 10}}
+                  onPress={userLogout}
+                  >
+                  <Text style={{color: 'grey'}}>Logout</Text>
+                </TouchableOpacity>
+              )}
             </View>
           </View>
-          {!navigation.state.params && (
+          {/* {!navigation.state.params && (
             <View style={{paddingBottom: 20, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
               <TouchableOpacity
                 style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}
@@ -90,8 +99,8 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
                 <Text style={{textAlign: 'center', color: 'grey'}}>Logout</Text>
               </TouchableOpacity>
             </View>
-          )}
-          <View style={{backgroundColor: 'white', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 5, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
+          )} */}
+          {/* <View style={{backgroundColor: 'white', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 5, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}> */}
             {/* <TouchableOpacity>
               <Text style={{fontWeight: 'bold'}}>Fast Casual</Text>
             </TouchableOpacity>
@@ -101,8 +110,9 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
             <TouchableOpacity>
               <Text style={{fontWeight: 'bold'}}>Fine Dining</Text>
             </TouchableOpacity> */}
-          </View>
-          {Object.keys(userRestaurants).length === 0 ? (
+          {/* </View> */}
+          <Divider style={{ backgroundColor: 'lightgrey', height: 1.5, marginTop: 14}} />
+          {userRestaurants && Object.keys(userRestaurants).length === 0 ? (
             <Fragment>
               <Icon
                 name='food'
@@ -132,16 +142,37 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
                     onPress={() => {
                       const namespace = navigation.state.params ? navigation.state.params.namespace: 'instance1'
                       // navigation.navigate('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
-                      navigation.push('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
+                      navigation.push('RestaurantDisplay', {namespace, ...userRestaurants[item.key],
+                        link: item.link, restaurantId: item.key})
                       fetchNotes(userRestaurants[item.key], item.key, item.link, namespace)
                     }}
                     >
-                    <Image
+                    {/* <Image
                       PlaceholderContent={<ActivityIndicator />}
                       source={{uri: item.link}}
                       style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
                     />
-                    <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text>
+                    <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text> */}
+                    <ImageBackground
+                      source={{uri: item.link}}
+                      PlaceholderContent={<ActivityIndicator />}
+                      style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
+                      >
+                        <Text
+                          style={{
+                            fontWeight: 'bold',
+                            color: 'white',
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                            textShadowOffset: {width: -1, height: 1},
+                            textShadowRadius: 10,
+                          }}
+                          >
+                          {item.name}
+                        </Text>
+                      </ImageBackground>
                   </TouchableOpacity>
                 </View>
               )}

@@ -9,6 +9,7 @@ import userProfileInfoReducer from './userProfileReducers/userProfileInfoReducer
 import userRestaurantReducer from './userProfileReducers/userRestaurantReducer';
 import profileInfoReducer from './profileReducers/profileInfoReducer';
 import restaurantReducer from './profileReducers/restaurantReducer';
+import restaurantDisplayReducer from './restaurantDisplayReducer';
 
 
 export default combineReducers({
@@ -37,4 +38,5 @@ export default combineReducers({
     localPicksReducer
   }),
   editProfileReducer,
+  restaurantDisplayReducer
 })

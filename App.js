@@ -17,6 +17,9 @@ import { Provider } from 'react-redux';
 import store from './app/store';
 import * as NavigationService from './app/services/navigation/navigationService';
 import axios from 'axios';
+// import { Icon } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 const profile = createStackNavigator({
   Profile: {screen: UserProfileContainer,
@@ -65,21 +68,42 @@ const search = createStackNavigator({
 })
 
 
-const TabStack = createBottomTabNavigator(
+const TabStack = createMaterialBottomTabNavigator(
   {
-    Search: { screen: search},
-    Upload: { screen: upload},
-    Profile: { screen: profile},
+    Search: {
+      screen: search,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) =>  (
+          <Icon name='search' style={{color: tintColor}} size={25}/>
+        ),
+      },
+    },
+    Upload: {
+      screen: upload,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) =>  (
+          <Icon name='add' style={{color: tintColor}} size={25}/>
+        ),
+      },
+    },
+    Profile: {
+      screen: profile,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) =>  (
+          <Icon name='person' style={{color: tintColor}} size={25}/>
+        ),
+      },
+    },
   },
   {
-    tabBarOptions: {
-      inactiveTintColor: 'white',
-      activeTintColor: 'skyblue',
-      style: {
+      shifting: true,
+      inactiveColor: 'white',
+      showIcon: true,
+      activeColor: 'skyblue',
+      barStyle: {
         backgroundColor: 'rgb(64,64,64)',
         color: 'white'
       }
-    }
   }
 )
 
