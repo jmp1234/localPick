@@ -49,12 +49,6 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
                   fetchNotes(localPicks[item.key], item.key, item.link, 'instance2')
                 }}
                 >
-                {/* <Image
-                  PlaceholderContent={<ActivityIndicator />}
-                  source={{uri: item.link}}
-                  style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
-                />
-                <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text> */}
                 <ImageBackground
                   source={{uri: item.link}}
                   PlaceholderContent={<ActivityIndicator />}

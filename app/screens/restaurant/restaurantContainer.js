@@ -32,7 +32,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userNotes: selectUserNotes(state, ownProps),
     nonUserNotes: selectNonUserNotes(state, ownProps),
-    arrLength: arrayLength(state, ownProps),
     overlayVisibility: state.restaurantDisplayReducer.overlayVisible,
     note: state.restaurantDisplayReducer.note,
     author: selectUserId(state),

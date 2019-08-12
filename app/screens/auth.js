@@ -16,7 +16,6 @@ class UserAuth extends Component {
   }
 
   showSignUp = () => {
-    console.log('show sign up')
     this.setState({
       authPage: 1
     })

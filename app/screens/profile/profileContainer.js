@@ -12,7 +12,6 @@ selectCurrentProfileLastname, selectCurrentProfileAvatar } from '../../selectors
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('love me')
   return {
     userId: state.currentUser.user,
     currentUserObj: selectCurrentProfileObj(state, ownProps),
@@ -27,14 +26,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {fetchUserInfo, fetchNotes, goBackFromProfile}
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   // const {namespace} = ownProps.navigation.state.params
-//   // console.log('baby: ', namespace)
-//     return {
-//         // restaurantRefresh: () => dispatch(restaurantRefresh(namespace)),
-//         // fetchProfile: (userId, namespace) => dispatch(fetchProfile(userId, namespace))
-//     }
-// }
+
 
 export const ProfileContainer = connect(
   mapStateToProps,
