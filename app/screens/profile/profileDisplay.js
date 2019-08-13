@@ -90,27 +90,6 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
               )}
             </View>
           </View>
-          {/* {!navigation.state.params && (
-            <View style={{paddingBottom: 20, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}>
-              <TouchableOpacity
-                style={{marginTop: 10, marginHorizontal: 40, paddingVertical: 10, borderRadius: 17, borderColor: 'grey', borderWidth: 1.5}}
-                onPress={userLogout}
-                >
-                <Text style={{textAlign: 'center', color: 'grey'}}>Logout</Text>
-              </TouchableOpacity>
-            </View>
-          )} */}
-          {/* <View style={{backgroundColor: 'white', justifyContent: 'space-between', alignItems: 'flex-start', flexDirection: 'row', paddingVertical: 5, paddingHorizontal: 5, borderBottomWidth: 1.5, borderBottomColor: 'lightgrey'}}> */}
-            {/* <TouchableOpacity>
-              <Text style={{fontWeight: 'bold'}}>Fast Casual</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={{fontWeight: 'bold'}}>Casual</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={{fontWeight: 'bold'}}>Fine Dining</Text>
-            </TouchableOpacity> */}
-          {/* </View> */}
           <Divider style={{ backgroundColor: 'lightgrey', height: 1.5, marginTop: 14}} />
           {userRestaurants && Object.keys(userRestaurants).length === 0 ? (
             <Fragment>
@@ -147,12 +126,6 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
                       fetchNotes(userRestaurants[item.key], item.key, item.link, namespace)
                     }}
                     >
-                    {/* <Image
-                      PlaceholderContent={<ActivityIndicator />}
-                      source={{uri: item.link}}
-                      style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
-                    />
-                    <Text style={{fontSize: 18, fontWeight: 'bold', textTransform: 'uppercase'}}>{item.name}</Text> */}
                     <ImageBackground
                       source={{uri: item.link}}
                       PlaceholderContent={<ActivityIndicator />}

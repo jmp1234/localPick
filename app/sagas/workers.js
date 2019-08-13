@@ -88,9 +88,6 @@ export function *onAddNotes(action) {
   const notesObj = {author: userId, avatar, note, posted, userName};
   yield call(addNotes, restaurantId, notesId, notesObj)
 
-  // yield put(restaurantRefresh('instance1'))
-  // yield put(fetchNotesSuccess(action.payload.namespace, snapshot.val()))
-    // yield put(fetchNotesSuccess('instance1', {[notesId]: notesObj}))
     yield call(onFetchNotes, action)
 }
 
@@ -113,9 +110,6 @@ export function* onRestaurantUpload(action) {
     yield call(setUserRestaurantObj, restaurantId, restaurantObj, user);
 
     yield call(onAddNotesFromUpload, restaurantId, notesId, user, notes, timestamp, userName, avatar)
-    console.log('payload: ', action.payload)
-        // yield call(onAddNotes, action)
-
 
     //update state
     yield put(restaurantUploadSuccess(address, name, website, user, notes, restaurantId, photoReference, timestamp));
@@ -126,7 +120,6 @@ export function* onRestaurantUpload(action) {
   } catch(err){
     console.log('Error uploading restaurant: ', err.message)
     Alert.alert('Error uploading restaurant: ', err.message)
-    // console.log('Error uploading restaurant: ', err.message)
   }
 }
 
@@ -159,7 +152,6 @@ export function* onFetchNotes(action) {
 
 export function* onFetchProfile(action) {
   const {userId, namespace, navigation} = action.payload
-  console.log('under: ', navigation)
   try {
     const snapshot = yield call(getUser, userId);
     yield put(fetchProfileSuccess(snapshot.val(), namespace))

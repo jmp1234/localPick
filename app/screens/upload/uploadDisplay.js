@@ -60,13 +60,6 @@ export const UploadDisplay = ({user, coords, navigation, page,
             </Fragment>
           ) : (
             <View style={{ backgroundColor: 'rgb(64,64,64)',flex: 1 }}>
-              {/* <View style={{flexDirection: 'row',paddingTop: 30, alignItems: 'center', justifyContent: 'space-between'}}>
-                <TouchableOpacity
-                  onPress={moveBackUploadPage}
-                  style={{width:100}}>
-                  <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'white'}}>✗</Text>
-                </TouchableOpacity>
-              </View> */}
               <Header
                 centerComponent={{ text: 'Enter Your Pick', style: { color: 'white'} }}
                 leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'white', onPress: () => {

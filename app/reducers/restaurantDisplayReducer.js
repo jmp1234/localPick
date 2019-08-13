@@ -34,10 +34,6 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         focusedCommentId: ''
       }
-    // case types.USER_NOTE_DELETED:
-    //   return {
-    //     ...state
-    //   }
   default:
     return state;
   }

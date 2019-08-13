@@ -29,18 +29,6 @@ export const GooglePlaceInput = ({navigation, fetchLocalPicks}) => {
         language: 'en',
         types: '(cities)'
       }}
-
-      // styles={{
-      //   textInputContainer: {
-      //     width: '100%'
-      //   },
-      //   description: {
-      //     fontWeight: 'bold'
-      //   },
-      //   predefinedPlacesDescription: {
-      //     color: '#1faadb'
-      //   }
-      // }}
       styles={{
         container: {
           backgroundColor: 'rgba(0,0,0,0.4)',
@@ -55,9 +43,6 @@ export const GooglePlaceInput = ({navigation, fetchLocalPicks}) => {
         predefinedPlacesDescription: {
           color: '#1faadb'
         },
-        // listView: {
-        //   display: `${!inputFocus ? 'none' : 'block'}`
-        // }
       }}
 
       currentLocation={true}

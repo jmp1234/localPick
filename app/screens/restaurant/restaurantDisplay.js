@@ -5,14 +5,13 @@ import Swipeout from 'react-native-swipeout';
 import Action from '../../components/actionSheet';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
-  restaurantRefresh, fetchProfile, goBackFromProfile, arrLength,
+  restaurantRefresh, fetchProfile, goBackFromProfile,
   openOverlay, closeOverlay, overlayVisibility, addNewNotes, editNote, note,
   author, avatar, username, userRestaurants, userNotePressed,
   focusedCommentId, userNoteClosed, userNoteDeleted}) => {
 
   const {notes, address, name, website, link, namespace, restaurantId} = navigation.state.params
 
-  console.log('gold: ', navigation.state.params)
   const goToMaps = () => {
     let daddr = encodeURIComponent(`${address}`);
     if (Platform.OS === 'ios') {
@@ -62,7 +61,6 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
     <Overlay
       isVisible={overlayVisibility}
       windowBackgroundColor='rgba(169, 169, 169, .8)'
-      // overlayBackgroundColor="red"
       width='80%'
       height='80%'
     >
@@ -99,10 +97,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
         rightComponent={userRestaurants[restaurantId] && <Action openOverlay={openOverlay}/>}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
           navigation.pop()
-          // if(arrLength > 1) {
-            // goBackFromProfile(navigation.state.params.namespace)
             restaurantRefresh()
-          // }
         }}}
         containerStyle={{
           backgroundColor: 'white',
@@ -114,22 +109,8 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
           source={{uri: link}}
           style={{resizeMode: 'cover', width: '100%', height: 240}}
         >
-           {/* <Header
-            centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
-            rightComponent={userRestaurants[restaurantId] && <Action openOverlay={openOverlay}/>}
-            leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
-              navigation.pop()
-              if(arrLength > 1) {
-                goBackFromProfile(navigation.state.params.namespace)
-                restaurantRefresh()
-              }
-            }}}
-            containerStyle={{
-              backgroundColor: 'transparent',
-            }}
-          /> */}
+
       </ImageBackground>
-        {/* <Text style={{fontWeight: 'bold', textAlign: 'center'}}>{name}</Text> */}
         <Text  style={{textAlign: 'center'}}>{address}</Text>
         <TouchableOpacity onPress={goToMaps}>
         <Text  style={{textAlign: 'center', color: 'dodgerblue'}}>Get Directions</Text>
