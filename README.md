@@ -22,3 +22,6 @@
 > - Redux-Saga
 > - CSS
 > - Expo
+
+### Author
+> - Johnny Pham (https://github.com/jmp1234)
