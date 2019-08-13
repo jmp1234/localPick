@@ -66,7 +66,6 @@ export const EditProfileDisplay = ({navigation, avatar, userId,
             value={firstName}
             inputStyle={{color: 'blue'}}
             onChangeText={(text) => editFirstname(text)}
-            // value={notes}
           />
           <Input
             label='LAST NAME'

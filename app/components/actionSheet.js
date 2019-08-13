@@ -25,7 +25,6 @@ class Action extends Component {
 
         <ActionSheet
            ref={o => this.ActionSheet = o}
-           // title={'Which one do you like ?'}
            options={['Add Note', 'Delete Local Pick', 'cancel']}
            cancelButtonIndex={2}
            destructiveButtonIndex={1}
