@@ -8,7 +8,9 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   restaurantRefresh, fetchProfile, goBackFromProfile,
   openOverlay, closeOverlay, overlayVisibility, addNewNotes, editNote, note,
   author, avatar, username, userRestaurants, userNotePressed,
-  focusedCommentId, userNoteClosed, userNoteDeleted}) => {
+  focusedCommentId, userNoteClosed, userNoteDeleted, deleteLocalPick,
+  userNotesIds
+}) => {
 
   const {notes, address, name, website, link, namespace, restaurantId} = navigation.state.params
 
@@ -94,7 +96,11 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
     </Overlay>
       <Header
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
-        rightComponent={userRestaurants[restaurantId] && <Action openOverlay={openOverlay}/>}
+        rightComponent={userRestaurants[restaurantId] && (
+          <Action openOverlay={openOverlay} deleteLocalPick={deleteLocalPick}
+            restaurantId={restaurantId} userId={author} userNotesIds={userNotesIds}
+          />
+        )}
         leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
           navigation.pop()
             restaurantRefresh()

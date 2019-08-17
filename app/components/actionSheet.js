@@ -14,6 +14,8 @@ class Action extends Component {
 
   render() {
 
+    const {openOverlay, deleteLocalPick, restaurantId, userId, userNotesIds} = this.props
+
     return (
       <View>
         <Icon
@@ -30,7 +32,10 @@ class Action extends Component {
            destructiveButtonIndex={1}
            onPress={(index) => {
              if(index === 0) {
-                this.props.openOverlay()
+               openOverlay()
+             } else if(index === 1) {
+               //delete local pick
+               deleteLocalPick(restaurantId, userId, userNotesIds)
              }
            }}
          />

@@ -259,3 +259,13 @@ export const userNoteDeletedSuccess = (restaurantId, commentId) => ({
   type: types.USER_NOTE_DELETED_SUCCESS,
   payload: {restaurantId, commentId}
 })
+
+export const deleteLocalPick = (restaurantId, userId, userNotesIds) => ({
+  type: types.DELETE_LOCAL_PICK,
+  payload: {restaurantId, userId, userNotesIds}
+})
+
+export const deleteLocalPicksSuccess = () => ({
+  types: types.DELETE_LOCAL_PICK_SUCCESS,
+  
+})
