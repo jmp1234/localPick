@@ -73,6 +73,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
         onChangeText={(text) => editNote(text)}
         value={note}
         multiline = {true}
+        enablesReturnKeyAutomatically={true}
         maxLength = {200}
         numberOfLines={4}
         style={{height: 85, justifyContent: "flex-start"}}

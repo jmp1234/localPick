@@ -5,7 +5,7 @@ import {auth, database} from '../../config/firebaseconfig';
 import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
   signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
   restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess,
-  fetchProfileSuccess, findNewAvatarSuccess, restaurantRefresh
+  fetchProfileSuccess, findNewAvatarSuccess, restaurantRefresh, deleteLocalPickSuccess
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
@@ -250,7 +250,9 @@ export function* onDeleteLocalPick(action) {
       yield call(deleteAllNotes, restaurantId, userNotesIds[i])
     }
     const snapshot = yield call(getUser, userId);
-    console.log('fuck: ', snapshot.val())
+    console.log('done: ', snapshot.val())
+    yield put(deleteLocalPickSuccess())
+    yield put(fetchUserSuccess(snapshot.val()))
     NavigationService.goBack();
   } catch(err) {
     console.log('local pick deletion error: ', err)

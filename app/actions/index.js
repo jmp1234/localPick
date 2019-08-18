@@ -265,7 +265,6 @@ export const deleteLocalPick = (restaurantId, userId, userNotesIds) => ({
   payload: {restaurantId, userId, userNotesIds}
 })
 
-export const deleteLocalPicksSuccess = () => ({
-  types: types.DELETE_LOCAL_PICK_SUCCESS,
-  
+export const deleteLocalPickSuccess = () => ({
+  type: types.DELETE_LOCAL_PICK_SUCCESS
 })

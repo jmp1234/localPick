@@ -31,7 +31,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
           color='black'
           onPress={() => {
             navigation.goBack();
-            goBackFromProfile('instance1')
+            goBackFromProfile(navigation.state.params.namespace)
 
           }}
         />
@@ -65,7 +65,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
       }}/>
       <Header
         leftComponent={<BackButton />}
-        centerComponent={{ text: userName, style: { color: 'black'} }}
+        centerComponent={{ text: userName, style: { color: 'black', fontWeight: 'bold'} }}
         rightComponent={<EditButton />}
         containerStyle={{
           backgroundColor: 'white',
@@ -120,7 +120,6 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
                   <TouchableOpacity
                     onPress={() => {
                       const namespace = navigation.state.params ? navigation.state.params.namespace: 'instance1'
-                      // navigation.navigate('RestaurantDisplay', {namespace, ...userRestaurants[item.key], link: item.link})
                       navigation.push('RestaurantDisplay', {namespace, ...userRestaurants[item.key],
                         link: item.link, restaurantId: item.key})
                       fetchNotes(userRestaurants[item.key], item.key, item.link, namespace)

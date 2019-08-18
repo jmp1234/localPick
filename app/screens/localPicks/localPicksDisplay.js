@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator,
+  ImageBackground, RefreshControl
+ } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Image, Header, Icon } from 'react-native-elements';
 
 
 export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
-  localPicksArray, fetchNotes, localPicks, clearProfiles}) => {
+  localPicksArray, fetchNotes, localPicks, clearProfiles, fetchLocalPicks}) => {
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={() => {

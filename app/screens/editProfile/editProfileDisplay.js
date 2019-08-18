@@ -77,7 +77,7 @@ export const EditProfileDisplay = ({navigation, avatar, userId,
             label='Username'
             value={userName}
             inputStyle={{color: 'blue'}}
-            onChangeText={(text) => editUsername(text)}
+            onChangeText={(text) => editUsername(text.replace(' ', '_'))}
           />
         </View>
       </View>

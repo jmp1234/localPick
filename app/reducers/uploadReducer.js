@@ -15,18 +15,21 @@ export default (state = DEFAULT_STATE, action) => {
     case types.UPLOAD_MOVE_BACK:
       return {
         ...state,
-        currentPage: 0
+        currentPage: 0,
+        notes: ''
       };
     case types.UPLOAD_ADD_NOTES:
       return {
         ...state,
         notes: action.payload
       };
+    // case types.RESTAURANT_UPLOAD_SUCCESS:
+    //   return {
+    //     ...state,
+    //     ...DEFAULT_STATE
+    //   }
     case types.RESTAURANT_UPLOAD_SUCCESS:
-      return {
-        ...state,
-        ...DEFAULT_STATE
-      }
+      return DEFAULT_STATE;
     case types.LOG_OUT_SUCCESS:
       return DEFAULT_STATE
 

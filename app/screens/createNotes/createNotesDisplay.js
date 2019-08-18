@@ -49,6 +49,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
           editable={true}
           placeholder={'Enter your notes'}
           onChangeText={(text) => addNotesAtUploadPage(text)}
+          enablesReturnKeyAutomatically={true}
           value={notes}
           multiline = {true}
           maxLength = {200}
