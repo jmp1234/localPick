@@ -33,6 +33,8 @@ export default  {
   UPLOAD_NEXT_PAGE: 'upload_next_page',
   UPLOAD_MOVE_BACK: 'upload_move_back',
   UPLOAD_ADD_NOTES: 'upload_add_notes',
+  UPLOAD_INPUT_FOCUSED: 'upload_input_focused',
+  UPLOAD_INPUT_BLURRED: 'upload_input_blurred',
 
   SEARCH_NEXT_PAGE: 'search_next_page',
   SEARCH_MOVE_BACK: 'search_move_back',

@@ -9,8 +9,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   openOverlay, closeOverlay, overlayVisibility, addNewNotes, editNote, note,
   author, avatar, username, userRestaurants, userNotePressed,
   focusedCommentId, userNoteClosed, userNoteDeleted, deleteLocalPick,
-  userNotesIds
-}) => {
+  userNotesIds}) => {
 
   const {notes, address, name, website, link, namespace, restaurantId} = navigation.state.params
 
@@ -59,26 +58,27 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   ]
 
   return (
+
     <View style={{flex: 1}}>
-    <Overlay
-      isVisible={overlayVisibility}
-      windowBackgroundColor='rgba(169, 169, 169, .8)'
-      width='80%'
-      height='80%'
-    >
-    <View style={{borderColor: 'lightgrey', borderWidth: 1, padding: 5, marginTop: 30}}>
-      <TextInput
-        editable={true}
-        placeholder={'Enter your notes'}
-        onChangeText={(text) => editNote(text)}
-        value={note}
-        multiline = {true}
-        enablesReturnKeyAutomatically={true}
-        maxLength = {200}
-        numberOfLines={4}
-        style={{height: 85, justifyContent: "flex-start"}}
-      />
-    </View>
+      <Overlay
+        isVisible={overlayVisibility}
+        windowBackgroundColor='rgba(169, 169, 169, .8)'
+        width='80%'
+        height='80%'
+      >
+      <View style={{borderColor: 'lightgrey', borderWidth: 1, padding: 5, marginTop: 30}}>
+        <TextInput
+          editable={true}
+          placeholder={'Enter your notes'}
+          onChangeText={(text) => editNote(text)}
+          value={note}
+          multiline = {true}
+          enablesReturnKeyAutomatically={true}
+          maxLength = {200}
+          numberOfLines={4}
+          style={{height: 85, justifyContent: "flex-start"}}
+        />
+      </View>
       <TouchableOpacity
         style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
         onPress={() => {
@@ -94,7 +94,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
       <TouchableOpacity style={{color: 'grey'}} onPress={closeOverlay}>
         <Text>Cancel</Text>
       </TouchableOpacity>
-    </Overlay>
+      </Overlay>
       <Header
         centerComponent={{ text: name, style: { color: 'black', fontWeight: 'bold' } }}
         rightComponent={userRestaurants[restaurantId] && (
@@ -160,7 +160,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
                 key={noteObj.commentId}
                 subtitle={noteObj.note}
                 subtitleStyle={{fontSize: 11}}
-                title= <UserLink userId={noteObj.author} userName={noteObj.userName}/>
+                title= <UserLink userId={noteObj.author} userName={`@${noteObj.userName}`}/>
                 leftAvatar={{ source: { uri: noteObj.avatar } }}
                 titleStyle={{color: 'blue', fontSize: 12, marginBottom: 10}}
               />

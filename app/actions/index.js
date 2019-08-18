@@ -136,6 +136,14 @@ export const addNotesAtUploadPage = text => ({
   payload: text
 })
 
+export const uploadInputFocued = () => ({
+  type: types.UPLOAD_INPUT_FOCUSED
+})
+
+export const uploadInputBlurred = () => ({
+  type: types.UPLOAD_INPUT_BLURRED
+})
+
 //search
 export const moveToNextPageSearch = () => ({
   type: types.SEARCH_NEXT_PAGE
