@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { selectLocalPicksArray, selectCity, selectLocalPicks } from '../../selectors/localPicksSelectors';
 import { localPicksRefresh, clearProfiles } from '../../actions';
 import { LocalPicksDisplay } from './localPicksDisplay';
-import { fetchNotes } from '../../actions';
+import { fetchNotes, fetchLocalPicks } from '../../actions';
 
 const mapStateToProps = state => {
   return {
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = {localPicksRefresh, fetchNotes, clearProfiles}
+const mapDispatchToProps = {localPicksRefresh, fetchNotes, clearProfiles, fetchLocalPicks}
 
 export const LocalPicksContainer =  connect(
   mapStateToProps,

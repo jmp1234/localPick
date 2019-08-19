@@ -1,14 +1,18 @@
-import { all, call, fork, put, takeEvery, eventChannel } from "redux-saga/effects";
+import { all, call, fork, put, takeEvery, eventChannel, race, take,
+  cancel
+} from "redux-saga/effects";
 import {auth, database} from '../../config/firebaseconfig';
 import {loginSuccess, loginFailure, logoutSuccess, logoutFailure,
   signupSuccess, signupFailure, fetchUserInfo, fetchUserSuccess,
   restaurantUploadSuccess, fetchLocalPicksSuccess, fetchNotesSuccess,
-  fetchProfileSuccess, findNewAvatarSuccess, restaurantRefresh
+  fetchProfileSuccess, findNewAvatarSuccess, restaurantRefresh, deleteLocalPickSuccess
 } from '../actions';
 import * as NavigationService from '../services/navigation/navigationService';
 import {Alert} from 'react-native';
 import {setUser, getUser, addToMainFeed, deleteUserNote,
-  setUserRestaurantObj, findLocalPicks, fetchNotes, addNotes} from '../services/user';
+  setUserRestaurantObj, findLocalPicks, fetchNotes, addNotes,
+  deleteUserLocalPick, removeLocalPickFromDatabase
+} from '../services/user';
 import { awaitStatus, awaitStatusRoll, awaitImagePicker,
   getResponse, getBlob, uploadTask, getUrl, saveImageToDatabase,
   saveFirstnameToDatabase, saveLastnameToDatabase, saveUsernameToDatabase
@@ -225,5 +229,33 @@ export function* onNoteDeleted(action) {
     console.log('note deletion error: ', err)
     Alert.alert('note deletion error: ', err)
   }
+}
 
+
+export function* deleteAllNotes(restaurantId, noteId) {
+  try {
+    const task = yield fork(deleteUserNote, restaurantId, noteId);
+  } catch(err) {
+     console.log('local pick deletion error: ', err)
+     Alert.alert('local pick deletion error: ', err)
+  }
+}
+
+export function* onDeleteLocalPick(action) {
+  const {restaurantId, userId, userNotesIds} = action.payload
+  try {
+    yield call(deleteUserLocalPick, restaurantId, userId)
+    // //delete user notes associated with that local pick
+    for(let i=0; i<userNotesIds.length; i++) {
+      yield call(deleteAllNotes, restaurantId, userNotesIds[i])
+    }
+    const snapshot = yield call(getUser, userId);
+    console.log('done: ', snapshot.val())
+    yield put(deleteLocalPickSuccess())
+    yield put(fetchUserSuccess(snapshot.val()))
+    NavigationService.goBack();
+  } catch(err) {
+    console.log('local pick deletion error: ', err)
+    Alert.alert('local pick deletion error: ', err)
+  }
 }

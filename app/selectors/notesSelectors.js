@@ -7,6 +7,14 @@ export const selectNotesReducer = (state, ownProps) => {
   return state.notesReducers
 }
 
+export const selectUserNotesIds = (state, ownProps) => {
+  const {namespace} = ownProps.navigation.state.params
+  const notesArr = selectNotesReducer(state)[namespace]
+  const notes = notesArr[notesArr.length-1]
+  const userNotesKeys = _.keys(notes);
+  return userNotesKeys
+}
+
 
 export const selectUserNotes = (state, ownProps) => {
   const {namespace} = ownProps.navigation.state.params

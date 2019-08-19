@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator,
+  ImageBackground, RefreshControl
+ } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Image, Header, Icon } from 'react-native-elements';
 
 
 export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
-  localPicksArray, fetchNotes, localPicks, clearProfiles}) => {
+  localPicksArray, fetchNotes, localPicks, clearProfiles, fetchLocalPicks}) => {
   return (
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={() => {
@@ -14,13 +16,13 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
         }}
       />
       <Header
-        centerComponent={{ text: city, style: { color: 'black', fontWeight: 'bold' } }}
-        leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
+        centerComponent={{ text: city, style: { color: 'white', fontWeight: 'bold' } }}
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(64,64,64)', color: 'white', onPress: () => {
           localPicksRefresh()
           navigation.goBack()
         }}}
         containerStyle={{
-          backgroundColor: 'white',
+          backgroundColor: 'rgb(64,64,64)',
         }}
       />
       {localPicksArray.length === 0 ? (
