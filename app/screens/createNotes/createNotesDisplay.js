@@ -41,7 +41,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
           backgroundColor: 'rgb(64,64,64)',
         }}
       />
-      <View style={{alignItems: 'center'}}>
+      <View style={{alignItems: 'center', marginTop: 10}}>
         <Text style={{fontWeight: 'bold', marginBottom: 10, textAlign: 'center'}}>{name}</Text>
         <Text style={{textAlign: 'center'}}>{address}</Text>
       </View>

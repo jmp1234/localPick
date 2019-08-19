@@ -143,7 +143,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
             restaurantId={restaurantId} userId={author} userNotesIds={userNotesIds}
           />
         )}
-        leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'white', onPress: () => {
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(64,64,64)', color: 'white', onPress: () => {
           navigation.pop()
             restaurantRefresh()
         }}}

@@ -9,7 +9,7 @@ import { Image, Header, Icon } from 'react-native-elements';
 export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
   localPicksArray, fetchNotes, localPicks, clearProfiles, fetchLocalPicks}) => {
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: 'rgb(34,34,34)'}}>
       <NavigationEvents onWillFocus={() => {
         navigation.dismiss()
         clearProfiles('instance2')
@@ -30,13 +30,13 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
           <Icon
             name='food'
             type='material-community'
-            color='lightgrey'
+            color='white'
             size={100}
             containerStyle={{marginTop: 43}}
           />
           <View style={{alignItems: 'center'}}>
-            <Text style={{color: 'grey'}}>There are no local picks recommended in this city yet.</Text>
-            <Text style={{color: 'grey'}}>Search for another city to find the best spots!</Text>
+            <Text style={{color: 'white'}}>There are no local picks recommended in this city yet.</Text>
+            <Text style={{color: 'white'}}>Search for another city to find the best spots!</Text>
           </View>
         </View>
       ) : (
@@ -46,6 +46,7 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
           renderItem={({item, index}) => (
             <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
               <TouchableOpacity
+                style={{borderColor: 'white', borderWidth: 1}}
                 onPress={() => {
                   navigation.navigate('RestaurantDisplay', {restaurantId: item.key, namespace: 'instance2', ...localPicks[item.key], link: item.link})
                   fetchNotes(localPicks[item.key], item.key, item.link, 'instance2')

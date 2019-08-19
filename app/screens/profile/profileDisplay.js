@@ -71,17 +71,21 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
         rightComponent={<EditButton />}
         containerStyle={{
           backgroundColor: 'rgb(64,64,64)',
+          borderColor: 'rgb(64,64,64)'
         }}
       />
+      <Divider style={{ backgroundColor: 'lightgrey', height: 1.5}} />
         <View style={{flex:1}}>
-          <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 15}}>
+          <View style={{justifyContent: 'space-evenly', alignItems: 'center',
+            flexDirection: 'row', paddingVertical: 15, backgroundColor: 'rgb(34,34,34)'}}
+          >
             <Image
               PlaceholderContent={<ActivityIndicator />}
               source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 105, height: 105, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
             />
             <View style={{marginRight: 10}}>
-              <Text style={{paddingBottom: 5, fontWeight: 'bold' }}>{firstName} {lastName}</Text>
-              <Text>{city}</Text>
+              <Text style={{color: 'white', paddingBottom: 5, fontWeight: 'bold' }}>{firstName} {lastName}</Text>
+              <Text style={{color: 'white'}}>{city}</Text>
               {!navigation.state.params && (
                 <TouchableOpacity
                   style={{marginTop: 10}}
@@ -115,11 +119,13 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
             </Fragment>
           ) : (
             <FlatList
+              style={{backgroundColor: 'rgb(34,34,34)'}}
               data={userPhotos}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
                 <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
                   <TouchableOpacity
+                    style={{borderColor: 'white', borderWidth: 1}}
                     onPress={() => {
                       const namespace = navigation.state.params ? navigation.state.params.namespace: 'instance1'
                       navigation.push('RestaurantDisplay', {namespace, ...userRestaurants[item.key],
@@ -130,7 +136,8 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
                     <ImageBackground
                       source={{uri: item.link}}
                       PlaceholderContent={<ActivityIndicator />}
-                      style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
+                      style={{resizeMode: 'cover', width: '100%', height: 200,
+                      borderRadius: 5}}
                       >
                         <Text
                           style={{
