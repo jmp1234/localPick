@@ -35,3 +35,11 @@ export function addNotes(restaurantId, notesId, notesObj) {
 export function deleteUserNote(restaurantId, noteId) {
   database.ref('/notes/' + restaurantId + '/' + noteId).remove()
 }
+
+export function deleteUserLocalPick(restaurantId, userId) {
+  database.ref('/users/' + userId + '/restaurants/' + restaurantId).remove()
+}
+
+export function removeLocalPickFromDatabase(restaurantId) {
+  database.ref('/restaurants/' + restaurantId).remove()
+}

@@ -1,7 +1,8 @@
-import { restaurantUpload, addNotesAtUploadPage } from '../../actions';
+import { restaurantUpload, addNotesAtUploadPage, uploadInputFocued, uploadInputBlurred
+} from '../../actions';
 import { selectUserId } from '../../selectors/userSelectors';
 import { selectUserName, selectAvatar } from '../../selectors/userProfileSelectors'
-import { selectCharactersRemaining, selectNotes } from '../../selectors/uploadSelectors'
+import { selectCharactersRemaining, selectNotes, selectInputFocus } from '../../selectors/uploadSelectors'
 import { CreateNotesDisplay } from './createNotesDisplay';
 import { connect } from 'react-redux';
 
@@ -12,10 +13,12 @@ const mapStateToProps = state => {
     charactersRemaining: selectCharactersRemaining(state),
     userName: selectUserName(state),
     avatar: selectAvatar(state),
+    inputFocus: selectInputFocus(state)
   }
 }
 
-const mapDispatchToProps = {restaurantUpload, addNotesAtUploadPage}
+const mapDispatchToProps = {restaurantUpload, addNotesAtUploadPage,
+  uploadInputFocued, uploadInputBlurred}
 
 export const CreateNotesContainer = connect(
   mapStateToProps,

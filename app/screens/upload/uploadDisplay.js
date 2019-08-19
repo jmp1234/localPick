@@ -84,7 +84,7 @@ export const UploadDisplay = ({user, coords, navigation, page,
                   const cityComponent = details.address_components.filter(addressType => {
                     return addressType.types.includes('locality')
                   })
-                  const city = cityComponent[0].long_name;
+                  const city = cityComponent[0] ? cityComponent[0].long_name : '';
                   const photoReference = details.photos[0].photo_reference;
                   const dateTime = Date.now();
                   const timestamp = Math.floor(dateTime/1000);

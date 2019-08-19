@@ -136,6 +136,14 @@ export const addNotesAtUploadPage = text => ({
   payload: text
 })
 
+export const uploadInputFocued = () => ({
+  type: types.UPLOAD_INPUT_FOCUSED
+})
+
+export const uploadInputBlurred = () => ({
+  type: types.UPLOAD_INPUT_BLURRED
+})
+
 //search
 export const moveToNextPageSearch = () => ({
   type: types.SEARCH_NEXT_PAGE
@@ -258,4 +266,13 @@ export const userNoteDeleted = (restaurantId, commentId, namespace) => ({
 export const userNoteDeletedSuccess = (restaurantId, commentId) => ({
   type: types.USER_NOTE_DELETED_SUCCESS,
   payload: {restaurantId, commentId}
+})
+
+export const deleteLocalPick = (restaurantId, userId, userNotesIds) => ({
+  type: types.DELETE_LOCAL_PICK,
+  payload: {restaurantId, userId, userNotesIds}
+})
+
+export const deleteLocalPickSuccess = () => ({
+  type: types.DELETE_LOCAL_PICK_SUCCESS
 })

@@ -3,9 +3,9 @@ import { View, Image, Text } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import config from '../../config/config';
 import { withNavigation } from 'react-navigation';
-import {database} from '../../config/firebaseconfig';
-import {connect} from 'react-redux';
-import {fetchLocalPicks} from '../actions';
+import { database } from '../../config/firebaseconfig';
+import { connect } from 'react-redux';
+import { fetchLocalPicks } from '../actions';
 
 export const GooglePlaceInput = ({navigation, fetchLocalPicks}) => {
   return (

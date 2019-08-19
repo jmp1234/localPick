@@ -1,13 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component, Fragment } from 'react';
 import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
 import { auth, database } from '../../../config/firebaseconfig';
 import { NavigationEvents, StackActions, NavigationActions } from 'react-navigation';
+import { Header } from 'react-native-elements';
 
 export const CreateNotesDisplay = ({userId, notes, navigation,
   restaurantUpload, addNotesAtUploadPage, charactersRemaining,
-  userName, avatar}) => {
+  userName, avatar, uploadInputFocued, uploadInputBlurred, inputFocus
+}) => {
 
   const {address, name, website, photoReference, restaurantId, timestamp, city} = navigation.state.params
+  const buttonPadding = inputFocus ? 55 : 14
 
   const checkUserAuth = () => {
     if(!userId) {
@@ -27,37 +30,40 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
   }
 
   return(
-
-    <View style={{flex: 1}}>
+    <Fragment>
       <NavigationEvents onWillFocus={checkUserAuth}/>
-      <View style={{position: 'relative', height: 70, paddingTop: 30,
-        borderColor: 'lightgrey', borderBottomWidth: 0.5,
-        justifyContent: 'center', alignItems: 'center'}}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{width: 100, left: 0, top: 35, justifyContent: 'center', position: 'absolute'}}>
-          <Text style={{fontSize:24, fontWeight: 'bold', paddingLeft: 10, color: 'black'}}>←</Text>
-        </TouchableOpacity>
-        <Text style={{fontWeight: 'bold'}}>Add Notes</Text>
-      </View>
+      <Header
+        centerComponent={{ text: 'Add Notes', style: { color: 'white'} }}
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(64,64,64)', color: 'white', onPress: () => {
+          navigation.goBack()
+        }}}
+        containerStyle={{
+          backgroundColor: 'rgb(64,64,64)',
+        }}
+      />
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontWeight: 'bold', marginBottom: 10}}>{name}</Text>
-        <Text style={{fontWeight: 'bold'}}>{address}</Text>
+        <Text style={{fontWeight: 'bold', marginBottom: 10, textAlign: 'center'}}>{name}</Text>
+        <Text style={{textAlign: 'center'}}>{address}</Text>
       </View>
       <View style={{borderColor: 'lightgrey', borderWidth: 1, padding: 5, marginTop: 30}}>
         <TextInput
           editable={true}
           placeholder={'Enter your notes'}
           onChangeText={(text) => addNotesAtUploadPage(text)}
+          enablesReturnKeyAutomatically={true}
           value={notes}
           multiline = {true}
           maxLength = {200}
+          onFocus={uploadInputFocued}
+          onBlur={uploadInputBlurred}
           numberOfLines={4}
           style={{height: 85, justifyContent: "flex-start"}}
         />
       </View>
       <Text>{charactersRemaining}</Text>
-      <KeyboardAvoidingView behavior="position" enabled style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: 14}}>
+      <KeyboardAvoidingView behavior="position" enabled
+        style={{flex: 1, justifyContent: 'flex-end', paddingHorizontal: 15, paddingBottom: buttonPadding}}
+      >
         <TouchableOpacity
           style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
               onPress={() => restaurantUpload(restaurantId, address, name, website, userId, notes,
@@ -66,6 +72,6 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
           <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Add New Local Pick</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-    </View>
+  </Fragment>
   )
 }

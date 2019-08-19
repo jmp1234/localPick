@@ -96,7 +96,7 @@ class SignupDisplay extends Component {
                 placeholderTextColor='rgba(0, 0, 0, 0.6)'
                 editable={true}
                 placeholder={'Username'}
-                onChangeText={(text) => this.setState({userName: text})}
+                onChangeText={(text) => this.setState({userName: text.replace(' ', '_')})}
                 value={this.state.userName}
                 style={{width: '100%', marginVertical: 2, padding: 8, borderWidth: 1, borderColor: 'grey', borderRadius: 3, backgroundColor: 'white'}}
               />

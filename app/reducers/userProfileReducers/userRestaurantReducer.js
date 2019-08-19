@@ -11,6 +11,9 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         ...action.payload.restaurants,
       };
+    case types.DELETE_LOCAL_PICK_SUCCESS:
+      return DEFAULT_STATE;
+
     case types.LOG_OUT_SUCCESS:
       return DEFAULT_STATE;
 
