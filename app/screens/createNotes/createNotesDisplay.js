@@ -33,17 +33,17 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
     <Fragment>
       <NavigationEvents onWillFocus={checkUserAuth}/>
       <Header
-        centerComponent={{ text: 'Add Notes', style: { color: 'black'} }}
-        leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
+        centerComponent={{ text: 'Add Notes', style: { color: 'white'} }}
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(64,64,64)', color: 'white', onPress: () => {
           navigation.goBack()
         }}}
         containerStyle={{
-          backgroundColor: 'white',
+          backgroundColor: 'rgb(64,64,64)',
         }}
       />
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontWeight: 'bold', marginBottom: 10}}>{name}</Text>
-        <Text style={{fontWeight: 'bold'}}>{address}</Text>
+        <Text style={{fontWeight: 'bold', marginBottom: 10, textAlign: 'center'}}>{name}</Text>
+        <Text style={{textAlign: 'center'}}>{address}</Text>
       </View>
       <View style={{borderColor: 'lightgrey', borderWidth: 1, padding: 5, marginTop: 30}}>
         <TextInput

@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator,
+  ImageBackground
+} from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Image, Avatar, Icon, Header, Divider } from 'react-native-elements';
 import { database } from '../../../config/firebaseconfig';
@@ -28,7 +30,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
         <Icon
           name='arrow-back'
           type='material'
-          color='black'
+          color='white'
           onPress={() => {
             navigation.goBack();
             goBackFromProfile(navigation.state.params.namespace)
@@ -47,7 +49,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
         <Icon
           name='edit'
           type='material'
-          color='black'
+          color='white'
           onPress={() => navigation.navigate('EditProfile')}
         />
         )}
@@ -65,14 +67,14 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
       }}/>
       <Header
         leftComponent={<BackButton />}
-        centerComponent={{ text: userName, style: { color: 'black', fontWeight: 'bold'} }}
+        centerComponent={{ text: userName, style: { color: 'white', fontWeight: 'bold'} }}
         rightComponent={<EditButton />}
         containerStyle={{
-          backgroundColor: 'white',
+          backgroundColor: 'rgb(64,64,64)',
         }}
       />
         <View style={{flex:1}}>
-          <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
+          <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 15}}>
             <Image
               PlaceholderContent={<ActivityIndicator />}
               source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 105, height: 105, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
@@ -90,7 +92,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
               )}
             </View>
           </View>
-          <Divider style={{ backgroundColor: 'lightgrey', height: 1.5, marginTop: 14}} />
+          <Divider style={{ backgroundColor: 'lightgrey', height: 1.5}} />
           {userRestaurants && Object.keys(userRestaurants).length === 0 ? (
             <Fragment>
               <Icon

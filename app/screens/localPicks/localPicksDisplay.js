@@ -16,13 +16,13 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
         }}
       />
       <Header
-        centerComponent={{ text: city, style: { color: 'black', fontWeight: 'bold' } }}
-        leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'black', onPress: () => {
+        centerComponent={{ text: city, style: { color: 'white', fontWeight: 'bold' } }}
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(64,64,64)', color: 'white', onPress: () => {
           localPicksRefresh()
           navigation.goBack()
         }}}
         containerStyle={{
-          backgroundColor: 'white',
+          backgroundColor: 'rgb(64,64,64)',
         }}
       />
       {localPicksArray.length === 0 ? (

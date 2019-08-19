@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import store from './app/store';
 import * as NavigationService from './app/services/navigation/navigationService';
 import { AppContainer } from './routes';
+import { StatusBar } from 'react-native';
 
 
 class App extends React.Component {
@@ -17,6 +18,7 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
+        <StatusBar barStyle="light-content" />
         <AppContainer ref={nav => this.navigator = nav}/>
       </Provider>
     )

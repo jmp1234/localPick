@@ -35,13 +35,13 @@ export const EditProfileDisplay = ({navigation, avatar, userId,
     <View style={{flex: 1}}>
       <NavigationEvents onWillFocus={populateInputFields}/>
       <Header
-        centerComponent={{ text: 'Edit Profile', style: { color: 'black', fontWeight: 'bold' } }}
-        leftComponent={{ icon: 'close', color: 'black', onPress: () => navigation.goBack()}}
-        rightComponent={{ text: 'Save', color: 'blue', onPress: () =>
+        centerComponent={{ text: 'Edit Profile', style: { color: 'white', fontWeight: 'bold' } }}
+        leftComponent={{ icon: 'close', color: 'white', onPress: () => navigation.goBack()}}
+        rightComponent={{ text: 'Save', style: {color: 'white'}, onPress: () =>
           editProfile(image, userId, firstName, lastName, userName)
         }}
         containerStyle={{
-          backgroundColor: 'white',
+          backgroundColor: 'rgb(64,64,64)',
         }}
       />
       <View style={{flex:1}}>

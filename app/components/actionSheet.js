@@ -21,7 +21,7 @@ class Action extends Component {
         <Icon
           name='more-horiz'
           type='material'
-          color='black'
+          color='white'
           onPress={this.showActionSheet}
         />
 
