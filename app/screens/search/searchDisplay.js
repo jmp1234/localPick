@@ -31,18 +31,18 @@ export const SearchDisplay = ({currentPage, moveToNextPageSearch, moveBackSearch
       </View>
     </ImageBackground>
     ) : (
-      <View style={{ backgroundColor: 'rgb(64,64,64)',flex: 1 }}>
+      <View style={{ backgroundColor: 'rgb(34,34,34)',flex: 1 }}>
         <Header
           centerComponent={{ text: 'Enter Location', style: { color: 'white'} }}
           leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'white', onPress: () => {
             moveBackSearch()
           }}}
           containerStyle={{
-            backgroundColor: 'rgb(64,64,64)',
+            backgroundColor: 'rgb(34,34,34)',
           }}
         />
         <GooglePlaceInput />
-        <View style={{paddingBottom: 205, flex: 1, alignItems: 'center',justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.4)'}}>
+        <View style={{paddingBottom: 205, flex: 1, alignItems: 'center',justifyContent: 'center', backgroundColor:'rgb(64, 64, 64)',}}>
           <Icon
             name='city-variant-outline'
             type='material-community'

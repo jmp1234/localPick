@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, Image, Linking, Platform, Alert,
   ScrollView, TextInput, ImageBackground
 } from 'react-native';
 import { Header, ListItem, Overlay, Icon } from 'react-native-elements';
 import Swipeout from 'react-native-swipeout';
 import Action from '../../components/actionSheet';
+import { NoteOverlayContainer } from '../noteOverlay';
 
 export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   restaurantRefresh, fetchProfile, goBackFromProfile,
-  openOverlay, closeOverlay, overlayVisibility, addNewNotes, editNote, note,
-  author, avatar, username, userRestaurants, userNotePressed,
+  openOverlay, author, username, userRestaurants, userNotePressed,
   focusedCommentId, userNoteClosed, userNoteDeleted, deleteLocalPick,
   userNotesIds}) => {
 
@@ -24,16 +24,6 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
     }
   }
 
-  const s4 = () => {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-
-  const uniqueId = () => {
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + '-' + s4() + '-' + s4();
-  }
 
   const goToWebsite = () => {
     Linking.openURL(website).catch((err) => Alert.alert('An error occurred', err))
@@ -44,7 +34,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
       <Text style={{marginTop: 8}}>
         <Text
           onPress={() => fetchProfile(userId, namespace, navigation)}
-          style={{fontSize: 12, color: 'green'}}
+          style={{fontSize: 12, color: 'dodgerblue'}}
         >
           {userName}
         </Text>
@@ -101,41 +91,7 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
   return (
 
     <View style={{flex: 1}}>
-      <Overlay
-        isVisible={overlayVisibility}
-        windowBackgroundColor='rgba(169, 169, 169, .8)'
-        width='80%'
-        height='80%'
-      >
-        <View style={{borderColor: 'lightgrey', borderWidth: 1, padding: 5, marginTop: 30}}>
-          <TextInput
-            editable={true}
-            placeholder={'Enter your notes'}
-            onChangeText={(text) => editNote(text)}
-            value={note}
-            multiline = {true}
-            enablesReturnKeyAutomatically={true}
-            maxLength = {200}
-            numberOfLines={4}
-            style={{height: 85, justifyContent: "flex-start"}}
-          />
-        </View>
-        <TouchableOpacity
-          style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}
-          onPress={() => {
-            const userId = author
-            const dateTime = Date.now();
-            const posted = Math.floor(dateTime/1000);
-            closeOverlay()
-            addNewNotes(restaurantId, uniqueId(), userId, note, posted, username, avatar, namespace)
-          }}
-        >
-          <Text style={{fontWeight: 'bold', fontSize: 20, color: 'white', textAlign: 'center'}}>Add Note</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{color: 'grey'}} onPress={closeOverlay}>
-          <Text>Cancel</Text>
-        </TouchableOpacity>
-      </Overlay>
+      <NoteOverlayContainer namespace={namespace} restaurantId={restaurantId}/>
       <Header
         centerComponent={{ text: name, style: { color: 'white', fontWeight: 'bold' } }}
         rightComponent={userRestaurants[restaurantId] && (
@@ -143,12 +99,12 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
             restaurantId={restaurantId} userId={author} userNotesIds={userNotesIds}
           />
         )}
-        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(64,64,64)', color: 'white', onPress: () => {
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(34,34,34)', color: 'white', onPress: () => {
           navigation.pop()
             restaurantRefresh()
         }}}
         containerStyle={{
-          backgroundColor: 'rgb(64,64,64)'
+          backgroundColor: 'rgb(34,34,34)'
         }}
       />
       <ScrollView>

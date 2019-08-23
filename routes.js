@@ -95,7 +95,7 @@ const TabStack = createMaterialBottomTabNavigator(
       showIcon: true,
       activeColor: 'skyblue',
       barStyle: {
-        backgroundColor: 'rgb(64,64,64)',
+        backgroundColor: 'rgb(34,34,34)',
         color: 'white'
       }
   }

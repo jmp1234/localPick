@@ -31,7 +31,8 @@ export const GooglePlaceInput = ({navigation, fetchLocalPicks}) => {
       }}
       styles={{
         container: {
-          backgroundColor: 'rgba(0,0,0,0.4)',
+          // backgroundColor: 'rgba(0,0,0,0.4)',
+          backgroundColor: 'rgb(64, 64, 64)',
         },
         textInputContainer: {
           width: '100%'
