@@ -7,6 +7,20 @@ export const selectNotesReducer = (state, ownProps) => {
   return state.notesReducers
 }
 
+export const selectRestaurantDisplayReducer = state => {
+  return state.restaurantDisplayReducer
+}
+
+export const selectEditNotesLength = state => {
+  const restaurantDisplayReducer = selectRestaurantDisplayReducer(state);
+  return restaurantDisplayReducer.note.length;
+}
+
+export const selectEditNotesCharactersRemaining = state => {
+  const notesLength = selectEditNotesLength(state);
+  return 200 - notesLength;
+}
+
 export const selectUserNotesIds = (state, ownProps) => {
   const {namespace} = ownProps.navigation.state.params
   const notesArr = selectNotesReducer(state)[namespace]

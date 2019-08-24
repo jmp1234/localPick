@@ -1,5 +1,5 @@
 import { View, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
-import { Header, Image, Input, Badge } from 'react-native-elements';
+import { Header, Image, Input, Badge, Divider } from 'react-native-elements';
 import React from 'react';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
@@ -36,17 +36,19 @@ export const EditProfileDisplay = ({navigation, avatar, userId,
       <NavigationEvents onWillFocus={populateInputFields}/>
       <Header
         centerComponent={{ text: 'Edit Profile', style: { color: 'white', fontWeight: 'bold' } }}
-        leftComponent={{ icon: 'close', color: 'white', onPress: () => navigation.goBack()}}
+        leftComponent={{ icon: 'close', underlayColor: 'rgb(34,34,34)', color: 'white', onPress: () => navigation.goBack()}}
         rightComponent={{ text: 'Save', style: {color: 'white'}, onPress: () =>
           editProfile(image, userId, firstName, lastName, userName)
         }}
         containerStyle={{
-          backgroundColor: 'rgb(64,64,64)',
+          backgroundColor: 'rgb(34,34,34)',
         }}
       />
       <View style={{flex:1}}>
-        <View style={{justifyContent: 'space-evenly', alignItems: 'center', flexDirection: 'row', paddingVertical: 10}}>
-          <View>
+        <View style={{justifyContent: 'space-evenly', alignItems: 'center',
+          flexDirection: 'row', paddingVertical: 10}}
+        >
+          <View style={{marginTop: 10}}>
             <Image
               PlaceholderContent={<ActivityIndicator />}
               source={{uri: `${image}`}} style={{marginLeft: 10, width: 100, height: 100, borderRadius: 50, borderColor: 'lightgrey', borderWidth: 1.5}}
@@ -60,7 +62,9 @@ export const EditProfileDisplay = ({navigation, avatar, userId,
             />
           </View>
         </View>
-        <View>
+        <View style={{borderTopWidth: 1, borderTopColor: 'lightgrey',
+          paddingTop: 10}}
+        >
           <Input
             label='FIRST NAME'
             value={firstName}

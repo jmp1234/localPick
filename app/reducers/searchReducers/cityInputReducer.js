@@ -2,11 +2,22 @@ import types from '../../actions/types';
 
 const DEFAULT_STATE = {
   page: 0,
-  city: ''
+  city: '',
+  hideIcon: false
 }
 
 export default (state = DEFAULT_STATE, action) => {
   switch(action.type) {
+    case types.HIDE_ICON:
+      return {
+        ...state,
+        hideIcon: true
+      };
+    case types.DISPLAY_ICON:
+      return {
+        ...state,
+        hideIcon: false
+      }    
     case types.SEARCH_NEXT_PAGE:
       return {
         ...state,
