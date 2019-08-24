@@ -153,6 +153,14 @@ export const moveBackSearch = () => ({
   type: types.SEARCH_MOVE_BACK
 })
 
+export const hideIcon = () => ({
+  type: types.HIDE_ICON
+})
+
+export const displayIcon = () => ({
+  type: types.DISPLAY_ICON
+})
+
 export const localPicksRefresh = () => ({
   type: types.LOCAL_PICKS_REFRESH
 })

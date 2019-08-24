@@ -9,7 +9,7 @@ import { Image, Header, Icon } from 'react-native-elements';
 export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
   localPicksArray, fetchNotes, localPicks, clearProfiles, fetchLocalPicks}) => {
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: 'white'}}>
       <NavigationEvents onWillFocus={() => {
         navigation.dismiss()
         clearProfiles('instance2')
@@ -17,12 +17,12 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
       />
       <Header
         centerComponent={{ text: city, style: { color: 'white', fontWeight: 'bold' } }}
-        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(64,64,64)', color: 'white', onPress: () => {
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(34,34,34)', color: 'white', onPress: () => {
           localPicksRefresh()
           navigation.goBack()
         }}}
         containerStyle={{
-          backgroundColor: 'rgb(64,64,64)',
+          backgroundColor: 'rgb(34,34,34)',
         }}
       />
       {localPicksArray.length === 0 ? (
@@ -30,13 +30,13 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
           <Icon
             name='food'
             type='material-community'
-            color='lightgrey'
+            color='darkgrey'
             size={100}
             containerStyle={{marginTop: 43}}
           />
           <View style={{alignItems: 'center'}}>
-            <Text style={{color: 'grey'}}>There are no local picks recommended in this city yet.</Text>
-            <Text style={{color: 'grey'}}>Search for another city to find the best spots!</Text>
+            <Text style={{color: 'rgb(64, 64, 64)'}}>There are no local picks recommended in this city yet.</Text>
+            <Text style={{color: 'rgb(64, 64, 64)'}}>Search for another city to find the best spots!</Text>
           </View>
         </View>
       ) : (
@@ -46,6 +46,7 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
           renderItem={({item, index}) => (
             <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
               <TouchableOpacity
+                style={{borderColor: 'white', borderWidth: 1}}
                 onPress={() => {
                   navigation.navigate('RestaurantDisplay', {restaurantId: item.key, namespace: 'instance2', ...localPicks[item.key], link: item.link})
                   fetchNotes(localPicks[item.key], item.key, item.link, 'instance2')
@@ -54,7 +55,8 @@ export const LocalPicksDisplay = ({navigation, localPicksRefresh, city,
                 <ImageBackground
                   source={{uri: item.link}}
                   PlaceholderContent={<ActivityIndicator />}
-                  style={{resizeMode: 'cover', width: '100%', height: 200, borderRadius: 5}}
+                  style={{resizeMode: 'cover', width: '100%', height: 200}}
+                  imageStyle={{ borderRadius: 2, borderColor: 'black' }}
                   >
                     <Text
                       style={{

@@ -59,14 +59,14 @@ export const UploadDisplay = ({user, coords, navigation, page,
             </ImageBackground>
             </Fragment>
           ) : (
-            <View style={{ backgroundColor: 'rgb(64,64,64)',flex: 1 }}>
+            <View style={{ backgroundColor: 'rgb(34,34,34)',flex: 1 }}>
               <Header
                 centerComponent={{ text: 'Enter Your Pick', style: { color: 'white'} }}
                 leftComponent={{ icon: 'arrow-back', underlayColor: 'white', color: 'white', onPress: () => {
                   moveBackUploadPage()
                 }}}
                 containerStyle={{
-                  backgroundColor: 'rgb(64,64,64)',
+                  backgroundColor: 'rgb(34,34,34)',
                 }}
               />
               <GooglePlacesAutocomplete
@@ -109,7 +109,7 @@ export const UploadDisplay = ({user, coords, navigation, page,
                 }}
                 styles={{
                   container: {
-                      backgroundColor: 'rgba(0,0,0,0.4)',
+                      backgroundColor: 'rgb(64, 64, 64)',
                   },
                   textInputContainer: {
                     width: '100%'

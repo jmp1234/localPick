@@ -34,15 +34,18 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
       <NavigationEvents onWillFocus={checkUserAuth}/>
       <Header
         centerComponent={{ text: 'Add Notes', style: { color: 'white'} }}
-        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(64,64,64)', color: 'white', onPress: () => {
+        leftComponent={{ icon: 'arrow-back', underlayColor: 'rgb(34,34,34)', color: 'white', onPress: () => {
           navigation.goBack()
         }}}
         containerStyle={{
-          backgroundColor: 'rgb(64,64,64)',
+          backgroundColor: 'rgb(34,34,34)',
         }}
       />
-      <View style={{alignItems: 'center'}}>
-        <Text style={{fontWeight: 'bold', marginBottom: 10, textAlign: 'center'}}>{name}</Text>
+      <View style={{alignItems: 'center', marginTop: 10}}>
+        <Text style={{fontWeight: 'bold', fontSize: 16, marginBottom: 10,
+          textAlign: 'center', marginTop: 10, paddingHorizontal: 1}}>
+          {name}
+        </Text>
         <Text style={{textAlign: 'center'}}>{address}</Text>
       </View>
       <View style={{borderColor: 'lightgrey', borderWidth: 1, padding: 5, marginTop: 30}}>
@@ -57,6 +60,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
           onFocus={uploadInputFocued}
           onBlur={uploadInputBlurred}
           numberOfLines={4}
+          blurOnSubmit = {true}
           style={{height: 85, justifyContent: "flex-start"}}
         />
       </View>

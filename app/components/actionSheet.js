@@ -19,6 +19,7 @@ class Action extends Component {
     return (
       <View>
         <Icon
+          underlayColor='rgb(64,64,64)'
           name='more-horiz'
           type='material'
           color='white'
