@@ -3,8 +3,12 @@ import { View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-
 import { Input, Header, Icon } from 'react-native-elements'
 import GooglePlaceInput from '../../components/googlePlacesInput';
 import { auth } from '../../../config/firebaseconfig';
+import { NavigationEvents } from 'react-navigation';
 
-export const SearchDisplay = ({currentPage, moveToNextPageSearch, moveBackSearch}) => {
+export const SearchDisplay = ({currentPage, moveToNextPageSearch,
+  moveBackSearch, iconDisplay, displayIcon
+}) => {
+
   return (
     <Fragment>
     {currentPage === 0 ? (
@@ -42,7 +46,10 @@ export const SearchDisplay = ({currentPage, moveToNextPageSearch, moveBackSearch
           }}
         />
         <GooglePlaceInput />
-        <View style={{paddingBottom: 205, flex: 1, alignItems: 'center',justifyContent: 'center', backgroundColor:'rgb(64, 64, 64)',}}>
+        <View style={{paddingBottom: 205, flex: 1, alignItems: 'center',
+          justifyContent: 'center', backgroundColor:'rgb(64, 64, 64)',
+          display: iconDisplay
+        }}>
           <Icon
             name='city-variant-outline'
             type='material-community'
@@ -58,6 +65,7 @@ export const SearchDisplay = ({currentPage, moveToNextPageSearch, moveBackSearch
         </View>
       </View>
     )}
+    <NavigationEvents onDidBlur={displayIcon}/>
   </Fragment>
   )
 }

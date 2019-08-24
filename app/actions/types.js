@@ -42,6 +42,8 @@ export default  {
   FETCH_LOCAL_PICKS: 'fetch_local_picks',
   FETCH_LOCAL_PICKS_SUCCESS: 'fetch_local_picks_success',
   FETCH_LOCAL_PICKS_ERROR: 'fetch_local_picks_error',
+  HIDE_ICON: 'hide_icon',
+  DISPLAY_ICON: 'display_icon',
 
   FETCH_PROFILE: 'fetch_profile',
   ['instance1/FETCH_PROFILE_SUCCESS']: 'fetch_profile_success_1',

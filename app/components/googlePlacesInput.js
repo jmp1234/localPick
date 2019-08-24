@@ -5,9 +5,9 @@ import config from '../../config/config';
 import { withNavigation } from 'react-navigation';
 import { database } from '../../config/firebaseconfig';
 import { connect } from 'react-redux';
-import { fetchLocalPicks } from '../actions';
+import { fetchLocalPicks, hideIcon } from '../actions';
 
-export const GooglePlaceInput = ({navigation, fetchLocalPicks}) => {
+export const GooglePlaceInput = ({navigation, fetchLocalPicks, hideIcon}) => {
   return (
     <GooglePlacesAutocomplete
       placeholder='Search'
@@ -21,7 +21,9 @@ export const GooglePlaceInput = ({navigation, fetchLocalPicks}) => {
         const city = data.structured_formatting.main_text
         fetchLocalPicks(city)
       }}
-
+      textInputProps={{
+        onFocus: () => hideIcon(),
+      }}
       getDefaultValue={() => ''}
 
       query={{
@@ -69,7 +71,7 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = {fetchLocalPicks}
+const mapDispatchToProps = {fetchLocalPicks, hideIcon}
 
 export default withNavigation(connect(
   mapStateToProps,

@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity,TextInput } from 'react-native';
 import { Overlay } from 'react-native-elements';
 
 export const NoteOverlayDisplay = ({editNote, author, overlayVisibility,
-  restaurantId, note, username, avatar, namespace, closeOverlay, addNewNotes
+  restaurantId, note, username, avatar, namespace, closeOverlay, addNewNotes,
+  charactersRemaining
 }) => {
 
   const s4 = () => {
@@ -35,7 +36,11 @@ export const NoteOverlayDisplay = ({editNote, author, overlayVisibility,
           maxLength = {200}
           numberOfLines={4}
           style={{height: 85, justifyContent: "flex-start"}}
+          blurOnSubmit = {true}
         />
+        <Text style={{position: 'absolute', bottom: 0, right: 0, color: 'darkgrey'}}>
+          {charactersRemaining}
+        </Text>
       </View>
       <TouchableOpacity
         style={{paddingVertical: 15, marginVertical: 5, paddingHorizontal: 20, backgroundColor: 'rgb(52, 177, 209)',borderRadius: 1}}

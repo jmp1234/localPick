@@ -122,9 +122,9 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
         <TouchableOpacity onPress={goToWebsite}>
           <Text style={{textAlign: 'center', color: 'dodgerblue'}}>Visit Website</Text>
         </TouchableOpacity>
-        <View style={{marginTop: 30}}>
+        <View>
           {userNotes.length > 0 && (
-            <Text style={{fontWeight: 'bold', backgroundColor: 'lightgrey', paddingVertical: 4}}>
+            <Text style={{fontWeight: 'bold', backgroundColor: 'lightgrey', paddingVertical: 4, marginTop: 30}}>
               My recommendations:
             </Text>
           )}
@@ -149,10 +149,10 @@ export const RestaurantDisplay = ({navigation, userNotes, nonUserNotes,
             ))
           }
         </View>
-        <View style={{marginTop: 30}}>
+        <View>
           {nonUserNotes.length > 0 && (
             <Text
-              style={{fontWeight: 'bold', backgroundColor: 'lightgrey', paddingVertical: 4}}
+              style={{fontWeight: 'bold', backgroundColor: 'lightgrey', paddingVertical: 4, marginTop: 30}}
             >
               Local Reviews:
             </Text>

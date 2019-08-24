@@ -60,6 +60,7 @@ export const CreateNotesDisplay = ({userId, notes, navigation,
           onFocus={uploadInputFocued}
           onBlur={uploadInputBlurred}
           numberOfLines={4}
+          blurOnSubmit = {true}
           style={{height: 85, justifyContent: "flex-start"}}
         />
       </View>

@@ -2,6 +2,7 @@ import { NoteOverlayDisplay } from './noteOverlayDisplay';
 import { connect } from 'react-redux';
 import { selectUserId } from '../../selectors/userSelectors';
 import { selectUserName, selectAvatar } from '../../selectors/userProfileSelectors';
+import { selectEditNotesCharactersRemaining } from '../../selectors/notesSelectors';
 import { closeOverlay, editNote, addNewNotes } from '../../actions';
 
 
@@ -15,6 +16,7 @@ const mapStateToProps = state => {
     note: state.restaurantDisplayReducer.note,
     username: selectUserName(state),
     avatar: selectAvatar(state),
+    charactersRemaining: selectEditNotesCharactersRemaining(state)
   }
 }
 

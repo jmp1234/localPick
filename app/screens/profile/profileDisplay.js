@@ -11,6 +11,8 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
   userName, city, firstName, lastName, avatar
   }) => {
 
+
+
   checkUserAuth = () => {
     if(!userId) {
       navigation.navigate('UserAuth')
@@ -31,6 +33,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
           name='arrow-back'
           type='material'
           color='white'
+          underlayColor='rgb(34,34,34)'
           onPress={() => {
             navigation.goBack();
             goBackFromProfile(navigation.state.params.namespace)
@@ -50,6 +53,7 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
           name='edit'
           type='material'
           color='white'
+          underlayColor='rgb(34,34,34)'
           onPress={() => navigation.navigate('EditProfile')}
         />
         )}
@@ -76,12 +80,13 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
       />
       <View style={{flex:1}}>
         <View style={{justifyContent: 'space-evenly', alignItems: 'center',
-          flexDirection: 'row', paddingVertical: 15, backgroundColor: 'lightgrey'}}
+          flexDirection: 'row', paddingVertical: 15, backgroundColor: 'white',
+          borderBottomColor: 'darkgrey', borderBottomWidth: 1}}
         >
           <Image
             PlaceholderContent={<ActivityIndicator />}
             source={{uri: `${avatar}`}} style={{marginLeft: 10, width: 105,
-              borderColor: 'rgb(34,34,34)',height: 105, borderWidth: 0.6, 
+              borderColor: 'rgb(34,34,34)',height: 105, borderWidth: 0.6,
               borderRadius: 50}}
           />
           <View style={{marginRight: 10}}>
@@ -97,7 +102,6 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
             )}
           </View>
         </View>
-        <Divider style={{ backgroundColor: 'darkgrey', height: 1}} />
         {userRestaurants && Object.keys(userRestaurants).length === 0 ? (
           <Fragment>
             <Icon
@@ -120,12 +124,13 @@ export const ProfileDisplay = ({userId, currentUserObj, userRestaurants,
           </Fragment>
         ) : (
           <FlatList
-            // style={{backgroundColor: 'rgb(64,64,64)'}}
             style={{backgroundColor: 'white'}}
             data={userPhotos}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item, index}) => (
-              <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10}}>
+              <View key={index} style={{paddingHorizontal: 23, paddingVertical: 10,
+                borderTopColor: 'lightgrey', borderTopWidth: !index ? 9 : 0
+              }}>
                 <TouchableOpacity
                   style={{borderRadius: 5}}
                   onPress={() => {
